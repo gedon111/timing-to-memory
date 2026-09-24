@@ -1,28 +1,28 @@
 # From Ticks to Memory
 
-A scrolling, presentable explainer for people with no electronics background. It is built for a talk of about 15 minutes plus questions. It goes from a charging capacitor to a clock, then from logic gates to latches and flip-flops, and ends with DRAM and NAND flash. The last part is a hands-on memory lab.
+A scrolling, presentable explainer for people with no electronics background. It uses everyday comparisons instead of math, and only assumes the audience can read binary numbers. It is built for a talk of about 12 minutes plus questions. It goes from a bucket that fills with charge to a clock, then from logic gates to latches and flip-flops, and ends with DRAM and flash. The last part is a hands-on memory lab.
 
 Live site: https://gedon111.github.io/timing-to-memory/
 
 ## Files
 
 - `index.html` is the whole site. It has no build step.
-- `notes.md` is the speaker script, with time targets per sheet and likely questions with answers.
+- `notes.md` is the speaker script, in plain language, with time targets per sheet and likely questions with answers.
 
 ## Sheets
 
 1. Intro
 2. Why keep time
-3. Timing with a bucket (RC and the time constant τ)
-4. The 555 timer (sawtooth, what is inside, the speed formula)
-5. The clock (square wave, quartz and 32,768 Hz, GHz and PLLs)
-6. Gates (a transistor as a valve, NOT and NOR)
+3. Timing with a bucket (a capacitor filling through a resistor)
+4. The 555 timer (fill, drain, repeat, and what is inside)
+5. The clock (on and off, quartz halved down to 1 tick per second, billions of ticks)
+6. Gates (a transistor as a switch, NOT and NOR)
 7. The SR latch (set, reset, both)
-8. Latch vs flip-flop (level versus edge)
-9. Bits to bytes (a byte, a 64-bit register)
-10. The cost of a bit (transistors per bit)
-11. DRAM (cell grid, leak, refresh, destructive read)
-12. NAND flash (trapped electrons, tunneling and wear, pages and blocks, TLC and 3D)
+8. Latch vs flip-flop (open door versus camera flash)
+9. Bits to bytes (a byte, a register)
+10. The cost of a bit (why RAM uses a smaller cell)
+11. DRAM (tiny leaking buckets, topping up, reading empties them)
+12. Flash (electrons in a sealed pocket, wear, 8 levels and stacked floors)
 13. Compare the three kinds of memory
 14. Memory lab
 15. Recap and questions
@@ -39,30 +39,16 @@ Live site: https://gedon111.github.io/timing-to-memory/
 
 ### Memory lab
 
-The lab simulates real logic gates. Every gate takes one step (one "gate delay") to respond, so slow motion shows signals moving through the circuit one gate at a time.
+The lab simulates real logic gates. Every gate takes one small step to respond, so slow motion shows signals moving through the circuit one gate at a time.
 
-- **Modes:**
-  - SR latch (two NOR gates).
-  - D latch (NOT, two AND gates and an SR latch).
-  - D flip-flop (master and slave latches).
-  - Compare, where a latch and a flip-flop share the same inputs.
+- **Circuits:** SR latch (two NOR gates) and D flip-flop (two latches in a row).
 - **Controls:**
-  - Hold set and reset.
-  - Toggle D.
-  - Clock on auto, or manual with Tick.
-  - Clock period.
-  - 1x, 0.25x and 0.1x speed.
-  - Pause and single step.
-  - Show inside wires.
-- **Keys** (only while the lab is on screen):
-  - S and R hold.
-  - D toggles.
-  - C ticks.
-  - P pauses.
-  - The . key steps.
-  - 1, 2 and 3 set the speed.
+  - Set and Reset (hold), and "Press both, then let go".
+  - D, the clock on auto, and Tick to step the clock by hand.
+  - Slow motion and Pause.
+- **Keys** (only while the lab is on screen): hold S or R, D flips D, C ticks, M toggles slow motion, P pauses.
 
-Releasing S and R together makes the latch wobble. Real gates are never exactly equal, so after a few wobbles the simulator lets one side win at random.
+Releasing Set and Reset together makes the latch wobble. Real gates are never exactly equal, so after a few wobbles the simulator lets one side win at random.
 
 ## Run it
 

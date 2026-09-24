@@ -1,6 +1,6 @@
 # Speaker notes: From Ticks to Memory
 
-About 15 minutes of talk, then about 5 minutes of questions.
+About 12 minutes of talk, then questions. No math needed. The audience only needs to know that computers use 0 and 1, and how to read a binary number.
 
 ## How to drive the page
 
@@ -10,10 +10,9 @@ About 15 minutes of talk, then about 5 minutes of questions.
 - **N** shows a small counter in the corner, for example "sheet 7 · beat 2". The headings below use the same numbers.
 - **F** toggles fullscreen.
 - **The lab has its own keys:**
-  - S and R hold set and reset.
-  - D toggles D, and C ticks the clock.
-  - P pauses, and the . key steps one gate delay.
-  - 1, 2 and 3 set the speed.
+  - Hold S or R for set and reset.
+  - D flips D, and C ticks the clock.
+  - M toggles slow motion, and P pauses.
 
 Each beat stops on a finished picture. Say your line, then press next.
 
@@ -22,166 +21,146 @@ Each beat stops on a finished picture. Say your line, then press next.
 | Sheet | Topic | Target | Running total |
 |---|---|---|---|
 | 1 | Intro | 0:30 | 0:30 |
-| 2 | Why keep time | 1:00 | 1:30 |
-| 3 | Timing with a bucket | 1:15 | 2:45 |
-| 4 | The 555 timer | 1:15 | 4:00 |
-| 5 | The clock | 1:15 | 5:15 |
-| 6 | Gates | 1:00 | 6:15 |
-| 7 | The SR latch | 1:30 | 7:45 |
-| 8 | Latch vs flip-flop | 1:15 | 9:00 |
-| 9 | Bits to bytes | 0:45 | 9:45 |
-| 10 | The cost of a bit | 0:45 | 10:30 |
-| 11 | DRAM | 1:30 | 12:00 |
-| 12 | NAND flash | 1:30 | 13:30 |
-| 13 | Compare | 0:45 | 14:15 |
-| 14 | Memory lab | 1:00 | 15:15 |
-| 15 | Recap and questions | 0:15 | 15:30 |
+| 2 | Why keep time | 0:50 | 1:20 |
+| 3 | Timing with a bucket | 0:50 | 2:10 |
+| 4 | The 555 timer | 0:50 | 3:00 |
+| 5 | The clock | 1:00 | 4:00 |
+| 6 | Gates | 0:50 | 4:50 |
+| 7 | The SR latch | 1:10 | 6:00 |
+| 8 | Latch vs flip-flop | 0:50 | 6:50 |
+| 9 | Bits to bytes | 0:40 | 7:30 |
+| 10 | The cost of a bit | 0:30 | 8:00 |
+| 11 | DRAM | 1:10 | 9:10 |
+| 12 | Flash | 1:00 | 10:10 |
+| 13 | Compare | 0:30 | 10:40 |
+| 14 | Memory lab | 1:00 | 11:40 |
+| 15 | Recap and questions | 0:20 | 12:00 |
 
-If you run long, shorten sheet 10 and the lab first.
+If you run long, shorten the lab. If you run short, let someone from the audience drive the lab.
 
 ---
 
 ## Sheet 1 · Intro (0:30)
 
-**1.1** "Every computer does two things all the time. It keeps time, and it remembers. Today we go from the first to the second. We start with a single blinking light and end with the chips inside your phone."
+**1.1** "Every computer does two things all the time. It keeps time, and it remembers. Today we go from the first to the second. We start with one blinking light and end with the chips inside your phone."
 
-Point at the LED. "This light blinks because a signal goes up and down. By the end you will know how a circuit makes that beat, and how it uses the beat to remember things."
+Point at the light. "This light blinks because a signal goes up and down. By the end you will know where that beat comes from, and how a circuit uses it to remember."
 
-## Sheet 2 · Why keep time (1:00)
+## Sheet 2 · Why keep time (0:50)
 
-**2.1** "Imagine three messages leaving at once over three wires of different lengths. The short one arrives first and the long one arrives last. If the reader looks at the dashed line, it sees two new values and one old one. That mix is garbage."
+**2.1** "Three signals leave at the same moment, over wires of different lengths. The short one arrives first. The long one arrives last. If we read at the dashed line, two are new and one is old. That mix is wrong."
 
-**2.2** "The fix is a shared beat. Everyone agrees to read only on the tick. Between ticks, signals have time to settle. On the tick, every value is new, so every part of the chip acts together. That shared beat is called a clock. So where does a beat come from?"
+**2.2** "The fix is a shared beat, like a drummer in a band. Everyone agrees to read only on the tick. Between ticks, signals have time to arrive. On the tick, they all agree. That shared beat is called a clock. So where does a beat come from?"
 
-## Sheet 3 · Timing with a bucket (1:15)
+## Sheet 3 · Timing with a bucket (0:50)
 
-**3.1** "The simplest timer is a bucket and a narrow pipe. The bucket is a **capacitor**, which stores electric charge. The narrow pipe is a **resistor**, which slows the flow down. Close the switch and charge flows in. It fills fast at first, then slower and slower as the bucket gets full. The screen works like a heart monitor: up means more voltage, right means later. The important part is that filling takes a predictable amount of time."
+**3.1** "The simplest timer is a bucket and a narrow pipe. The bucket is a **capacitor**. It stores electricity. The narrow pipe is a **resistor**. It slows the flow. Close the switch and the bucket starts to fill. It fills fast at first, then slower as it gets full. The screen is like a heart monitor: up means fuller, right means later."
 
-**3.2** "Engineers call that time the **time constant**, written τ, the Greek letter tau. τ is R times C: the resistance times the capacitance. After one τ the bucket is 63 percent full. After five τ it is basically full. With a 10 kilohm resistor and a 100 microfarad capacitor, τ is exactly one second. The dashed curve is a bucket twice as big: it takes twice as long. So choosing two parts sets a time."
+**3.2** "The dashed line is a bigger bucket. It takes longer. So by picking the parts, we pick how long it takes. That is how a circuit measures time."
 
-## Sheet 4 · The 555 timer (1:15)
+## Sheet 4 · The 555 timer (0:50)
 
-**4.1** "One fill is a one-shot timer. For a beat, we need it to repeat. The **555** is a chip from 1972, and billions have been made. It watches the bucket. At two thirds full, it opens a drain. At one third, it closes the drain again. Fill, drain, fill, drain. That is the sawtooth on the screen."
+**4.1** "One slow fill is not a beat yet. The 555 is a cheap and famous chip that repeats it. When the bucket reaches 2/3 full, the chip drains it. At 1/3, it lets it fill again. Fill, drain, fill, drain. That is a steady beat."
 
-**4.2** "Inside, two comparators act as watchers. One asks 'are we above two thirds?' The other asks 'are we below one third?' They flip a tiny one-bit memory called a **flip-flop**. The flip-flop works the drain switch and the output pin. Keep that flip-flop in mind. Memory is already hiding inside our timer."
+**4.2** "Inside the chip, two watchers keep an eye on the level. When one of them trips, it flips a tiny memory called a **flip-flop**, and the flip-flop opens or closes the drain. Remember that word. We need it later."
 
-**4.3** "The speed is set by the parts. The formula is on screen, but the idea is simple: bigger resistors or a bigger capacitor give a slower beat. The 555 is great for blinking lights, buzzers and toys. It drifts with temperature, though, so computers need something steadier."
+## Sheet 5 · The clock (1:00)
 
-## Sheet 5 · The clock (1:15)
+**5.1** "We do not care about the wavy shape. We only keep the on and off. On while filling, off while draining. On is 1, off is 0. Every jump up is a tick. That is a clock."
 
-**5.1** "If we only look at the 555's output pin, it is on while filling and off while draining. That on-off shape is a **square wave**. High means 1, low means 0. Every jump up is a **tick**. This is a clock."
+**5.2** "Buckets are not very precise, so real clocks use quartz. A tiny quartz crystal shakes 32,768 times a second, very steadily. That number is a power of two. You all know what halving does in binary. Each flip-flop in this chain halves the beat. After 15 of them, you get exactly one tick per second. That is how your watch counts seconds."
 
-**5.2** "Real clocks use a **quartz crystal**. When you squeeze quartz it makes a voltage, and a voltage makes it bend. Cut it the right size and it rings like a tuning fork, very steadily. Watch crystals ring 32,768 times a second. That odd number is 2 multiplied by itself 15 times. Each flip-flop can halve a beat. Chain 15 of them and you get exactly one tick per second. That is how a quartz watch counts seconds."
+**5.3** "A laptop ticks about 3 billion times a second. One tick is so short that light, the fastest thing there is, only travels about a hand's width. Engineers really have to worry about how long wires are."
 
-**5.3** "Computers go much faster. A laptop processor ticks about 3 billion times a second, which is 3 gigahertz. A circuit called a **phase-locked loop**, or PLL, takes a steady reference clock, say 100 megahertz, and multiplies it up. At 3 gigahertz, one tick lasts a third of a nanosecond. In that time light travels only 10 centimeters. That is one reason chips are small."
+## Sheet 6 · Gates (0:50)
 
-## Sheet 6 · Gates (1:00)
+**6.1** "Now, the parts that remember. It starts with the transistor. A transistor is a switch, but you flip it with electricity instead of a finger. Power on its gate lets current through. No power, no current. A modern chip has billions of them."
 
-**6.1** "Now, the parts that decide things. A **transistor** is a switch with no moving parts. Think of a water valve. A small voltage on the transistor's **gate** opens the path, and current flows. Remove the voltage and it closes. A modern chip holds billions of these."
+**6.2** "Put a few transistors together and you get a logic gate. NOT flips its input: 0 becomes 1, 1 becomes 0. NOR gives a 1 only when both inputs are 0. Watch the table light up row by row. Keep NOR in mind, because next we loop two of them together."
 
-**6.2** "Wire a few transistors together and you get a **logic gate**. A NOT gate flips its input: 0 becomes 1, 1 becomes 0. A NOR gate outputs 1 only when both inputs are 0. Watch the table light up row by row. Here is the surprising part: loop two NOR gates into each other and you get memory."
+## Sheet 7 · The SR latch (1:10)
 
-## Sheet 7 · The SR latch (1:30)
+**7.1** "Two NOR gates, each feeding its output into the other. Follow the steps at the bottom. Press SET. The bottom gate goes to 0. Now the top gate sees 0 and 0, so it outputs 1. That 1 feeds back around. Now let go of SET. Nothing changes. The loop holds itself. That is one bit of memory."
 
-**7.1** "This is an **SR latch**, for set and reset. Each gate's output feeds the other's input. Q is the output. Q-bar is its opposite. Let's step through. One: press SET. Two: the bottom gate now sees a 1, so its output, Q-bar, drops to 0. Three: the top gate now sees 0 and 0, so Q rises to 1. Four: let go of SET. Q is still 1, because Q feeds back and holds itself. Nothing is pressed, yet the circuit remembers. That is the whole trick of memory: a loop that holds itself."
+**7.2** "RESET does the opposite. Q drops to 0, and when you let go it stays 0."
 
-**7.2** "RESET does the opposite. Press it and Q drops to 0, Q-bar rises to 1. Let go and it stays reset."
+**7.3** "Q and Q-bar are supposed to be opposites. Press both buttons and they are both 0, which breaks the rule. If you let go of both at the same time, it is a race, and it lands on 0 or 1 at random. So the rule is: never press both."
 
-**7.3** "What if you press both? Both outputs go to 0, which breaks the rule that they are opposites. Worse, if you let go of both at the same instant, the two gates race. Whichever is a hair faster wins, so the result is random. Designers avoid this case. You will see it wobble in the lab later."
+## Sheet 8 · Latch vs flip-flop (0:50)
 
-## Sheet 8 · Latch vs flip-flop (1:15)
+**8.1** "Real memory needs to store data at the right time. D is the data, CLK is the clock. A D latch is like an open door. While the clock is high, Q copies D the whole time, even if D is wobbling around. Look at the shaded windows."
 
-**8.1** "Pressing buttons is fine, but computers want to store data on the tick. The **D latch** adds a data input, D, and a clock input. Think of it as a door. While the clock is high, the door is open and Q copies D, even if D changes. Look at the shaded windows: every wiggle of D inside a window shows up in Q."
+**8.2** "A D flip-flop is like a camera flash. It takes one snapshot of D at the instant the clock goes up, then ignores D until the next tick. Compare the purple line with the blue one. This is why computers use flip-flops: every part changes at exactly the same moment."
 
-**8.2** "The **D flip-flop** is stricter. It is like a camera flash: it copies D only at the **rising edge**, the instant the clock goes up. Then it holds, no matter what D does. Compare the purple row with the blue one. The flip-flop changes only at the dashed lines. That is why computers use flip-flops: every part changes at the same instant, in step with the clock. Inside, a flip-flop is just two latches back to back, one open while the clock is low and one while it is high."
+## Sheet 9 · Bits to bytes (0:40)
 
-## Sheet 9 · Bits to bytes (0:45)
+**9.1** "One flip-flop holds one bit. Line up eight and you have a byte. 01000001 in binary is 65, and computers use 65 for the capital letter A."
 
-**9.1** "One flip-flop holds one **bit**, a 0 or a 1. Eight in a row hold a **byte**. The pattern 01000001 is the number 65, and text files use 65 to mean the capital letter A."
+**9.2** "A register is the processor's notepad. 64 flip-flops side by side hold one 64-bit number. On every tick, they all update together."
 
-**9.2** "Line up 64 flip-flops and you have a 64-bit **register**. Registers hold the numbers the processor is working on right now. On every tick, all of them can update together."
+## Sheet 10 · The cost of a bit (0:30)
 
-## Sheet 10 · The cost of a bit (0:45)
+**10.1** "So why not build all memory from flip-flops? Each one needs about 20 transistors for one bit. Your RAM holds billions of bits, so that would be far too big and too expensive. The trick is a much smaller cell: one transistor and one tiny bucket. That is DRAM."
 
-**10.1** "So why not build all memory from flip-flops? Cost. A flip-flop takes about 20 transistors for one bit. **SRAM**, used for the processor's cache, takes 6. **DRAM**, your computer's main memory, takes just 1 transistor and 1 tiny capacitor."
+## Sheet 11 · DRAM, your computer's RAM (1:10)
 
-**10.2** "16 gigabytes of RAM is about 128 billion bits. As flip-flops, that would be over 2.5 trillion transistors, far too big and too hot. So we trade some speed for size."
+**11.1** "Here is DRAM. Each dot is one tiny bucket with a tap. Full means 1, empty means 0. The chip opens a whole row of taps at once."
 
-## Sheet 11 · DRAM (1:30)
+**11.2** "The problem: the bucket leaks. The level slowly drops. Wait too long and a 1 falls below the line and looks like a 0."
 
-**11.1** "A DRAM cell is our bucket again, with a tap. A full bucket means 1, an empty bucket means 0. The cells sit in a grid. A **word line** opens a whole row of taps at once, and the **bit lines** carry each cell's charge out."
+**11.3** "So the chip tops every row back up, many times a second, forever. Fill, leak, fill, leak. It looks just like the 555 from earlier. This is why RAM needs power all the time."
 
-**11.2** "The problem is that these buckets are tiny and they leak. The charge slowly escapes. Wait too long and a 1 looks like a 0."
+**11.4** "Reading is strange too. When you read a cell, the charge spills out. The chip checks whether it was a 1 or a 0, then fills it back. And when the power goes off, everything is forgotten. That is why unsaved work disappears."
 
-**11.3** "So the memory chip **refreshes**. At least every 64 milliseconds, every row is read and topped back up. Fill, leak, fill, leak. Look at the screen: it is the sawtooth again, just like the 555. Your RAM does this thousands of times a second, even while the computer sits idle."
+## Sheet 12 · Flash, your SSD (1:00)
 
-**11.4** "Reading is destructive. Opening the tap spills the charge onto the bit line, so the bucket is partly empty afterwards. A **sense amplifier** decides whether it was a 0 or a 1, then writes the value straight back. Cut the power and refresh stops. Within seconds to a minute, everything fades. That is what **volatile** means."
+**12.1** "Flash memory, in your SSD and your phone, remembers without power. Each cell has a tiny pocket wrapped in insulation. Electrons locked in the pocket stay there for years, even with the power off."
 
-## Sheet 12 · NAND flash (1:30)
+**12.2** "Getting electrons in is the hard part. It takes a strong push to force them through the insulation. Each push damages it a little. After thousands of writes, a cell wears out. Your SSD spreads writes around so no cell wears out too early."
 
-**12.1** "Your SSD and your phone keep data with the power off. They use **NAND flash**. Each cell has a pocket, called a floating gate or charge trap, wrapped completely in insulation. Electrons trapped in there change how the transistor behaves, and that is how the cell is read. The insulation is so good that electrons stay for years. That is **non-volatile**."
+**12.3** "Two tricks make flash cheap. First, a pocket can be filled to 8 different levels. 8 levels hold 3 bits, as you can see from the binary labels. Second, the cells are stacked like a skyscraper, over 200 floors high. Cheap and huge, but slower than RAM."
 
-**12.2** "How do electrons get through an insulator? With a strong push, about 20 volts, they cross it by a quantum effect called **tunneling**. Each trip damages the insulation a little. That is why flash wears out. A common TLC cell is rated for roughly 1,000 to 3,000 write cycles."
+## Sheet 13 · Compare (0:30)
 
-**12.3** "Flash has an awkward rule. You write one **page** at a time, around 16 kilobytes. But you can only erase a whole **block**, which is hundreds of pages. So the SSD's controller constantly moves data around and spreads writes across all cells. This is called wear leveling."
-
-**12.4** "Two tricks make flash cheap. First, a cell does not just store full or empty. A TLC cell stores 8 different charge levels, which is 3 bits. Second, cells are stacked in 3D, over 200 layers tall, like floors of a skyscraper. The name NAND comes from how cells are wired in series, like the transistors inside a NAND gate."
-
-## Sheet 13 · Compare (0:45)
-
-**13.1** "Here are all three side by side. Flip-flops and SRAM are fastest, about a nanosecond, but they cost the most space per bit. DRAM is about 50 nanoseconds and dense, but it forgets without power. Flash is slowest, about 50 microseconds to read, but it remembers for years and is the cheapest per bit. A computer uses all three: your hands, your desk, and your bookshelf."
+**13.1** "So we have three kinds of memory. Flip-flops are like your hands: very fast, but you can hold only a little. DRAM is your desk: big and quick, but cleared when you leave. Flash is a bookshelf: huge and permanent, but slower to reach. A computer uses all three."
 
 ## Sheet 14 · Memory lab (1:00)
 
-**14.1** Live demo. Suggested order:
+**14.1** Live demo. A good order:
 
-1. **SR latch.** Tap S, then R. "It remembers." Set the speed to 0.1x and press "S and R, then let go". "Watch it wobble, then land at random."
-2. **D latch.** Press D a few times while CLK is high, then while it is low. "Door open, door shut."
-3. **Compare.** Toggle D while CLK is high. "The latch follows at once. The flip-flop waits for the edge."
-4. Optional: turn on "Show inside wires" in D flip-flop mode. Point at the master copy, then press Pause and Step to walk through one gate delay at a time.
+1. SR latch. Hold **Set**: Q turns on. Let go: it stays on. That is memory. Tap **Reset**: it clears.
+2. Turn on **Slow motion** and press **Press both, then let go**. Q and Q-bar flip back and forth, then one side wins at random.
+3. Switch to **D flip-flop**. Flip **D** a few times. Point out that Q only changes when the green CLK line steps up.
+4. If there is time, press **Tick** to step the clock yourself. Or invite someone from the audience.
 
-The simulator gives every gate exactly the same delay. That is why the SR wobble can happen at all. Real gates are never perfectly equal, so a real latch settles to one side, and nobody can predict which.
+## Sheet 15 · Recap and questions (0:20)
 
-## Sheet 15 · Recap and questions (0:15)
-
-**15.1** "To sum up. A bucket and a pipe turn charge into time. A clock turns time into ticks. Gates in a loop hold a bit, and a flip-flop stores it on the tick. Fast flip-flops, dense DRAM and lasting flash each trade speed, size and power. Questions?"
+**15.1** Read the four lines. "A bucket measures time. A clock turns it into ticks. Gates in a loop remember. And the memory in your devices trades speed, size and lasting power. Questions?"
 
 ---
 
 ## Likely questions
 
-**Why does DRAM need refresh but SRAM does not?**
-An SRAM cell is a small latch, a loop of transistors that actively holds itself, like the SR latch. A DRAM cell is a passive capacitor that leaks, so something has to top it up.
+**Why do computers need a clock at all?**
+Signals take different amounts of time to arrive. The clock tells every part when it is safe to read, so they all act together.
+
+**Why use quartz instead of a 555?**
+A 555 depends on its parts, and they change with heat and age. Quartz shakes at a very steady rate, so the clock stays accurate.
+
+**Why 32,768?**
+It is a power of two. Halving it 15 times gives exactly one tick per second, and halving is easy for a flip-flop.
+
+**What happens if you press both buttons on the latch?**
+Q and Q-bar are no longer opposites. If you let go of both together, it becomes a race and the result is random. That is why circuits avoid it.
+
+**Why does RAM forget when the power is off?**
+Each bit is a tiny bucket of charge that leaks. Without power, nothing tops it up, so it drains in a moment.
+
+**Why does an SSD not forget?**
+Its electrons are locked in an insulated pocket. They cannot leak out without a strong push.
 
 **Why do SSDs wear out?**
-Every write and erase pushes electrons through a thin insulating layer at high voltage. That slowly damages the layer until the cell cannot hold charge reliably. Controllers spread writes out and keep spare cells to delay this.
+Every write pushes electrons through the insulation, and that slowly damages it. Modern SSDs last for many years of normal use.
 
-**How long does an SSD last in practice?**
-For normal home use, usually many years. Drives are rated in total terabytes written. A typical 1 TB drive is rated for hundreds of terabytes, far more than most people write.
-
-**What is metastability?**
-It is the "coin toss" from the SR latch and the lab. If a flip-flop's input changes right at the clock edge, the loop can balance in the middle for a moment before falling to 0 or 1. Designers add rules about timing, plus extra flip-flops, so it almost never matters.
-
-**Why not use a 555 as a computer's clock?**
-Its timing depends on resistor and capacitor values that drift with temperature and age, by around a percent or more. A quartz crystal is steady to about a few parts per million, and it can ring much faster.
-
-**If the clock is 3 GHz, why can't it go faster?**
-Each tick must be long enough for signals to cross the gates and settle. Faster ticks also use more power and make more heat. Around 3 to 5 GHz, heat becomes the limit, so chips add more cores instead.
-
-**Does RAM really lose everything when you turn it off?**
-Yes, within seconds to about a minute at room temperature. Very cold RAM can hold data longer, and security researchers have shown attacks based on that.
-
-**What is cache?**
-Small, fast SRAM memory on the processor. It keeps copies of data from RAM that the processor is likely to need soon, because going out to DRAM takes many ticks.
-
-**Is flash the same as the memory in a USB stick or an SD card?**
-Yes. Phones, SSDs, USB sticks and SD cards all use NAND flash. They differ in the controller and how many chips they use.
-
-**What does "volatile" mean exactly?**
-Memory that needs power to keep its data. Flip-flops, SRAM and DRAM are volatile. Flash is non-volatile.
-
-**What are SLC, MLC, TLC and QLC?**
-1, 2, 3 and 4 bits per cell. More bits per cell means more levels to tell apart. That makes flash cheaper and denser, but slower and less durable.
-
-**Is anything replacing these?**
-Researchers work on memories that are fast like DRAM and permanent like flash, using magnetism (MRAM) or material changes (phase-change memory). Some are already used in niche products, but DRAM and NAND still dominate.
+**Why not use flash for everything?**
+It is too slow to write, and it wears out. The processor needs something fast that can change billions of times a second.

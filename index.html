@@ -16,21 +16,21 @@
 html,body{margin:0;background:var(--bg);color:var(--ink)}
 body{
   font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-  font-size:clamp(13px, min(1.35vw, 2.6vh), 21px); line-height:1.45;
+  font-size:clamp(14px, min(1.7vw, 3.2vh), 28px); line-height:1.4;
   background:radial-gradient(120vw 90vh at 70% 40%, #0f1813 0%, var(--bg) 60%) fixed;
 }
 a{color:var(--trace)}
 b.t, .t{color:var(--amber);font-weight:600}
 .ov{text-decoration:overline}
 h1,h2,h3{line-height:1.1;margin:0 0 .5em}
-h1{font-size:clamp(2rem, min(6vw, 11vh), 5.2rem);letter-spacing:-.02em}
-h2{font-size:clamp(1.3rem, min(2.9vw, 5.4vh), 2.7rem);letter-spacing:-.01em}
+h1{font-size:clamp(2.2rem, min(6.6vw, 12vh), 6rem);letter-spacing:-.02em}
+h2{font-size:clamp(1.4rem, min(3.1vw, 5.8vh), 3rem);letter-spacing:-.01em}
 p{margin:0 0 .6em}
 .kicker{color:var(--trace);text-transform:uppercase;letter-spacing:.14em;font-size:.72em;margin-bottom:.8em}
 .lede{font-size:1.3em;color:var(--muted);max-width:26em}
 .note{color:var(--muted);font-size:.9em;border-left:2px solid var(--edge);padding-left:.8em}
 .big-f{font-size:1.25em;font-weight:600;color:var(--amber)}
-.credit{font-size:.7rem;color:var(--muted);letter-spacing:.02em;line-height:1.35}
+.credit{font-size:.8rem;color:var(--muted);letter-spacing:.02em;line-height:1.35}
 .credit a{color:var(--muted)}
 
 /* Real photos and schematics from the web */
@@ -72,9 +72,9 @@ svg text{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 .part{fill:none;stroke:var(--ink);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
 .plate{stroke:var(--ink);stroke-width:5;stroke-linecap:round}
 .node{fill:var(--line)}
-.lbl{fill:var(--muted);font-size:22px}
-.lbl.sm{font-size:17px}
-.lbl.big{font-size:28px;font-weight:600}
+.lbl{fill:var(--muted);font-size:25px}
+.lbl.sm{font-size:20px}
+.lbl.big{font-size:32px;font-weight:600}
 .lbl.amber{fill:var(--amber)}
 .lbl.green{fill:var(--trace)}
 .lbl.cyan{fill:var(--cyan)}
@@ -109,9 +109,6 @@ svg text{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 .tdot{fill:var(--amber)}
 .cdot{fill:#26322c;stroke:var(--line);stroke-width:2}
 .cdot.on{fill:var(--cyan);stroke:var(--cyan)}
-.page{fill:#15201a;stroke:var(--edge);stroke-width:2}
-.pageFill{fill:var(--amber);opacity:.75}
-.flash{fill:#fff}
 .si{fill:#1a2620;stroke:var(--edge);stroke-width:2}
 .well{fill:#24382c}
 .ox{fill:var(--ox)}
@@ -138,11 +135,11 @@ svg text{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 .rail button.on span{background:var(--trace);opacity:1;transform:scale(1.6)}
 
 /* Presenter counter (press N) */
-#hud{position:fixed;left:1.2vw;bottom:1.2vh;z-index:5;font:600 13px ui-monospace,Menlo,Consolas,monospace;color:var(--bg);background:var(--trace);padding:.3em .6em;border-radius:6px}
+#hud{position:fixed;left:1.2vw;bottom:1.2vh;z-index:5;font:600 15px ui-monospace,Menlo,Consolas,monospace;color:var(--bg);background:var(--trace);padding:.3em .6em;border-radius:6px}
 #hud[hidden]{display:none}
 
 /* Buttons */
-.btn{font:inherit;font-size:.9em;font-weight:600;letter-spacing:.03em;color:var(--ink);background:#1b2721;border:1px solid var(--edge);border-radius:9px;padding:.45em .75em;cursor:pointer;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+.btn{font:inherit;font-size:.95em;font-weight:600;letter-spacing:.03em;color:var(--ink);background:#1b2721;border:1px solid var(--edge);border-radius:10px;padding:.5em .9em;cursor:pointer;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
 .btn:hover{border-color:var(--line)}
 .btn:focus-visible{outline:2px solid var(--trace);outline-offset:2px}
 .btn.down{background:#26372e;border-color:var(--trace);color:var(--trace)}
@@ -150,16 +147,16 @@ svg text{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 .btn:disabled{opacity:.45;cursor:default}
 
 /* Compare sheet */
-.cmp{border-collapse:collapse;width:100%;font-size:.95em;margin-top:.4em}
+.cmp{border-collapse:collapse;width:100%;font-size:1em;margin-top:.4em}
 .cmp th,.cmp td{padding:.5em .8em;border-bottom:1px solid var(--edge);text-align:left;vertical-align:top}
-.cmp thead th{color:var(--trace);font-size:.8em;letter-spacing:.08em;text-transform:uppercase}
+.cmp thead th{color:var(--trace);font-size:.85em;letter-spacing:.08em;text-transform:uppercase}
 .cmp tbody th{color:var(--muted);font-weight:500;white-space:nowrap}
 .cmp td.good{color:var(--trace)}
 .cmp td.bad{color:var(--red)}
 
 /* Memory lab */
-.lab{display:grid;grid-template-columns:minmax(14rem, 31%) 1fr;gap:2.2vw;width:100%;height:88vh}
-.lab-side{display:flex;flex-direction:column;gap:.5em;overflow:auto;min-height:0;padding-right:.3em}
+.lab{display:grid;grid-template-columns:minmax(15rem, 33%) 1fr;gap:2.2vw;width:100%;height:88vh}
+.lab-side{display:flex;flex-direction:column;gap:.6em;overflow:auto;min-height:0;padding-right:.3em}
 .lab-side h2{margin:0}
 .lab-side .kicker{margin:0}
 .lab-main{display:flex;flex-direction:column;gap:1.4vh;min-width:0;min-height:0}
@@ -168,12 +165,9 @@ svg text{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 .seg{display:flex;flex-wrap:wrap;gap:.35em}
 .ctl{display:flex;flex-wrap:wrap;gap:.4em;align-items:center}
 .ctl[hidden]{display:none}
-.rng,.chk{display:flex;align-items:center;gap:.45em;font-size:.85em;color:var(--muted)}
-.rng input{accent-color:var(--trace);width:7.5em}
-.chk input{accent-color:var(--trace)}
-.tip{font-size:.85em;background:var(--panel);border:1px solid var(--edge);border-radius:10px;padding:.55em .8em;margin:0}
+.tip{font-size:.9em;background:var(--panel);border:1px solid var(--edge);border-radius:10px;padding:.55em .8em;margin:0}
 .lstat{font-size:.9em;margin:0;min-height:2.6em;color:var(--cyan)}
-.keys{font-size:.72em;color:var(--muted);margin:0}
+.keys{font-size:.8em;color:var(--muted);margin:0}
 .lw{fill:none;stroke:var(--dim);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
 .lw.hi{stroke:var(--trace)}
 .lg{fill:#15201a;stroke:var(--ink);stroke-width:2.5}
@@ -185,15 +179,15 @@ svg text{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 .ldot.hi{fill:var(--trace)}
 .blk{fill:#15201a;stroke:var(--line);stroke-width:2.5}
 .blk.open{stroke:var(--amber);fill:#2a2415}
-.st{fill:var(--muted);font-size:13px}
-.st.ink{fill:var(--ink);font-size:17px;font-weight:600}
+.st{fill:var(--muted);font-size:16px}
+.st.ink{fill:var(--ink);font-size:21px;font-weight:600}
 
 /* Close */
 .close{display:grid;grid-template-columns:1.3fr 1fr;gap:4vw;align-items:center;width:100%}
 .recap{padding-left:1.2em;margin:0}
 .recap li{margin-bottom:.6em}
 .qs{font-size:clamp(2.4rem, min(7vw, 13vh), 6rem);font-weight:700;color:var(--trace);letter-spacing:-.02em;margin:0}
-.foot{position:absolute;left:5vw;right:5vw;bottom:2vh;margin:0;color:var(--muted);font-size:.7rem;line-height:1.4}
+.foot{position:absolute;left:5vw;right:5vw;bottom:2vh;margin:0;color:var(--muted);font-size:.85rem;line-height:1.4}
 html:not(.js-anim) .foot{position:static;margin-top:2em}
 html:not(.js-anim) .close{grid-template-columns:1fr}
 html:not(.js-anim) .lab{grid-template-columns:1fr;height:auto}
@@ -249,31 +243,24 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
     <rect class="scope" x="40" y="40" width="920" height="400" rx="18"/>
     <rect x="40" y="40" width="920" height="400" rx="18" fill="url(#gridPat)"/>
   </g>
-  <text id="scopeLbl" class="lbl" x="60" y="72" style="font-size:18px">screen: voltage over time</text>
+  <text id="scopeLbl" class="lbl" x="60" y="74" style="font-size:21px">screen: signal over time</text>
 
   <g clip-path="url(#scopeClip)">
     <line id="nowLine" class="now" x1="500" x2="500" y1="50" y2="430"/>
-    <g id="th23" data-h=""><line class="th" x1="80" x2="940" y1="206.7" y2="206.7"/><text class="lbl amber" x="940" y="196" text-anchor="end">2/3 full: drain</text></g>
-    <g id="th13" data-h=""><line class="th" x1="80" x2="940" y1="293.3" y2="293.3"/><text class="lbl amber" x="940" y="320" text-anchor="end">1/3 full: fill</text></g>
+    <g id="th23" data-h=""><line class="th" x1="80" x2="940" y1="206.7" y2="206.7"/><text class="lbl amber" x="940" y="196" text-anchor="end">2/3 full: start draining</text></g>
+    <g id="th13" data-h=""><line class="th" x1="80" x2="940" y1="293.3" y2="293.3"/><text class="lbl amber" x="940" y="320" text-anchor="end">1/3 full: start filling</text></g>
     <g id="th50" data-h=""><line class="th" x1="80" x2="940" y1="250" y2="250"/><text class="lbl amber" x="940" y="240" text-anchor="end">above: 1</text><text class="lbl amber" x="940" y="276" text-anchor="end">below: 0</text></g>
 
-    <!-- Time constant markers -->
-    <g id="g-tau" data-h="">
-      <path class="guide" d="M248,380 V215.7 H80"/>
-      <circle cx="248" cy="215.7" r="7" fill="var(--amber)"/>
-      <text class="lbl amber" x="258" y="244">1 τ: 63% full</text>
-      <text class="lbl amber" x="910" y="104" text-anchor="end">5 τ: full</text>
-    </g>
     <g id="slowWrap" data-h="" clip-path="url(#slowClip)"><path id="rcSlow" class="trace2"/></g>
-    <text id="slowLbl" data-h="" class="lbl green" x="600" y="210">bigger C: slower</text>
+    <g id="slowLbl" data-h=""><text class="lbl ink" x="330" y="120">small bucket: fills fast</text><text class="lbl green" x="600" y="250">bigger bucket: slower</text></g>
 
     <g id="heroMove">
       <g clip-path="url(#revealClip)"><g id="heroLoop"><path id="trace" class="trace" d="M80,380 L920,380"/></g></g>
       <circle id="dot" data-h="" class="dotc" r="9"/>
     </g>
     <g id="refreshTicks" data-h=""></g>
-    <g id="leakLbl" data-h=""><circle cx="417" cy="250" r="8" fill="var(--red)"/><text class="lbl red" x="400" y="300" text-anchor="end">from here, the 1 reads as 0</text></g>
-    <text id="refLbl" data-h="" class="lbl amber" x="500" y="340" text-anchor="middle">each jump is a refresh, every 64 ms</text>
+    <g id="leakLbl" data-h=""><circle cx="417" cy="250" r="8" fill="var(--red)"/><text class="lbl red" x="90" y="300">below the line, the 1 looks like a 0</text></g>
+    <text id="refLbl" data-h="" class="lbl amber" x="500" y="340" text-anchor="middle">each jump is a top-up</text>
 
     <!-- Why keep time: three signals that arrive at different moments -->
     <g id="g-sync" data-h="">
@@ -321,8 +308,6 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
   </g>
   <g id="ticks" data-h=""><text class="lbl amber" x="500" y="476" text-anchor="middle">Each rise is a tick</text></g>
 
-  <!-- Time constant ticks along the bottom of the screen -->
-  <g id="tauTicks" data-h=""></g>
 
   <!-- Bench, intro: an LED that blinks with the pulse -->
   <g id="g-intro">
@@ -363,11 +348,6 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
     <path class="th" d="M566,613.3 H654 M570,666.7 H650" style="stroke-width:1.5"/>
     <text class="lbl" x="610" y="752" text-anchor="middle">capacitor = bucket</text>
   </g>
-  <g id="tauEq" data-h="">
-    <text class="lbl ink" x="830" y="585" text-anchor="middle" style="font-size:40px;font-weight:600">τ = R × C</text>
-    <text class="lbl" x="830" y="630" text-anchor="middle">10 kΩ × 100 µF</text>
-    <text class="lbl green" x="830" y="665" text-anchor="middle">= 1 second</text>
-  </g>
 
   <!-- Bench: 555 timer chip (8 pins) -->
   <g id="g-chip" data-h="">
@@ -404,7 +384,7 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
     <text class="lbl sm" x="340" y="736" text-anchor="middle">watcher</text>
     <rect class="box" x="495" y="560" width="150" height="100" rx="8"/>
     <text class="lbl ink" x="570" y="604" text-anchor="middle">flip-flop</text>
-    <text class="lbl amber sm" x="570" y="634" text-anchor="middle">1 bit of memory</text>
+    <text class="lbl amber sm" x="570" y="636" text-anchor="middle">tiny memory</text>
     <rect id="ffGlow" data-h="" x="487" y="552" width="166" height="116" rx="12" fill="none" stroke="var(--amber)" stroke-width="5"/>
     <text class="lbl green" x="880" y="575" text-anchor="end">OUT</text>
     <rect class="box" x="680" y="690" width="100" height="44" rx="6"/>
@@ -418,7 +398,7 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
     <rect class="chip" x="70" y="565" width="90" height="50" rx="22"/>
     <path class="wire" d="M95,615 V650 M135,615 V650"/>
     <text class="lbl sm" x="115" y="680" text-anchor="middle">quartz crystal</text>
-    <text class="lbl green sm" x="115" y="708" text-anchor="middle">32,768 Hz</text>
+    <text class="lbl green sm" x="115" y="708" text-anchor="middle">32,768 a second</text>
     <rect class="box" x="210" y="565" width="56" height="50" rx="6"/><text class="lbl ink sm" x="238" y="597" text-anchor="middle">÷2</text>
     <rect class="box" x="290" y="565" width="56" height="50" rx="6"/><text class="lbl ink sm" x="318" y="597" text-anchor="middle">÷2</text>
     <rect class="box" x="370" y="565" width="56" height="50" rx="6"/><text class="lbl ink sm" x="398" y="597" text-anchor="middle">÷2</text>
@@ -433,10 +413,10 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
   <!-- Bench: frequency ladder -->
   <g id="g-ladder" data-h="">
     <path class="wire" d="M100,650 H900"/>
-    <path class="wire" d="M740,662 Q799,720 858,662" style="stroke:var(--amber)"/>
-    <path class="wire" d="M846,664 L858,662 L854,674" style="stroke:var(--amber)"/>
-    <text class="lbl amber sm" x="799" y="738" text-anchor="middle">PLL: ×30</text>
-    <text class="lbl ink" x="500" y="772" text-anchor="middle">One tick at 3 GHz lasts 0.33 ns. Light moves 10 cm in that time.</text>
+    <text class="lbl sm" x="100" y="690">slower</text>
+    <text class="lbl sm" x="900" y="690" text-anchor="end">faster</text>
+    <text class="lbl ink" x="500" y="740" text-anchor="middle">In one laptop tick, light moves only</text>
+    <text class="lbl ink" x="500" y="772" text-anchor="middle">about a hand's width.</text>
   </g>
 
   <!-- Transistor as a valve -->
@@ -464,7 +444,7 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
     <text class="lbl sm" x="772" y="420">out</text>
     <g id="valveNote" data-h="">
       <text class="lbl ink" x="500" y="530" text-anchor="middle">A small voltage on the gate opens the path.</text>
-      <text class="lbl" x="500" y="570" text-anchor="middle">Like a valve, but electric, with no moving parts.</text>
+      <text class="lbl" x="500" y="572" text-anchor="middle">Like a valve, but electric, with no moving parts.</text>
       <text class="lbl amber" x="500" y="620" text-anchor="middle">A modern chip holds billions of them.</text>
     </g>
   </g>
@@ -504,8 +484,8 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
     <circle class="node" cx="540" cy="550" r="5"/><circle class="node" cx="560" cy="690" r="5"/>
     <path class="gate" d="M380,520 Q405,550 380,580 Q440,580 470,550 Q440,520 380,520 Z"/><circle class="bubble" cx="477" cy="550" r="7"/>
     <path class="gate" d="M380,660 Q405,690 380,720 Q440,720 470,690 Q440,660 380,660 Z"/><circle class="bubble" cx="477" cy="690" r="7"/>
-    <text class="lbl" x="424" y="557" text-anchor="middle" style="font-size:17px">NOR</text>
-    <text class="lbl" x="424" y="697" text-anchor="middle" style="font-size:17px">NOR</text>
+    <text class="lbl" x="424" y="557" text-anchor="middle" style="font-size:19px">NOR</text>
+    <text class="lbl" x="424" y="697" text-anchor="middle" style="font-size:19px">NOR</text>
     <text class="lbl ink" x="170" y="542" text-anchor="end">RESET</text>
     <text class="lbl ink" x="170" y="712" text-anchor="end">SET</text>
     <circle id="latchLamp" data-h="" cx="670" cy="550" r="56" fill="url(#glowGreen)"/>
@@ -530,15 +510,15 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
   <g id="gb-latchcard" data-h="">
     <rect class="box" x="140" y="500" width="320" height="150" rx="12"/>
     <text class="lbl ink big" x="300" y="545" text-anchor="middle">D latch</text>
-    <text class="lbl sm" x="300" y="585" text-anchor="middle">a door, open while CLK is high</text>
-    <text class="lbl cyan sm" x="300" y="620" text-anchor="middle">Q follows D through the door</text>
+    <text class="lbl sm" x="300" y="585" text-anchor="middle">a door: open while CLK is high</text>
+    <text class="lbl cyan sm" x="300" y="620" text-anchor="middle">Q follows D</text>
   </g>
   <g id="gb-ffcard" data-h="">
     <rect class="box" x="540" y="500" width="320" height="150" rx="12"/>
     <path class="part" d="M540,600 L556,612 L540,624"/>
     <text class="lbl ink big" x="700" y="545" text-anchor="middle">D flip-flop</text>
-    <text class="lbl sm" x="700" y="585" text-anchor="middle">a camera, one snap per rising edge</text>
-    <text class="lbl violet sm" x="700" y="620" text-anchor="middle">Q only changes on the edge</text>
+    <text class="lbl sm" x="700" y="585" text-anchor="middle">a camera: one snap per tick</text>
+    <text class="lbl violet sm" x="700" y="620" text-anchor="middle">Q changes only on the tick</text>
   </g>
 
   <!-- Bits to bytes -->
@@ -569,8 +549,7 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
     <g id="ffDots"></g><g id="sramDots"></g>
     <g id="dramDot"><circle class="tdot" cx="400" cy="453" r="9"/><path class="part" d="M420,453 H436 M436,440 V466 M446,440 V466 M446,453 H462" style="stroke:var(--cyan)"/></g>
     <text id="bigBits" data-h="" class="lbl ink" x="500" y="590" text-anchor="middle" style="font-size:38px;font-weight:600">16 GB of RAM = 128 billion bits</text>
-    <text id="bigBits2" data-h="" class="lbl red" x="500" y="645" text-anchor="middle">as flip-flops: over 2.5 trillion transistors</text>
-    <text id="bigBits3" data-h="" class="lbl green" x="500" y="685" text-anchor="middle">as DRAM: 128 billion tiny tap and bucket pairs</text>
+    <text id="bigBits2" data-h="" class="lbl green" x="500" y="645" text-anchor="middle">so RAM uses the smallest cell: a tap and a tiny bucket</text>
   </g>
 
   <!-- DRAM grid -->
@@ -578,7 +557,6 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
     <g id="gridBase"></g>
     <g id="gridHi" data-h=""></g>
     <g id="gridLbl" data-h="">
-      <text class="lbl amber sm" x="880" y="216">word line</text>
       <text class="lbl sm" x="500" y="420" text-anchor="middle">each dot is one cell. A whole row opens at once.</text>
     </g>
   </g>
@@ -590,20 +568,20 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
     <path class="wire" d="M120,500 H720 M370,500 V605 M300,470 V722 M300,620 H350 M390,620 H445"/>
     <path class="gate" d="M350,605 L390,635 L390,605 L350,635 Z"/>
     <path id="dValveOpen" data-h="" d="M350,605 L390,635 L390,605 L350,635 Z" fill="var(--trace)"/>
-    <text class="lbl amber sm" x="730" y="506">word line (opens the row)</text>
-    <text class="lbl sm" x="290" y="470" text-anchor="end">bit line</text>
-    <text class="lbl sm" x="372" y="668" text-anchor="middle">tap (transistor)</text>
+    <text class="lbl amber sm" x="730" y="506">row switch</text>
+    <text class="lbl sm" x="290" y="470" text-anchor="end">data wire</text>
+    <text class="lbl sm" x="372" y="668" text-anchor="middle">tap</text>
     <g clip-path="url(#dBucketClip)"><rect id="dfill" class="water" x="440" y="560" width="100" height="160"/></g>
     <path class="bucket" d="M440,560 L455,720 H525 L540,560"/>
     <text class="lbl sm" x="490" y="752" text-anchor="middle">bucket (capacitor)</text>
     <path class="gate" d="M258,722 H342 L300,764 Z"/>
     <path id="senseGlow" data-h="" d="M258,722 H342 L300,764 Z" fill="none" stroke="var(--amber)" stroke-width="6"/>
-    <text class="lbl sm" x="236" y="748" text-anchor="end">sense amp</text>
+    <text class="lbl sm" x="236" y="748" text-anchor="end">reader</text>
     <text id="dcap1" data-h="" class="lbl ink" x="600" y="620">Full bucket = 1. Empty = 0.</text>
     <text id="dcap2" data-h="" class="lbl red" x="600" y="620">Leaking. The level falls.</text>
-    <text id="dcap3" data-h="" class="lbl amber" x="600" y="620">Topped up every 64 ms.</text>
+    <text id="dcap3" data-h="" class="lbl amber" x="600" y="620">Topped up again and again.</text>
     <text id="dcap4" data-h="" class="lbl ink" x="600" y="620">Read: the charge spills out.</text>
-    <text id="dcap5" data-h="" class="lbl green" x="600" y="660">Sense amp: it was a 1.</text>
+    <text id="dcap5" data-h="" class="lbl green" x="600" y="660">The reader: it was a 1.</text>
     <text id="dcap6" data-h="" class="lbl green" x="600" y="700">Write it back.</text>
   </g>
 
@@ -618,10 +596,10 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
     <rect class="trap" x="260" y="322" width="240" height="60"/>
     <rect class="ox" x="260" y="382" width="240" height="18"/>
     <rect id="cgGlow" data-h="" x="256" y="228" width="248" height="68" fill="none" stroke="var(--amber)" stroke-width="6"/>
-    <text id="cgVolt" data-h="" class="lbl amber big" x="380" y="218" text-anchor="middle">+20 V</text>
-    <text class="lbl ink sm" x="520" y="268">control gate</text>
+    <text id="cgVolt" data-h="" class="lbl amber big" x="660" y="250">strong push</text>
+    <text class="lbl ink sm" x="520" y="268">top plate</text>
     <text class="lbl sm" x="520" y="313">insulation</text>
-    <text class="lbl amber sm" x="520" y="358">trap: holds electrons</text>
+    <text class="lbl amber sm" x="520" y="358">pocket: holds electrons</text>
     <text class="lbl sm" x="660" y="398">thin insulation</text>
     <g id="eTrap"></g>
     <g id="eChan" data-h=""></g>
@@ -636,29 +614,22 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
     <text id="nandCap1" data-h="" class="lbl ink" x="380" y="590" text-anchor="middle">The electrons stay put for years.</text>
     <g id="nandCap2" data-h="">
       <text class="lbl ink" x="380" y="590" text-anchor="middle">Each trip wears the insulation a little.</text>
-      <text class="lbl red" x="380" y="628" text-anchor="middle">TLC: about 1,000 to 3,000 writes per cell</text>
+      <text class="lbl red" x="380" y="628" text-anchor="middle">After thousands of writes, it wears out.</text>
     </g>
-  </g>
-
-  <!-- NAND pages and blocks -->
-  <g id="g-blocks" data-h="">
-    <text class="lbl sm" x="110" y="440">each row is a page</text>
-    <text id="blkW" data-h="" class="lbl amber" x="500" y="510" text-anchor="middle">Write: one page at a time, about 16 KB</text>
-    <text id="blkE" data-h="" class="lbl red" x="500" y="550" text-anchor="middle">Erase: only a whole block, hundreds of pages</text>
   </g>
 
   <!-- NAND levels and 3D stacking -->
   <g id="g-levels" data-h="">
-    <text class="lbl ink sm" x="220" y="92" text-anchor="middle">one TLC cell</text>
+    <text class="lbl ink sm" x="220" y="92" text-anchor="middle">one cell</text>
     <rect class="band" x="180" y="110" width="80" height="320"/>
     <rect id="lvFill" class="water" x="184" y="112" width="72" height="316"/>
     <path id="lvMark" d="M150,402 L166,410 L150,418 Z" fill="var(--amber)"/>
     <text id="lvTxt" data-h="" class="lbl amber sm" x="320" y="216">stored: 101</text>
-    <text class="lbl sm" x="220" y="468" text-anchor="middle">8 charge levels = 3 bits</text>
+    <text class="lbl sm" x="220" y="470" text-anchor="middle">8 fill levels = 3 bits</text>
     <g id="stack"></g>
     <g id="stackLbl" data-h="">
-      <text class="lbl ink" x="710" y="480" text-anchor="middle">3D NAND: over 200 layers</text>
-      <text class="lbl sm" x="710" y="512" text-anchor="middle">stacked like floors (20 drawn here)</text>
+      <text class="lbl ink" x="710" y="482" text-anchor="middle">stacked over 200 floors high</text>
+      <text class="lbl sm" x="710" y="516" text-anchor="middle">like a skyscraper (20 drawn here)</text>
     </g>
   </g>
 </svg>
@@ -677,15 +648,15 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
     <div class="copy beats">
       <div class="beat" id="b2a">
         <p class="kicker">1. Why keep time</p>
-        <h2>Signals arrive at different moments</h2>
-        <p>Wires have different lengths. Some parts are slower than others.</p>
+        <h2>Signals arrive at different times</h2>
+        <p>Some wires are longer. Some parts are slower.</p>
         <p>Read too early and you get a mix of old and new.</p>
       </div>
       <div class="beat" id="b2b">
         <p class="kicker">1. Why keep time</p>
         <h2>A clock says: read now</h2>
-        <p>Everyone waits for the <b class="t">tick</b>.</p>
-        <p>Between ticks, signals settle. On the tick, everyone reads together.</p>
+        <p>Everyone waits for the <b class="t">tick</b>, like a band waiting for the drum.</p>
+        <p>On the tick, everyone reads together.</p>
       </div>
     </div>
   </section>
@@ -695,18 +666,15 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
       <div class="beat" id="b3a">
         <p class="kicker">2. Timing with a bucket</p>
         <h2>A bucket and a narrow pipe</h2>
-        <p>A <b class="t">capacitor</b> stores charge, like a bucket.</p>
+        <p>A <b class="t">capacitor</b> stores electricity, like a bucket stores water.</p>
         <p>A <b class="t">resistor</b> slows the flow, like a narrow pipe.</p>
-        <p>Filling takes time. That delay is how a circuit measures time.</p>
-        <p class="note">The screen is like a heart monitor. Higher means more <b class="t">voltage</b>. Further right means later.</p>
+        <p>Filling takes time. That is how a circuit measures time.</p>
       </div>
       <div class="beat" id="b3b">
         <p class="kicker">2. Timing with a bucket</p>
-        <h2>The time constant, τ</h2>
-        <p class="big-f">τ = R × C</p>
-        <p>A narrower pipe or a bigger bucket means a slower fill.</p>
-        <p>After 1 τ it is 63% full. After 5 τ it is basically full.</p>
-        <p>10 kΩ × 100 µF = 1 second.</p>
+        <h2>Bigger bucket, slower fill</h2>
+        <p>A bigger bucket or a narrower pipe takes longer to fill.</p>
+        <p>Pick the parts, and you pick the delay.</p>
       </div>
     </div>
   </section>
@@ -715,24 +683,17 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
     <div class="copy beats">
       <div class="beat" id="b4a">
         <p class="kicker">3. The 555 timer</p>
-        <h2>The 555 repeats it</h2>
-        <p>A cheap and famous <b class="t">chip</b> from 1972.</p>
-        <p>At 2/3 full it opens a drain. At 1/3 full it closes it.</p>
-        <p>Fill, drain, fill, drain. A steady beat.</p>
+        <h2>Fill, drain, repeat</h2>
+        <p>The <b class="t">555</b> is a cheap and famous timer chip.</p>
+        <p>At 2/3 full it drains the bucket. At 1/3 full it fills it again.</p>
+        <p>Over and over. A steady beat.</p>
       </div>
       <div class="beat" id="b4b">
         <p class="kicker">3. The 555 timer</p>
         <h2>Inside the chip</h2>
-        <p>Two watchers compare the bucket to 2/3 and 1/3.</p>
-        <p>They flip a tiny memory, a <b class="t">flip-flop</b>, which works the drain.</p>
+        <p>Two watchers keep an eye on the bucket.</p>
+        <p>They flip a tiny memory, a <b class="t">flip-flop</b>, that works the drain.</p>
         <p>Remember that flip-flop. It comes back later.</p>
-      </div>
-      <div class="beat" id="b4c">
-        <p class="kicker">3. The 555 timer</p>
-        <h2>Choosing the speed</h2>
-        <p class="big-f">f ≈ 1.44 ÷ (C × (R1 + 2 R2))</p>
-        <p>Bigger parts give a slower beat.</p>
-        <p>Great for blinking lights and buzzers. Too wobbly for a computer.</p>
       </div>
     </div>
   </section>
@@ -741,24 +702,22 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
     <div class="copy beats">
       <div class="beat" id="b5a">
         <p class="kicker">4. The clock</p>
-        <h2>Keep only the flips</h2>
-        <p>The output pin is on while filling and off while draining.</p>
-        <p>High means 1. Low means 0.</p>
-        <p>Each jump up is a <b class="t">tick</b>. This is a <b class="t">clock</b>.</p>
+        <h2>Keep only on and off</h2>
+        <p>The output is on while filling and off while draining.</p>
+        <p>On means 1. Off means 0.</p>
+        <p>Each jump up is a <b class="t">tick</b>. That is a <b class="t">clock</b>.</p>
       </div>
       <div class="beat" id="b5b">
         <p class="kicker">4. The clock</p>
         <h2>Real clocks use quartz</h2>
-        <p>A <b class="t">quartz crystal</b> vibrates 32,768 times a second, very steadily.</p>
-        <p>32,768 is 2 multiplied by itself 15 times.</p>
-        <p>15 flip-flops each halve the beat. Out comes exactly 1 tick per second.</p>
+        <p>A tiny <b class="t">quartz crystal</b> shakes 32,768 times a second, very steadily.</p>
+        <p>That is a power of two. Halve it 15 times and you get exactly 1 tick per second.</p>
       </div>
       <div class="beat" id="b5c">
         <p class="kicker">4. The clock</p>
-        <h2>How fast is fast?</h2>
-        <p>A laptop ticks about 3 billion times a second. That is 3 GHz.</p>
-        <p>A circuit called a <b class="t">PLL</b> multiplies a slower, steady clock up to that speed.</p>
-        <p>One tick lasts 0.33 ns. Light only travels 10 cm in that time.</p>
+        <h2>Billions of ticks a second</h2>
+        <p>A laptop ticks about 3 billion times every second.</p>
+        <p>Each tick is so short that light barely crosses your hand.</p>
       </div>
     </div>
   </section>
@@ -768,16 +727,16 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
       <div class="beat" id="b6a">
         <p class="kicker">5. Gates</p>
         <h2>A transistor is a switch</h2>
-        <p>A small voltage on its <b class="t">gate</b> lets current through.</p>
-        <p>No voltage, no current.</p>
+        <p>It is a switch flipped by electricity, not by a finger.</p>
+        <p>Power on its <b class="t">gate</b> lets current through.</p>
         <p>A modern chip holds billions of them.</p>
       </div>
       <div class="beat" id="b6b">
         <p class="kicker">5. Gates</p>
-        <h2>Gates make decisions</h2>
+        <h2>Gates make simple choices</h2>
         <p>A few transistors make a <b class="t">logic gate</b>.</p>
         <p><b class="t">NOT</b> flips its input.</p>
-        <p><b class="t">NOR</b> outputs 1 only when both inputs are 0.</p>
+        <p><b class="t">NOR</b> gives 1 only when both inputs are 0.</p>
       </div>
     </div>
   </section>
@@ -787,9 +746,9 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
       <div class="beat" id="b7a">
         <p class="kicker">6. The SR latch</p>
         <h2>Two gates in a loop</h2>
-        <p>Each NOR gate feeds its output into the other.</p>
-        <p>Press SET and follow the steps.</p>
-        <p>Let go, and the loop holds Q at 1. That is memory.</p>
+        <p>Each gate feeds its output into the other.</p>
+        <p>Press SET, then let go.</p>
+        <p>The loop keeps Q at 1. That is memory.</p>
       </div>
       <div class="beat" id="b7b">
         <p class="kicker">6. The SR latch</p>
@@ -801,7 +760,7 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
         <p class="kicker">6. The SR latch</p>
         <h2>Never press both</h2>
         <p>Q and <span class="ov">Q</span> should always be opposites.</p>
-        <p>Pressing both breaks that rule. Let go of both and it is a coin toss.</p>
+        <p>Press both and that breaks. Let go of both and it is a coin toss.</p>
       </div>
     </div>
   </section>
@@ -811,15 +770,15 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
       <div class="beat" id="b8a">
         <p class="kicker">7. Latch vs flip-flop</p>
         <h2>D latch: an open door</h2>
-        <p><b class="t">D</b> is the data. <b class="t">CLK</b> decides when to listen.</p>
-        <p>While CLK is high the door is open. Q copies D, even as D changes.</p>
+        <p><b class="t">D</b> is the data. <b class="t">CLK</b> is the clock.</p>
+        <p>While CLK is high the door is open, and Q copies D the whole time.</p>
       </div>
       <div class="beat" id="b8b">
         <p class="kicker">7. Latch vs flip-flop</p>
         <h2>D flip-flop: a camera flash</h2>
-        <p>It copies D only at the <b class="t">rising edge</b>, the instant CLK goes up.</p>
+        <p>It copies D only at the instant CLK goes up.</p>
         <p>Then it holds, whatever D does.</p>
-        <p>Computers use flip-flops so everything changes in step.</p>
+        <p>So every part of a computer changes in step.</p>
       </div>
     </div>
   </section>
@@ -829,14 +788,14 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
       <div class="beat" id="b9a">
         <p class="kicker">8. Bits to bytes</p>
         <h2>Eight bits make a byte</h2>
-        <p>One flip-flop holds one <b class="t">bit</b>, a 0 or a 1.</p>
-        <p>Eight in a row hold a <b class="t">byte</b>. 01000001 is 65, which computers use for the letter A.</p>
+        <p>One flip-flop holds one <b class="t">bit</b>.</p>
+        <p>Eight of them hold a <b class="t">byte</b>. 01000001 is 65, which computers use for the letter A.</p>
       </div>
       <div class="beat" id="b9b">
         <p class="kicker">8. Bits to bytes</p>
         <h2>Registers</h2>
-        <p>64 flip-flops make a 64-bit <b class="t">register</b>.</p>
-        <p>The processor keeps the numbers it is working on in these.</p>
+        <p>A <b class="t">register</b> is the processor's notepad.</p>
+        <p>64 flip-flops side by side hold one 64-bit number.</p>
         <p>On every tick, they all update together.</p>
       </div>
     </div>
@@ -846,16 +805,10 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
     <div class="copy beats">
       <div class="beat" id="b10a">
         <p class="kicker">9. The cost of a bit</p>
-        <h2>Why not flip-flops everywhere?</h2>
-        <p>A flip-flop needs about 20 transistors for one bit.</p>
-        <p>An <b class="t">SRAM</b> cell needs 6. A <b class="t">DRAM</b> cell needs just 1, plus a tiny capacitor.</p>
-      </div>
-      <div class="beat" id="b10b">
-        <p class="kicker">9. The cost of a bit</p>
-        <h2>Billions of bits</h2>
-        <p>16 GB of RAM is about 128 billion bits.</p>
-        <p>As flip-flops, that would be over 2.5 trillion transistors.</p>
-        <p>So we trade some speed for size.</p>
+        <h2>Flip-flops are big</h2>
+        <p>A flip-flop needs about 20 transistors to hold one bit.</p>
+        <p>Your RAM holds billions of bits, so it needs something smaller.</p>
+        <p><b class="t">DRAM</b> uses 1 transistor and a tiny bucket.</p>
       </div>
     </div>
   </section>
@@ -864,9 +817,10 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
     <div class="copy beats">
       <div class="beat" id="b11a">
         <p class="kicker">10. DRAM, your computer's RAM</p>
-        <h2>One tap and one tiny bucket</h2>
-        <p>Full bucket means 1. Empty means 0.</p>
-        <p>The <b class="t">word line</b> opens a whole row of taps at once. The <b class="t">bit lines</b> carry the charge.</p>
+        <h2>A tap and a tiny bucket</h2>
+        <p>Each bit is a tiny bucket with a tap.</p>
+        <p>Full means 1. Empty means 0.</p>
+        <p>A whole row of taps opens at once.</p>
       </div>
       <div class="beat" id="b11b">
         <p class="kicker">10. DRAM, your computer's RAM</p>
@@ -876,16 +830,15 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
       </div>
       <div class="beat" id="b11c">
         <p class="kicker">10. DRAM, your computer's RAM</p>
-        <h2>So it refreshes</h2>
-        <p>Every 64 ms, each row is read and topped up.</p>
+        <h2>So it keeps topping up</h2>
+        <p>Many times a second, every row is read and filled back up.</p>
         <p>Fill, leak, fill, leak. Like the 555, it never stops.</p>
       </div>
       <div class="beat" id="b11d">
         <p class="kicker">10. DRAM, your computer's RAM</p>
         <h2>Reading empties it</h2>
-        <p>Reading spills the charge onto the bit line.</p>
-        <p>A <b class="t">sense amplifier</b> decides 0 or 1, then writes it back.</p>
-        <p>Power off, and the data fades away. This is called <b class="t">volatile</b>.</p>
+        <p>Reading spills the bucket, so the chip fills it back.</p>
+        <p>Turn the power off and everything is forgotten.</p>
       </div>
     </div>
   </section>
@@ -893,31 +846,23 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
   <section class="sheet" id="s12" aria-label="NAND flash">
     <div class="copy beats">
       <div class="beat" id="b12a">
-        <p class="kicker">11. NAND flash, your SSD</p>
+        <p class="kicker">11. Flash, your SSD</p>
         <h2>Electrons in a sealed pocket</h2>
-        <p>A flash cell has a pocket wrapped in insulation.</p>
-        <p>Electrons trapped inside change how the cell behaves.</p>
-        <p>No power needed. They stay for years. This is called <b class="t">non-volatile</b>.</p>
+        <p>A flash cell has a tiny pocket wrapped in insulation.</p>
+        <p>Electrons locked inside stay for years, even with the power off.</p>
       </div>
       <div class="beat" id="b12b">
-        <p class="kicker">11. NAND flash, your SSD</p>
+        <p class="kicker">11. Flash, your SSD</p>
         <h2>Writing wears it out</h2>
-        <p>About 20 V pushes electrons through the insulation. This is called <b class="t">tunneling</b>.</p>
-        <p>Each trip damages it a little.</p>
+        <p>A strong push forces electrons through the insulation.</p>
+        <p>Each push damages it a little.</p>
       </div>
       <div class="beat" id="b12c">
-        <p class="kicker">11. NAND flash, your SSD</p>
-        <h2>Pages and blocks</h2>
-        <p>You write one <b class="t">page</b> at a time.</p>
-        <p>You can only erase a whole <b class="t">block</b>.</p>
-        <p>The SSD's controller shuffles data around to spread the wear.</p>
-      </div>
-      <div class="beat" id="b12d">
-        <p class="kicker">11. NAND flash, your SSD</p>
-        <h2>More bits per cell</h2>
-        <p>A <b class="t">TLC</b> cell holds 8 charge levels. That is 3 bits.</p>
-        <p>Modern chips stack over 200 layers of cells.</p>
-        <p>Dense and cheap, but slow to write.</p>
+        <p class="kicker">11. Flash, your SSD</p>
+        <h2>More bits, more floors</h2>
+        <p>One pocket can be filled to 8 levels. 8 levels hold 3 bits.</p>
+        <p>Cells are stacked like a skyscraper.</p>
+        <p>Cheap and huge, but slower than RAM.</p>
       </div>
     </div>
   </section>
@@ -927,13 +872,13 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
       <p class="kicker">12. Three kinds of memory</p>
       <h2>Fast, big, or lasting. Pick two.</h2>
       <table class="cmp">
-        <thead><tr><th scope="col"></th><th scope="col">Flip-flop and SRAM</th><th scope="col">DRAM</th><th scope="col">NAND flash</th></tr></thead>
+        <thead><tr><th scope="col"></th><th scope="col">Flip-flops</th><th scope="col">DRAM</th><th scope="col">Flash</th></tr></thead>
         <tbody>
-          <tr><th scope="row">Where</th><td>inside the processor: registers and cache</td><td>RAM sticks</td><td>SSDs, phones, USB sticks</td></tr>
-          <tr><th scope="row">Speed, roughly</th><td class="good">about 1 ns</td><td>about 50 ns</td><td class="bad">about 50 µs to read</td></tr>
+          <tr><th scope="row">Where</th><td>inside the processor</td><td>RAM sticks</td><td>SSDs, phones, USB sticks</td></tr>
+          <tr><th scope="row">Speed</th><td class="good">fastest</td><td>fast</td><td class="bad">slowest</td></tr>
           <tr><th scope="row">Power off</th><td class="bad">forgets</td><td class="bad">forgets</td><td class="good">remembers for years</td></tr>
-          <tr><th scope="row">Parts per bit</th><td class="bad">6 to 20 transistors</td><td>1 transistor and 1 capacitor</td><td class="good">a third of a cell (TLC)</td></tr>
-          <tr><th scope="row">Wears out</th><td class="good">no</td><td class="good">no</td><td class="bad">after thousands of writes</td></tr>
+          <tr><th scope="row">Size of a bit</th><td class="bad">big</td><td>small</td><td class="good">tiny</td></tr>
+          <tr><th scope="row">Wears out</th><td class="good">no</td><td class="good">no</td><td class="bad">after many writes</td></tr>
           <tr><th scope="row">Like</th><td>your hands</td><td>your desk</td><td>a bookshelf</td></tr>
         </tbody>
       </table>
@@ -947,34 +892,25 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
         <h2>Try it yourself</h2>
         <div class="seg" id="labMode" role="group" aria-label="Circuit">
           <button type="button" class="btn" data-mode="sr" aria-pressed="true">SR latch</button>
-          <button type="button" class="btn" data-mode="dl" aria-pressed="false">D latch</button>
           <button type="button" class="btn" data-mode="ff" aria-pressed="false">D flip-flop</button>
-          <button type="button" class="btn" data-mode="cmp" aria-pressed="false">Compare</button>
         </div>
         <div class="ctl" data-for="sr">
-          <button type="button" class="btn hold" data-in="S">S: set</button>
-          <button type="button" class="btn hold" data-in="R">R: reset</button>
-          <button type="button" class="btn" id="bothBtn">S and R, then let go</button>
+          <button type="button" class="btn hold" data-in="S">Set</button>
+          <button type="button" class="btn hold" data-in="R">Reset</button>
+          <button type="button" class="btn" id="bothBtn">Press both, then let go</button>
         </div>
-        <div class="ctl" data-for="dl ff cmp" hidden>
+        <div class="ctl" data-for="ff" hidden>
           <button type="button" class="btn" id="dBtn" aria-pressed="false">D = 0</button>
-          <button type="button" class="btn" id="clkBtn" aria-pressed="true">CLK: auto</button>
+          <button type="button" class="btn" id="clkBtn" aria-pressed="true">Clock: auto</button>
           <button type="button" class="btn" id="tickBtn">Tick</button>
-          <label class="rng">Clock period <input type="range" id="period" min="12" max="80" step="4" value="40"></label>
         </div>
         <div class="ctl">
-          <div class="seg" id="labSpeed" role="group" aria-label="Slow motion">
-            <button type="button" class="btn" data-speed="1" aria-pressed="true">1x</button>
-            <button type="button" class="btn" data-speed="0.25" aria-pressed="false">0.25x</button>
-            <button type="button" class="btn" data-speed="0.1" aria-pressed="false">0.1x</button>
-          </div>
+          <button type="button" class="btn" id="slowBtn" aria-pressed="false">Slow motion</button>
           <button type="button" class="btn" id="pauseBtn" aria-pressed="false">Pause</button>
-          <button type="button" class="btn" id="stepBtn">Step</button>
-          <label class="chk"><input type="checkbox" id="insideChk"> Show inside wires</label>
         </div>
         <p class="tip" id="labTip"></p>
         <p class="lstat" id="labStatus" aria-live="polite"></p>
-        <p class="keys">Keys: S, R, D, C to tick, P to pause, the . key to step, 1, 2 and 3 for speed.</p>
+        <p class="keys">Keys: hold S or R, D flips D, C ticks, M slow motion, P pause.</p>
       </div>
       <div class="lab-main">
         <svg id="schem" viewBox="0 0 600 300" role="img" aria-label="Live circuit diagram. Bright wires carry a 1."></svg>
@@ -989,10 +925,10 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
         <p class="kicker">Recap</p>
         <h2>From ticks to memory</h2>
         <ol class="recap">
-          <li>A capacitor filling through a resistor turns charge into time.</li>
-          <li>A clock turns time into ticks, so every part acts together.</li>
-          <li>Gates in a loop hold a bit. A flip-flop stores it on the tick.</li>
-          <li>Flip-flops are fast, DRAM is dense, and flash lasts. Each trades speed, size and power.</li>
+          <li>A bucket filling through a narrow pipe measures time.</li>
+          <li>A clock turns that into steady ticks, so every part acts together.</li>
+          <li>Two gates in a loop hold a bit. A flip-flop saves it on the tick.</li>
+          <li>Flip-flops are fast, RAM is big, and flash remembers with the power off.</li>
         </ol>
       </div>
       <p class="qs">Questions?</p>
@@ -1030,24 +966,22 @@ const lab = (function () {
   const BASE = 20;   // gate delays per second at 1x
   const PX = 4;      // waveform pixels per gate delay
   const MAXH = 900;
-  const COL = { in: "#ffb547", clk: "#5dff9c", q: "#7cc7ff", q2: "#c9a2ff", inside: "#9db1a6" };
+  const COL = { in: "#ffb547", clk: "#5dff9c", q: "#7cc7ff", q2: "#c9a2ff" };
+  const SLOW = .2;   // slow motion speed
   let mode = "sr", nets = [], names = {}, gates = [], cores = [], hist = [], live = [];
   const inp = { S: 0, R: 0, D: 0, CLK: 0 };
-  let clkAuto = true, period = 40, phase = 0, tickLeft = 0, bothLeft = 0;
-  let speed = 1, paused = false, inside = false, steps = 0, acc = 0, visible = false, raf = 0, last = 0, lastStat = "";
+  const period = 40;
+  let clkAuto = true, phase = 0, tickLeft = 0, bothLeft = 0;
+  let speed = 1, paused = false, steps = 0, acc = 0, visible = false, raf = 0, last = 0, lastStat = "";
 
-  // [net, label, color, inside wire?, overline?]
+  // [net, label, color, overline?]
   const ROWS = {
-    sr: [["S", "S", COL.in], ["R", "R", COL.in], ["Q", "Q", COL.q], ["QB", "Q", COL.q2, 0, 1]],
-    dl: [["D", "D", COL.in], ["CLK", "CLK", COL.clk], ["Q", "Q", COL.q], ["lS", "set", COL.inside, 1], ["lR", "reset", COL.inside, 1], ["QB", "Q", COL.inside, 1, 1]],
-    ff: [["D", "D", COL.in], ["CLK", "CLK", COL.clk], ["Q", "Q", COL.q], ["nCLK", "master open", COL.inside, 1], ["M", "master copy", COL.inside, 1], ["QB", "Q", COL.inside, 1, 1]],
-    cmp: [["D", "D", COL.in], ["CLK", "CLK", COL.clk], ["QL", "Q latch", COL.q], ["QF", "Q flip-flop", COL.q2], ["M", "master copy", COL.inside, 1]]
+    sr: [["S", "Set", COL.in], ["R", "Reset", COL.in], ["Q", "Q", COL.q], ["QB", "Q", COL.q2, 1]],
+    ff: [["D", "D", COL.in], ["CLK", "CLK", COL.clk], ["Q", "Q", COL.q]]
   };
   const TIPS = {
-    sr: "Tap <b>S</b>. Q turns on and stays on. Tap <b>R</b> to clear it. Then set 0.1x and try <b>S and R, then let go</b>. Watch it wobble.",
-    dl: "While CLK is high, toggle <b>D</b>. Q follows at once. While CLK is low, Q ignores D.",
-    ff: "Toggle <b>D</b> any time. Q only changes when CLK steps up. Turn on inside wires to see the master copy.",
-    cmp: "Toggle <b>D</b> while CLK is high. The latch follows right away. The flip-flop waits for the next rising edge."
+    sr: "Hold <b>Set</b>. Q turns on. Let go, and it stays on. That is memory. <b>Reset</b> turns it off. Then try <b>Press both, then let go</b> in slow motion.",
+    ff: "Flip <b>D</b> any time. Q only copies D at the moment CLK steps up. Press <b>Tick</b> to make each step yourself."
   };
 
   function build() {
@@ -1067,13 +1001,11 @@ const lab = (function () {
     };
     ["S", "R", "D", "CLK"].forEach(k => n(k));
     if (mode === "sr") sr("S", "R", "Q", "QB");
-    if (mode === "dl") dl("l", "D", "CLK", "Q", "QB");
-    if (mode === "cmp") dl("l", "D", "CLK", "QL", "QLB");
-    if (mode === "ff" || mode === "cmp") {
-      // Master-slave flip-flop: the master is open while CLK is low, the slave while CLK is high.
+    else {
+      // Flip-flop = two D latches. The first is open while CLK is low, the second while CLK is high.
       n("nCLK", 1); g("NOT", ["CLK"], "nCLK");
       dl("m", "D", "nCLK", "M", "MB");
-      dl("s", "M", "CLK", mode === "ff" ? "Q" : "QF", mode === "ff" ? "QB" : "QFB");
+      dl("s", "M", "CLK", "Q", "QB");
     }
   }
   const val = k => nets[names[k]] | 0;
@@ -1108,11 +1040,11 @@ const lab = (function () {
   /* Schematics */
   const lw = (d, net) => mk("path", { d, class: "lw", "data-n": net }, schem);
   const orG = (x, y) => { mk("path", { class: "lg", d: `M${x},${y - 25} Q${x + 18},${y} ${x},${y + 25} Q${x + 49},${y + 25} ${x + 70},${y} Q${x + 49},${y - 25} ${x},${y - 25} Z` }, schem); mk("circle", { class: "lb", cx: x + 76, cy: y, r: 6 }, schem); };
-  const andG = (x, y) => mk("path", { class: "lg", d: `M${x},${y - 25} H${x + 35} A25,25 0 0 1 ${x + 35},${y + 25} H${x} Z` }, schem);
-  const notG = (x, y) => { mk("path", { class: "lg", d: `M${x},${y - 16} L${x + 32},${y} L${x},${y + 16} Z` }, schem); mk("circle", { class: "lb", cx: x + 38, cy: y, r: 6 }, schem); };
   const st = (x, y, s, cls, anchor, bar) => {
     const e = mk("text", { x, y, class: "st " + (cls || ""), "text-anchor": anchor || "start" }, schem);
-    if (bar) mk("tspan", { class: "ov" }, e).textContent = s; else e.textContent = s;
+    e.textContent = s;
+    // Draw the bar over Q as a real line. CSS overline on SVG text can leave paint behind when the drawing is swapped.
+    if (bar) mk("path", { d: `M${x},${y - 18} h${e.getComputedTextLength() || 16}`, style: "stroke:var(--ink);stroke-width:1.8" }, schem);
     return e;
   };
   const lamp = (x, y, net, v) => mk("circle", { class: "llamp" + (v ? " v" : ""), cx: x, cy: y, r: 14, "data-n": net }, schem);
@@ -1135,40 +1067,16 @@ const lab = (function () {
       st(578, 95, "Q", "ink"); st(578, 215, "Q", "ink", "start", 1);
       st(285, 55, "NOR", "", "middle"); st(285, 255, "NOR", "", "middle");
     },
-    dl() {
-      lw("M40,232 H228", "D"); lw("M70,232 V68 H100", "D"); lw("M144,68 H228", "lnD");
-      lw("M40,150 H180 M180,92 V208 M180,92 H228 M180,208 H228", "CLK");
-      lw("M280,80 H348", "lR"); lw("M280,220 H348", "lS");
-      lw("M422,92 H540", "Q"); lw("M422,208 H540", "QB");
-      lw("M470,92 V140 H310 V196 H348", "Q"); lw("M490,208 V160 H325 V104 H348", "QB");
-      jdot(70, 232, "D"); jdot(180, 150, "CLK"); jdot(470, 92, "Q"); jdot(490, 208, "QB");
-      notG(100, 68); andG(220, 80); andG(220, 220); orG(340, 92); orG(340, 208);
-      lamp(556, 92, "Q"); lamp(556, 208, "QB", 1);
-      st(32, 237, "D", "ink", "end"); st(32, 155, "CLK", "ink", "end");
-      st(122, 45, "not D"); st(300, 72, "reset", "", "middle"); st(300, 240, "set", "", "middle");
-      st(578, 97, "Q", "ink"); st(578, 213, "Q", "ink", "start", 1);
-    },
     ff() {
       lw("M40,110 H140", "D"); lw("M270,110 H340", "M"); lw("M470,110 H540", "Q");
       lw("M40,260 H405 V190", "CLK"); lw("M205,260 V202", "CLK");
       jdot(205, 260, "CLK");
-      blk(140, 70, 130, 120, "nCLK", "master", "open: CLK low");
-      blk(340, 70, 130, 120, "CLK", "slave", "open: CLK high");
+      blk(140, 70, 130, 120, "nCLK", "latch 1", "open: CLK low");
+      blk(340, 70, 130, 120, "CLK", "latch 2", "open: CLK high");
       mk("circle", { class: "lb", cx: 205, cy: 196, r: 6 }, schem);
       lamp(556, 110, "Q");
       st(32, 115, "D", "ink", "end"); st(32, 265, "CLK", "ink", "end"); st(578, 115, "Q", "ink");
       st(305, 100, "copy", "", "middle");
-    },
-    cmp() {
-      lw("M40,75 H220 M110,75 V195 H220", "D"); lw("M40,230 H220 M80,230 V110 H220", "CLK");
-      jdot(110, 75, "D"); jdot(80, 230, "CLK");
-      lw("M340,90 H440", "QL"); lw("M340,210 H440", "QF");
-      blk(220, 50, 120, 80, "CLK", "D latch");
-      blk(220, 170, 120, 80, null, "D flip-flop");
-      mk("path", { class: "lw", d: "M220,222 L234,230 L220,238", style: "stroke:var(--ink)" }, schem);
-      lamp(456, 90, "QL"); lamp(456, 210, "QF", 1);
-      st(32, 80, "D", "ink", "end"); st(32, 235, "CLK", "ink", "end");
-      st(478, 95, "Q latch", "ink"); st(478, 215, "Q flip-flop", "ink");
     }
   };
 
@@ -1181,9 +1089,7 @@ const lab = (function () {
       if (q === qb) return inp.S && inp.R ? `Both pressed. Q = 0 and <span class="ov">Q</span> = 0.` : `Wobbling. Q and <span class="ov">Q</span> are equal.`;
       return `Q = ${q}. ` + (inp.S ? "Setting." : inp.R ? "Resetting." : `It remembers ${q}.`);
     }
-    if (mode === "dl") return `D = ${val("D")}, CLK = ${val("CLK")}, Q = ${val("Q")}. ` + (val("CLK") ? "Door open: Q follows D." : "Door shut: Q holds.");
-    if (mode === "ff") return `D = ${val("D")}, Q = ${val("Q")}. Q only changes when CLK steps up.`;
-    return `D = ${val("D")}. Latch Q = ${val("QL")}. Flip-flop Q = ${val("QF")}.`;
+    return `D = ${val("D")}, Q = ${val("Q")}. Q only changes when CLK steps up.`;
   }
   function drawWave() {
     const dpr = window.devicePixelRatio || 1, w = cv.clientWidth, h = cv.clientHeight;
@@ -1191,10 +1097,10 @@ const lab = (function () {
     if (cv.width !== Math.round(w * dpr) || cv.height !== Math.round(h * dpr)) { cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr); }
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, w, h);
-    const rows = ROWS[mode].filter(r => inside || !r[3]);
-    const LW = 104, lh = h / rows.length, nVis = Math.floor((w - LW - 10) / PX);
+    const rows = ROWS[mode];
+    const LW = 120, lh = h / rows.length, nVis = Math.floor((w - LW - 10) / PX);
     const start = Math.max(0, hist.length - nVis), xOf = i => LW + (i - start) * PX;
-    ctx.font = "600 13px system-ui, sans-serif"; ctx.textBaseline = "middle";
+    ctx.font = "600 17px system-ui, sans-serif"; ctx.textBaseline = "middle";
     if (names.CLK !== undefined && mode !== "sr") {
       const c = names.CLK;
       ctx.strokeStyle = "rgba(93,255,156,.2)"; ctx.lineWidth = 1;
@@ -1205,11 +1111,11 @@ const lab = (function () {
     rows.forEach((r, k) => {
       const id = names[r[0]], y0 = k * lh, hi = y0 + lh * .25, lo = y0 + lh * .75;
       ctx.fillStyle = r[2]; ctx.fillText(r[1], 12, y0 + lh / 2);
-      if (r[4]) { const tw = ctx.measureText(r[1]).width; ctx.fillRect(12, y0 + lh / 2 - 9, tw, 1.5); }
+      if (r[3]) { const tw = ctx.measureText(r[1]).width; ctx.fillRect(12, y0 + lh / 2 - 11, tw, 1.5); }
       ctx.strokeStyle = "rgba(157,177,166,.12)"; ctx.lineWidth = 1;
       ctx.beginPath(); ctx.moveTo(LW, lo + .5); ctx.lineTo(w, lo + .5); ctx.stroke();
       if (!hist.length) return;
-      ctx.strokeStyle = r[2]; ctx.lineWidth = r[3] ? 1.8 : 2.6;
+      ctx.strokeStyle = r[2]; ctx.lineWidth = 3;
       ctx.beginPath();
       let py = hist[start][id] ? hi : lo;
       ctx.moveTo(xOf(start), py);
@@ -1255,7 +1161,7 @@ const lab = (function () {
   function both() { if (mode !== "sr") return; inp.S = inp.R = 1; bothLeft = 14; syncHold(); }
   function syncD() { const b = $("#dBtn"); b.textContent = "D = " + inp.D; b.setAttribute("aria-pressed", String(!!inp.D)); }
   function toggleD() { if (mode === "sr") return; inp.D ^= 1; syncD(); }
-  function syncClk() { const b = $("#clkBtn"); b.textContent = "CLK: " + (clkAuto ? "auto" : "manual"); b.setAttribute("aria-pressed", String(clkAuto)); }
+  function syncClk() { const b = $("#clkBtn"); b.textContent = "Clock: " + (clkAuto ? "auto" : "manual"); b.setAttribute("aria-pressed", String(clkAuto)); }
   function tick() {
     if (mode === "sr") return;
     if (clkAuto) { clkAuto = false; inp.CLK = 0; syncClk(); }
@@ -1263,7 +1169,7 @@ const lab = (function () {
   }
   function setSpeed(v) {
     speed = v;
-    $$("#labSpeed button").forEach(b => b.setAttribute("aria-pressed", String(+b.dataset.speed === v)));
+    const b = $("#slowBtn"); b.setAttribute("aria-pressed", String(v < 1));
   }
   function setPaused(v) {
     paused = v;
@@ -1272,7 +1178,7 @@ const lab = (function () {
   function stepOnce() { if (!paused) setPaused(true); step(); render(); }
 
   $$("#labMode button").forEach(b => b.addEventListener("click", () => setMode(b.dataset.mode)));
-  $$("#labSpeed button").forEach(b => b.addEventListener("click", () => setSpeed(+b.dataset.speed)));
+  $("#slowBtn").addEventListener("click", () => setSpeed(speed < 1 ? 1 : SLOW));
   $$(".hold", root).forEach(b => {
     const k = b.dataset.in; holdBtns[k] = b;
     b.addEventListener("pointerdown", e => {
@@ -1291,23 +1197,17 @@ const lab = (function () {
   $("#dBtn").addEventListener("click", toggleD);
   $("#clkBtn").addEventListener("click", () => { clkAuto = !clkAuto; tickLeft = 0; if (!clkAuto) inp.CLK = 0; phase = 0; syncClk(); });
   $("#tickBtn").addEventListener("click", tick);
-  $("#period").addEventListener("input", e => { period = +e.target.value; });
   $("#pauseBtn").addEventListener("click", () => setPaused(!paused));
-  $("#stepBtn").addEventListener("click", stepOnce);
-  $("#insideChk").addEventListener("change", e => { inside = e.target.checked; drawWave(); });
 
   // Lab keys only work while the lab is on screen, so they never clash with the talk.
   document.addEventListener("keydown", e => {
-    if (!visible || e.ctrlKey || e.metaKey || e.altKey || typing(document.activeElement) && document.activeElement.type !== "range" && document.activeElement.type !== "checkbox") return;
+    if (!visible || e.ctrlKey || e.metaKey || e.altKey || typing(document.activeElement)) return;
     const k = e.key.toLowerCase();
     if ((k === "s" || k === "r") && mode === "sr") { if (!e.repeat) hold(k.toUpperCase(), 1); }
     else if (k === "d" && !e.repeat) toggleD();
     else if (k === "c" && !e.repeat) tick();
     else if (k === "p" && !e.repeat) setPaused(!paused);
-    else if (k === ".") stepOnce();
-    else if (k === "1") setSpeed(1);
-    else if (k === "2") setSpeed(.25);
-    else if (k === "3") setSpeed(.1);
+    else if (k === "m" && !e.repeat) setSpeed(speed < 1 ? 1 : SLOW);
   });
   document.addEventListener("keyup", e => { const k = e.key.toLowerCase(); if (k === "s" || k === "r") hold(k.toUpperCase(), 0); });
   window.addEventListener("blur", () => { hold("S", 0); hold("R", 0); });
@@ -1336,7 +1236,7 @@ const lab = (function () {
   return {
     mode: setMode, run(n) { while (n-- > 0) step(); render(); }, get: val,
     set(k, v) { inp[k] = v; }, auto(v) { clkAuto = v; syncClk(); }, both, tick, toggleD,
-    pause: setPaused, speed: setSpeed, stepOnce,
+    pause: setPaused, speed: setSpeed, stepOnce, SLOW,
     state: () => ({ steps, paused, speed, rate: BASE * speed, visible })
   };
 })();
@@ -1364,9 +1264,8 @@ function navKey(e) {
   else if (k === "Home") dir = -2;
   else if (k === "End") dir = 2;
   if (!dir) return 0;
-  if (a && a.type === "range" && k.startsWith("Arrow")) return 0;
   if (a && a.tagName === "BUTTON" && k === " ") return 0;
-  if (typing(a) && a.type !== "range" && a.type !== "checkbox") return 0;
+  if (typing(a)) return 0;
   return dir;
 }
 
@@ -1462,22 +1361,14 @@ const tickEls = edges.map(e => {
   gsap.set(p, { svgOrigin: `${r1(e)} 416` });
   return p;
 });
-// Time-constant ticks
-for (let k = 1; k <= 5; k++) {
-  const x = X0 + k * W / 5;
-  mk("path", { class: "wire", d: `M${x},380 V392`, style: "stroke-width:2" }, $("#tauTicks"));
-  txt($("#tauTicks"), x, 416, k + " τ", "lbl amber sm");
-}
-// Frequency ladder, log scale from 1 Hz to 10 GHz
+// Ticks per second, from a wall clock to a laptop (each mark is 10 times faster)
 { const lad = $("#g-ladder"), lx = f => 100 + 80 * Math.log10(f);
   for (let k = 0; k <= 10; k++) mk("path", { class: "wire", d: `M${100 + 80 * k},644 V656`, style: "stroke-width:2" }, lad);
-  [["1 kHz", 1e3], ["1 MHz", 1e6]].forEach(([s, f]) => txt(lad, lx(f), 684, s, "lbl sm"));
-  [[1, "1 Hz: a wall clock", 612, "start"], [32768, "32,768 Hz: a watch", 612, "middle"],
-   [1e8, "100 MHz: steady reference", 585, "end"], [3e9, "3 GHz: laptop CPU", 545, "end"]].forEach(([f, s, y, a]) => {
+  [[1, "wall clock: 1 a second", "start"], [32768, "watch: 32,768 a second", "middle"],
+   [3e9, "laptop: 3 billion a second", "end"]].forEach(([f, s, a]) => {
     const x = lx(f);
     mk("path", { d: `M${x - 8},628 L${x + 8},628 L${x},644 Z`, fill: "var(--amber)" }, lad);
-    if (y < 600) mk("path", { class: "wire", d: `M${x},${y + 7} V626`, style: "stroke-width:1.5" }, lad);
-    txt(lad, f > 1e9 ? 900 : f > 1e7 ? x - 6 : x, y, s, "lbl ink sm", a);
+    txt(lad, f > 1e9 ? 900 : x, 612, s, "lbl ink sm", a);
   }); }
 // Truth tables
 { const g = $("#g-gates");
@@ -1536,20 +1427,6 @@ refX.forEach(x => mk("path", { class: "tickm", d: `M${r1(x - 8)},424 L${r1(x + 8
 const eXs = [290, 320, 350, 380, 410, 440, 470];
 eXs.forEach(x => mk("circle", { class: "electron", cx: x, cy: 352, r: 9 }, $("#eTrap")));
 const eChan = eXs.map(x => mk("circle", { class: "electron", cx: x, cy: 414, r: 9 }, $("#eChan")));
-// NAND blocks and pages
-const pageFill = [[], [], [], []], flashes = [];
-{ const g = $("#g-blocks");
-  for (let b = 0; b < 4; b++) {
-    const x = 110 + b * 200;
-    txt(g, x + 90, 135, "block " + (b + 1), "lbl sm");
-    for (let p = 0; p < 8; p++) {
-      mk("rect", { class: "page", x, y: 150 + p * 32, width: 180, height: 28, rx: 4 }, g);
-      const f = mk("rect", { class: "pageFill", x, y: 150 + p * 32, width: 180, height: 28, rx: 4 }, g);
-      gsap.set(f, { opacity: b === 1 || (b === 2 && p < 5) ? .75 : 0 });
-      pageFill[b].push(f);
-    }
-    flashes.push(mk("rect", { class: "flash", x: x - 6, y: 144, width: 192, height: 262, rx: 8, opacity: 0 }, g));
-  } }
 // NAND levels and 3D stack
 { const g = $("#g-levels");
   for (let k = 1; k < 8; k++) mk("path", { class: "tbl", d: `M180,${430 - 40 * k} H260` }, g);
@@ -1585,7 +1462,7 @@ gsap.set(".beats .beat:not(:first-child)", { opacity: 0, y: 24 });
 gsap.set(".cmp tbody tr, .recap li", { opacity: 0, y: 14 });
 
 /* Pins. Lengths are in screen heights. Gaps between sheets are one screen of scroll. */
-const PIN = [.6, 2.2, 2.9, 3.4, 3.7, 3.0, 3.4, 2.8, 2.2, 2.2, 4.7, 5.1, .8, .4, .6];
+const PIN = [.6, 2.2, 2.9, 2.7, 3.7, 3.0, 3.4, 2.8, 2.2, 1.7, 4.7, 3.7, .8, .4, .6];
 const sheets = $$(".sheet");
 const S = [], G = [];
 { let t = 0; PIN.forEach(p => { S.push(t); G.push(t + p); t += p + 1; }); }
@@ -1644,17 +1521,15 @@ tl.to("#revealRect", { scaleX: 1, duration: 1.2, ease: "none" }, S[2] + .35);
     gsap.set("#fill", { scaleY: rcV(p.v) });
   } }, S[2] + .35); }
 beat(S[2] + 1.65, 3, 1);
-// Sheet 3, beat B: the time constant, and a slower curve for a bigger bucket
+// Sheet 3, beat B: a slower curve for a bigger bucket
 swap("#b3a", "#b3b", S[2] + 1.8);
-show(["#g-tau", "#tauTicks"], S[2] + 1.9);
-show("#tauEq", S[2] + 2.0);
 show("#slowWrap", S[2] + 2.2, .05);
 tl.to("#slowRect", { scaleX: 1, duration: .5, ease: "none" }, S[2] + 2.2);
 show("#slowLbl", S[2] + 2.55, .15);
 beat(S[2] + 2.8, 3, 2);
 
 // Gap 3 to 4
-hide(["#g-tau", "#tauTicks", "#tauEq", "#slowWrap", "#slowLbl"], G[2]);
+hide(["#slowWrap", "#slowLbl"], G[2]);
 show("#th23", G[2] + .3, .2);
 
 // Sheet 4, beat A: the 555 takes over and the curve becomes a sawtooth
@@ -1668,11 +1543,8 @@ beat(S[3] + 1.3, 4, 1);
 swap("#b4a", "#b4b", S[3] + 1.45);
 hide(["#g-rc", "#g-chip"], S[3] + 1.5);
 show("#g-555in", S[3] + 1.7, .4, { scale: 1 });
-beat(S[3] + 2.3, 4, 2);
-// Sheet 4, beat C: the speed formula; the flip-flop glows
-swap("#b4b", "#b4c", S[3] + 2.45);
-show("#ffGlow", S[3] + 2.6, .2);
-beat(S[3] + 3.2, 4, 3);
+show("#ffGlow", S[3] + 2.2, .2);
+beat(S[3] + 2.5, 4, 2);
 
 // Gap 4 to 5: keep only the flips
 hide("#g-555in", G[3]);
@@ -1795,11 +1667,9 @@ show("#g-cost", G[8] + .5);
 tl.to(ffDots, { opacity: 1, duration: .05, stagger: .02 }, S[9] + .1);
 tl.to(sramDots, { opacity: 1, duration: .05, stagger: .02 }, S[9] + .55);
 show("#dramDot", S[9] + .75, .1);
-beat(S[9] + 1.0, 10, 1);
-swap("#b10a", "#b10b", S[9] + 1.15);
-show("#dramHi", S[9] + 1.3, .15);
-show("#bigBits", S[9] + 1.45, .2); show("#bigBits2", S[9] + 1.65, .15); show("#bigBits3", S[9] + 1.8, .15);
-beat(S[9] + 2.05, 10, 2);
+show("#dramHi", S[9] + .9, .15);
+show("#bigBits", S[9] + 1.05, .2); show("#bigBits2", S[9] + 1.25, .15);
+beat(S[9] + 1.5, 10, 1);
 
 // Gap 10 to 11: DRAM
 hide("#g-cost", G[9]);
@@ -1835,7 +1705,7 @@ tl.to(trace, { morphSVG: toD(refresh), duration: .6 }, S[10] + 2.7);
 [.95, .76, .95, .76, .95].forEach((v, i) => tl.to("#dfill", { scaleY: v, duration: .12 }, S[10] + 2.7 + i * .12));
 show(["#refreshTicks", "#refLbl", "#dcap3"], S[10] + 3.1, .2);
 beat(S[10] + 3.4, 11, 3);
-// Sheet 11, beat D: reading spills the bucket; the sense amp writes it back
+// Sheet 11, beat D: reading spills the bucket; the chip fills it back
 swap("#b11c", "#b11d", S[10] + 3.55);
 hide("#dcap3", S[10] + 3.55, .15);
 show(["#dTapGlow", "#dValveOpen"], S[10] + 3.65, .15);
@@ -1854,7 +1724,7 @@ show(["#g-nand", "#nandCap1"], G[10] + .5, .4);
 // Sheet 12, beat A: electrons stay with the power off
 show("#powerOff", S[11] + .2, .2);
 beat(S[11] + .8, 12, 1);
-// Sheet 12, beat B: tunneling and wear
+// Sheet 12, beat B: a strong push, and wear
 swap("#b12a", "#b12b", S[11] + .95);
 hide(["#powerOff", "#nandCap1"], S[11] + .95, .2);
 hide("#eTrap", S[11] + 1.05, .15);
@@ -1864,26 +1734,16 @@ tl.to(eChan, { y: -62, duration: .3, stagger: .04, ease: "power2.in" }, S[11] + 
 show("#wear", S[11] + 1.9, .15);
 show("#nandCap2", S[11] + 2.1, .2);
 beat(S[11] + 2.35, 12, 2);
-// Sheet 12, beat C: write a page, erase a block
+// Sheet 12, beat C: 8 levels per cell, stacked like a skyscraper
 swap("#b12b", "#b12c", S[11] + 2.5);
 hide("#g-nand", S[11] + 2.5);
-show("#g-blocks", S[11] + 2.7);
-show("#blkW", S[11] + 2.85, .15);
-[0, 1, 2, 3].forEach(p => tl.to(pageFill[0][p], { opacity: .75, duration: .08 }, S[11] + 2.9 + p * .12));
-show("#blkE", S[11] + 3.4, .15);
-tl.to(flashes[1], { opacity: .7, duration: .06 }, S[11] + 3.45).to(flashes[1], { opacity: 0, duration: .25 }, S[11] + 3.51);
-tl.to(pageFill[1], { opacity: 0, duration: .1 }, S[11] + 3.5);
-beat(S[11] + 3.8, 12, 3);
-// Sheet 12, beat D: 8 levels per cell, 200+ layers
-swap("#b12c", "#b12d", S[11] + 3.95);
-hide("#g-blocks", S[11] + 3.95);
-show("#g-levels", S[11] + 4.15);
-tl.to("#lvMark", { y: -200, duration: .4 }, S[11] + 4.35);
-tl.to("#lvFill", { scaleY: 5.5 / 8, duration: .4 }, S[11] + 4.35);
-show("#lvTxt", S[11] + 4.7, .15);
-tl.to(strips, { opacity: 1, duration: .04, stagger: .015 }, S[11] + 4.3);
-show("#stackLbl", S[11] + 4.7, .15);
-beat(S[11] + 4.95, 12, 4);
+show("#g-levels", S[11] + 2.7);
+tl.to("#lvMark", { y: -200, duration: .4 }, S[11] + 2.9);
+tl.to("#lvFill", { scaleY: 5.5 / 8, duration: .4 }, S[11] + 2.9);
+show("#lvTxt", S[11] + 3.25, .15);
+tl.to(strips, { opacity: 1, duration: .04, stagger: .015 }, S[11] + 2.85);
+show("#stackLbl", S[11] + 3.25, .15);
+beat(S[11] + 3.5, 12, 3);
 
 // Gap 12 to 13: the stage steps aside
 hide("#stage", G[11], .5);
