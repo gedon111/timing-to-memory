@@ -1,0 +1,772 @@
+<!doctype html>
+<html lang="en" class="js-anim">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>From Ticks to Memory</title>
+<meta name="description" content="A scrolling explainer for beginners. How a timing circuit makes a clock, and how a clock and a latch make memory.">
+<style>
+:root{
+  --bg:#0a0e0c; --panel:#101713; --panel-2:#0d1411; --grid:#1a281f; --edge:#27382f;
+  --ink:#e8f0eb; --muted:#9db1a6; --line:#6a8577;
+  --trace:#5dff9c; --amber:#ffb547; --cyan:#7cc7ff; --red:#ff7a7a;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink)}
+body{
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  font-size:clamp(13px, min(1.3vw, 2.5vh), 20px); line-height:1.45;
+  background:radial-gradient(120vw 90vh at 70% 40%, #0f1813 0%, var(--bg) 60%) fixed;
+}
+a{color:var(--trace)}
+b.t, .t{color:var(--amber);font-weight:600}
+h1,h2,h3{line-height:1.1;margin:0 0 .5em}
+h1{font-size:clamp(2rem, min(6vw, 11vh), 5.2rem);letter-spacing:-.02em}
+h2{font-size:clamp(1.3rem, min(2.9vw, 5.4vh), 2.7rem);letter-spacing:-.01em}
+h3{font-size:1.05em}
+p{margin:0 0 .6em}
+.kicker{color:var(--trace);text-transform:uppercase;letter-spacing:.14em;font-size:.72em;margin-bottom:.8em}
+.lede{font-size:1.3em;color:var(--muted);max-width:26em}
+.note{color:var(--muted);font-size:.9em;border-left:2px solid var(--edge);padding-left:.8em}
+.credit{font-size:.72rem;color:var(--muted);letter-spacing:.04em}
+
+/* Sheets */
+main{position:relative;z-index:1}
+.sheet{position:relative;min-height:100vh;display:flex;align-items:center;padding:6vh 5vw}
+.js-anim .sheet{height:100vh;min-height:0;overflow:hidden}
+.copy{width:min(40rem, 90vw)}
+.js-anim .copy{width:34vw}
+.js-anim .beats{display:grid}
+.js-anim .beat{grid-area:1/1}
+
+/* Scroll cue */
+.cue{margin-top:2.5em;display:inline-flex;flex-direction:column;align-items:center;gap:.4em;color:var(--muted);font-size:.8em;letter-spacing:.2em;text-transform:uppercase}
+.cue i{width:14px;height:14px;border-right:2px solid var(--trace);border-bottom:2px solid var(--trace);transform:rotate(45deg);animation:bob 1.4s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(45deg)}50%{transform:translateY(8px) rotate(45deg)}}
+
+/* Stage: the fixed oscilloscope + bench that every sheet shares */
+#stage{display:none;margin:0}
+.js-anim #stage{display:flex;flex-direction:column;position:fixed;left:40vw;right:4.5vw;top:3vh;bottom:3vh;pointer-events:none;z-index:0}
+#stage svg{flex:1;min-height:0;width:100%;display:block}
+#stage figcaption{text-align:right;padding-top:2px}
+svg text{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.scope{fill:var(--panel-2);stroke:var(--edge);stroke-width:2}
+.gridp{fill:none;stroke:var(--grid);stroke-width:1.5}
+.trace{fill:none;stroke:var(--trace);stroke-width:4;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke;filter:drop-shadow(0 0 5px rgba(93,255,156,.5))}
+.trace-d{fill:none;stroke:var(--amber);stroke-width:4;stroke-linejoin:round}
+.trace-q{fill:none;stroke:var(--cyan);stroke-width:4;stroke-linejoin:round}
+.wire{fill:none;stroke:var(--line);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.part{fill:none;stroke:var(--ink);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.plate{stroke:var(--ink);stroke-width:5;stroke-linecap:round}
+.node{fill:var(--line)}
+.lbl{fill:var(--muted);font-size:22px}
+.lbl.big{font-size:28px;font-weight:600}
+.lbl.amber{fill:var(--amber)}
+.lbl.green{fill:var(--trace)}
+.lbl.cyan{fill:var(--cyan)}
+.lbl.ink{fill:var(--ink)}
+.th{stroke:var(--amber);stroke-width:2;stroke-dasharray:8 8}
+.now{stroke:var(--cyan);stroke-width:2;stroke-dasharray:4 8}
+.glowA{fill:none;stroke:var(--amber);stroke-width:7;stroke-linecap:round;stroke-linejoin:round}
+.loopA{fill:none;stroke:var(--amber);stroke-width:5;stroke-dasharray:14 10;stroke-linejoin:round}
+.dotc{fill:var(--ink);stroke:var(--trace);stroke-width:3}
+.water{fill:var(--cyan);opacity:.55}
+.bucket{fill:none;stroke:var(--ink);stroke-width:3;stroke-linejoin:round}
+.chip{fill:#1c2420;stroke:var(--ink);stroke-width:3}
+.pin{fill:#b9c4be}
+.gate{fill:#15201a;stroke:var(--ink);stroke-width:3}
+.bubble{fill:var(--panel-2);stroke:var(--ink);stroke-width:3}
+.box{fill:#15201a;stroke:var(--ink);stroke-width:3}
+.lampBody{fill:#26322c;stroke:var(--ink);stroke-width:2}
+.tickm{fill:var(--amber)}
+.playhead{stroke:var(--ink);stroke-width:2;opacity:.7}
+.bitdigit{fill:var(--trace);font-size:96px;font-weight:700;font-family:ui-monospace,Menlo,Consolas,monospace}
+.g-green stop{stop-color:var(--trace)}
+.g-amber stop{stop-color:var(--amber)}
+.g-cyan stop{stop-color:var(--cyan)}
+
+/* Progress rail */
+.rail{display:none}
+.js-anim .rail{display:flex;position:fixed;right:1.2vw;top:50%;transform:translateY(-50%);flex-direction:column;gap:14px;z-index:3}
+.rail button{all:unset;cursor:pointer;width:20px;height:20px;display:grid;place-items:center;border-radius:50%}
+.rail button:focus-visible{outline:2px solid var(--trace);outline-offset:2px}
+.rail span{width:8px;height:8px;border-radius:50%;background:var(--muted);opacity:.45;transition:transform .3s,opacity .3s}
+.rail button.on span{background:var(--trace);opacity:1;transform:scale(1.6)}
+
+/* Close sheet */
+#s5{gap:4vw}
+.recap{padding-left:1.2em;margin:0}
+.recap li{margin-bottom:.7em}
+.play{display:grid;grid-template-columns:1fr 1fr;gap:1.4vw;flex:1;max-width:52vw}
+html:not(.js-anim) .play{max-width:none}
+.toy{margin:0;background:var(--panel);border:1px solid var(--edge);border-radius:14px;padding:1em 1.1em .7em;display:flex;flex-direction:column;gap:.55em}
+.toy h3{margin:0}
+.toy .hint{color:var(--muted);font-size:.85em;margin:0}
+.toy-row{display:flex;align-items:center;gap:1em}
+.lamp{width:clamp(44px, 9vh, 84px);height:auto;flex:none}
+.lamp .glow{opacity:0;transition:opacity .15s}
+.lamp.on .glow{opacity:1}
+.btns{display:flex;flex-direction:column;gap:.5em;flex:1}
+.btn{font:inherit;font-weight:600;letter-spacing:.06em;color:var(--ink);background:#1b2721;border:1px solid var(--edge);border-radius:10px;padding:.6em .8em;cursor:pointer;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;transition:transform .08s,opacity .15s}
+.btn:hover{border-color:var(--line)}
+.btn:focus-visible{outline:2px solid var(--trace);outline-offset:2px}
+.btn.down{transform:scale(.96);background:#26372e;border-color:var(--trace)}
+.btn[aria-pressed="true"]{border-color:var(--amber);color:var(--amber)}
+.status{min-height:2.9em;margin:0;font-size:.9em}
+.toy.bad .status{color:var(--red)}
+.toy.ticked .tick-btn{animation:tick .35s ease-out}
+@keyframes tick{0%{transform:scale(1)}40%{transform:scale(1.08)}100%{transform:scale(1)}}
+.foot{position:absolute;left:5vw;right:5vw;bottom:2.2vh;margin:0;color:var(--muted);font-size:.72rem;line-height:1.4}
+html:not(.js-anim) .foot{position:static;margin-top:2em}
+html:not(.js-anim) #s5{flex-wrap:wrap}
+
+/* Landscape only */
+.rotate{display:none}
+@media (orientation: portrait){
+  main, #stage, .rail{display:none !important}
+  .rotate{display:flex;position:fixed;inset:0;z-index:10;flex-direction:column;align-items:center;justify-content:center;gap:1.2rem;padding:8vw;text-align:center;background:var(--bg);font-size:18px}
+  .rotate figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:.4rem}
+  .rotate svg{width:120px;height:120px;animation:turn 2.4s ease-in-out infinite}
+}
+@keyframes turn{0%,20%{transform:rotate(0)}50%,80%{transform:rotate(-90deg)}100%{transform:rotate(0)}}
+
+@media (prefers-reduced-motion: reduce){
+  .cue i, .rotate svg, .toy.ticked .tick-btn{animation:none}
+  .rail span, .lamp .glow, .btn{transition:none}
+}
+</style>
+</head>
+<body>
+
+<div class="rotate" role="alert">
+  <figure>
+    <svg viewBox="0 0 120 120" aria-hidden="true"><rect x="38" y="14" width="44" height="92" rx="8" fill="none" stroke="#5dff9c" stroke-width="4"/><circle cx="60" cy="96" r="4" fill="#5dff9c"/></svg>
+    <figcaption class="credit">AI-generated icon</figcaption>
+  </figure>
+  <p><strong>Please rotate your device.</strong><br>This page only works sideways, in landscape.</p>
+</div>
+
+<nav class="rail" aria-label="Sections">
+  <button type="button" aria-label="Go to: Intro"><span></span></button>
+  <button type="button" aria-label="Go to: Keeping time"><span></span></button>
+  <button type="button" aria-label="Go to: Making a clock"><span></span></button>
+  <button type="button" aria-label="Go to: Remembering"><span></span></button>
+  <button type="button" aria-label="Go to: Recap and try it"><span></span></button>
+</nav>
+
+<!-- The stage: one fixed drawing that every sheet shares. Shapes in here travel and morph as you scroll. -->
+<figure id="stage">
+<svg viewBox="0 0 1000 780" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+  <defs>
+    <pattern id="gridPat" width="70" height="50" patternUnits="userSpaceOnUse" x="80" y="40"><path class="gridp" d="M70 0H0V50"/></pattern>
+    <clipPath id="scopeClip"><rect x="40" y="40" width="920" height="400" rx="18"/></clipPath>
+    <clipPath id="revealClip"><rect id="revealRect" x="40" y="0" width="920" height="780"/></clipPath>
+    <clipPath id="rowsClip"><rect id="rowsRect" x="40" y="180" width="920" height="200"/></clipPath>
+    <clipPath id="bucketClip"><path d="M560,560 L575,720 H645 L660,560 Z"/></clipPath>
+    <radialGradient id="glowGreen" class="g-green"><stop offset="0" stop-opacity=".85"/><stop offset="1" stop-opacity="0"/></radialGradient>
+    <radialGradient id="glowAmber" class="g-amber"><stop offset="0" stop-opacity=".85"/><stop offset="1" stop-opacity="0"/></radialGradient>
+    <radialGradient id="glowCyan" class="g-cyan"><stop offset="0" stop-opacity=".85"/><stop offset="1" stop-opacity="0"/></radialGradient>
+  </defs>
+
+  <!-- Oscilloscope screen -->
+  <rect class="scope" x="40" y="40" width="920" height="400" rx="18"/>
+  <rect x="40" y="40" width="920" height="400" rx="18" fill="url(#gridPat)"/>
+  <text class="lbl" x="60" y="72" style="font-size:18px">screen: voltage over time</text>
+
+  <g clip-path="url(#scopeClip)">
+    <line id="nowLine" class="now" x1="500" x2="500" y1="50" y2="430"/>
+    <g id="th23"><line class="th" x1="80" x2="940" y1="206.7" y2="206.7"/><text class="lbl amber" x="940" y="196" text-anchor="end">2/3 full: drain</text></g>
+    <g id="th13"><line class="th" x1="80" x2="940" y1="293.3" y2="293.3"/><text class="lbl amber" x="940" y="320" text-anchor="end">1/3 full: fill</text></g>
+    <g id="heroMove">
+      <g clip-path="url(#revealClip)"><g id="heroLoop"><path id="trace" class="trace" d="M80,380 L920,380"/></g></g>
+      <circle id="dot" class="dotc" r="9"/>
+    </g>
+    <g id="rows" clip-path="url(#rowsClip)"><path id="dRow" class="trace-d"/><path id="qRow" class="trace-q"/></g>
+    <line id="playhead" class="playhead" x1="80" x2="80" y1="56" y2="424"/>
+  </g>
+  <g id="levels">
+    <text class="lbl big green" x="60" y="169" text-anchor="middle">1</text>
+    <text class="lbl big green" x="60" y="351" text-anchor="middle">0</text>
+    <text class="lbl ink" x="500" y="508" text-anchor="middle">high = 1, low = 0</text>
+  </g>
+  <g id="ticks"><text class="lbl amber" x="500" y="476" text-anchor="middle">Each rise is a tick</text></g>
+  <g id="rowLabels">
+    <text class="lbl green" x="60" y="142" text-anchor="middle">CLK</text>
+    <text class="lbl amber" x="60" y="242" text-anchor="middle">D</text>
+    <text class="lbl cyan" x="60" y="332" text-anchor="middle">Q</text>
+  </g>
+  <g id="bit">
+    <text id="bitDigit" class="bitdigit" x="500" y="274" text-anchor="middle">1</text>
+    <text class="lbl ink" x="500" y="340" text-anchor="middle">one bit</text>
+  </g>
+
+  <!-- Bench, intro: an LED that blinks with the pulse -->
+  <g id="g-intro">
+    <circle id="ledGlow" cx="500" cy="600" r="70" fill="url(#glowGreen)"/>
+    <circle cx="500" cy="600" r="26" class="lampBody"/>
+    <path class="wire" d="M490,626 V680 M510,626 V690"/>
+    <text class="lbl" x="500" y="730" text-anchor="middle">LED, a tiny light. It glows while the pulse is high.</text>
+  </g>
+
+  <!-- Bench, timing: battery, switch, resistor, capacitor, and a bucket -->
+  <g id="g-rc">
+    <path class="glowA" id="flow" d="M120,615 V520 H460 V615 M460,640 V740 H120 V640" stroke-dasharray="6 12"/>
+    <path class="wire" d="M120,615 V520 H170 M230,520 H270 M370,520 H460 V615 M460,640 V740 H120 V640"/>
+    <path class="plate" d="M95,615 H145"/><path class="plate" d="M107,640 H133"/>
+    <text class="lbl" x="150" y="636">battery</text>
+    <circle class="node" cx="170" cy="520" r="5"/><circle class="node" cx="230" cy="520" r="5"/>
+    <line id="lever" class="part" x1="170" y1="520" x2="230" y2="520"/>
+    <text class="lbl" x="200" y="560" text-anchor="middle">switch</text>
+    <path class="part" d="M270,520 L280,505 L295,535 L310,505 L325,535 L340,505 L355,535 L365,520 L370,520"/>
+    <text class="lbl" x="320" y="490" text-anchor="middle">resistor = narrow pipe</text>
+    <path class="plate" d="M430,615 H490"/><path class="plate" d="M430,640 H490"/>
+    <path class="th" d="M497,628 H552" style="stroke:var(--muted)"/>
+    <g clip-path="url(#bucketClip)"><rect id="fill" class="water" x="560" y="560" width="100" height="160"/></g>
+    <path class="bucket" d="M560,560 L575,720 H645 L660,560"/>
+    <path class="th" d="M566,613.3 H654 M570,666.7 H650" style="stroke-width:1.5"/>
+    <text class="lbl" x="610" y="752" text-anchor="middle">capacitor = bucket</text>
+  </g>
+
+  <!-- Bench: 555 timer chip (8 pins) -->
+  <g id="g-chip">
+    <rect class="pin" x="718" y="573" width="22" height="10"/><rect class="pin" x="718" y="605" width="22" height="10"/>
+    <rect class="pin" x="718" y="637" width="22" height="10"/><rect class="pin" x="718" y="669" width="22" height="10"/>
+    <rect class="pin" x="880" y="573" width="22" height="10"/><rect class="pin" x="880" y="605" width="22" height="10"/>
+    <rect class="pin" x="880" y="637" width="22" height="10"/><rect class="pin" x="880" y="669" width="22" height="10"/>
+    <rect class="chip" x="740" y="560" width="140" height="130" rx="8"/>
+    <path d="M800,560 A10,10 0 0 0 820,560" fill="none" stroke="var(--ink)" stroke-width="3"/>
+    <text class="lbl ink big" x="810" y="638" text-anchor="middle" style="font-size:36px">555</text>
+    <text class="lbl" x="810" y="724" text-anchor="middle">timer chip</text>
+    <g id="chipOut">
+      <rect x="712" y="633" width="30" height="18" rx="4" fill="url(#glowGreen)"/>
+      <text class="lbl green" x="706" y="649" text-anchor="end">OUT</text>
+      <text class="lbl ink" x="810" y="758" text-anchor="middle">OUT pin: on while it fills, off while it drains</text>
+    </g>
+  </g>
+
+  <!-- Bench: SR latch from two cross-coupled NOR gates -->
+  <g id="g-latch">
+    <path class="wire" d="M180,535 H390 M180,705 H390 M484,550 H648 M484,690 H560"/>
+    <path class="wire" d="M540,550 V600 L330,640 V675 H390 M560,690 V640 L330,600 V565 H390"/>
+    <circle class="node" cx="540" cy="550" r="5"/><circle class="node" cx="560" cy="690" r="5"/>
+    <path class="gate" d="M380,520 Q405,550 380,580 Q440,580 470,550 Q440,520 380,520 Z"/><circle class="bubble" cx="477" cy="550" r="7"/>
+    <path class="gate" d="M380,660 Q405,690 380,720 Q440,720 470,690 Q440,660 380,660 Z"/><circle class="bubble" cx="477" cy="690" r="7"/>
+    <text class="lbl" x="424" y="557" text-anchor="middle" style="font-size:17px">gate</text>
+    <text class="lbl" x="424" y="697" text-anchor="middle" style="font-size:17px">gate</text>
+    <text class="lbl ink" x="170" y="542" text-anchor="end">RESET</text>
+    <text class="lbl ink" x="170" y="712" text-anchor="end">SET</text>
+    <path id="sGlow" class="glowA" d="M180,705 H390"/>
+    <path id="qGlow" class="glowA" d="M484,550 H648"/>
+    <path id="loopGlow" class="loopA" d="M484,550 H540 V600 L330,640 V675 H390 M484,690 H560 V640 L330,600 V565 H390"/>
+    <circle id="latchLamp" cx="670" cy="550" r="56" fill="url(#glowAmber)"/>
+    <circle cx="670" cy="550" r="20" class="lampBody"/>
+    <text class="lbl ink" x="700" y="557">Q (output)</text>
+    <text id="latchNote" class="lbl amber" x="470" y="766" text-anchor="middle">Let go of SET. The loop keeps Q on.</text>
+  </g>
+
+  <!-- Bench: D flip-flop -->
+  <g id="g-dff">
+    <text class="lbl ink" x="500" y="545" text-anchor="middle">D flip-flop</text>
+    <path class="wire" d="M300,600 H420 M300,680 H420 M580,600 H684"/>
+    <path id="clkGlow" class="glowA" d="M300,680 H420"/>
+    <rect class="box" x="420" y="560" width="160" height="160" rx="8"/>
+    <path class="part" d="M420,668 L438,680 L420,692"/>
+    <text class="lbl ink" x="438" y="608">D</text>
+    <text class="lbl ink" x="564" y="608" text-anchor="end">Q</text>
+    <text class="lbl amber" x="290" y="607" text-anchor="end">D (data)</text>
+    <text class="lbl green" x="290" y="687" text-anchor="end">CLK (clock)</text>
+    <circle id="dffLamp" cx="706" cy="600" r="56" fill="url(#glowCyan)"/>
+    <circle cx="706" cy="600" r="20" class="lampBody"/>
+    <text class="lbl cyan" x="736" y="607">Q (output)</text>
+  </g>
+
+  <!-- A single rising edge that leaves the screen and travels into the clock pin -->
+  <path id="edgeTravel" class="trace" d="M-18,25 H0 V-25 H18"/>
+</svg>
+<figcaption class="credit">AI-generated diagram</figcaption>
+</figure>
+
+<main>
+  <section class="sheet" id="s1" aria-labelledby="t1">
+    <div class="copy">
+      <h1 id="t1">From Ticks to Memory</h1>
+      <p class="lede">How a circuit keeps time, and how keeping time lets it remember.</p>
+      <div id="cue" class="cue" aria-hidden="true"><span>Scroll</span><i></i></div>
+    </div>
+  </section>
+
+  <section class="sheet" id="s2" aria-label="Keeping time">
+    <div class="copy beats">
+      <div class="beat" id="b2a">
+        <p class="kicker">1. Keeping time</p>
+        <h2>A bucket and a narrow pipe</h2>
+        <p>A <b class="t">capacitor</b> stores electric charge. Picture a bucket.</p>
+        <p>A <b class="t">resistor</b> slows down <b class="t">current</b>, which is charge on the move. Picture a narrow pipe.</p>
+        <p>Close the <b class="t">switch</b>. The battery pushes charge through the pipe into the bucket.</p>
+        <p>It fills fast at first, then slower as it gets full. Filling takes time. That delay is how a circuit measures time.</p>
+        <p class="note">The screen works like a heart monitor. Higher means more <b class="t">voltage</b>, the electric push. Further right means later.</p>
+      </div>
+      <div class="beat" id="b2b">
+        <p class="kicker">1. Keeping time</p>
+        <h2>The 555 timer repeats it</h2>
+        <p>The <b class="t">555</b> is a cheap and famous <b class="t">chip</b>. A chip is a tiny package of circuits.</p>
+        <p>It watches how full the bucket is.</p>
+        <p>At 2/3 full, it opens a drain. At 1/3 full, it closes the drain, so the bucket fills again.</p>
+        <p>Fill, drain, fill, drain. Now the circuit has a steady beat.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sheet" id="s3" aria-label="Making a clock">
+    <div class="copy">
+      <p class="kicker">2. Making a clock</p>
+      <h2>Keep only the flips</h2>
+      <p>The chip has an <b class="t">output pin</b>. That is a metal leg that sends a signal out.</p>
+      <p>It is on while the bucket fills. It is off while the bucket drains.</p>
+      <p>On, off, on, off. This shape is a <b class="t">square wave</b>. Engineers call it a <b class="t">clock</b>.</p>
+      <p>High means 1. Low means 0.</p>
+      <p>Each jump from low to high is a <b class="t">tick</b>. Every tick says: now.</p>
+    </div>
+  </section>
+
+  <section class="sheet" id="s4" aria-label="Remembering">
+    <div class="copy beats">
+      <div class="beat" id="b4a">
+        <p class="kicker">3. Remembering</p>
+        <h2>Memory means holding a state</h2>
+        <p>A doorbell rings only while you press it. Let go and it stops. It forgets.</p>
+        <p>A light switch stays where you left it. It remembers.</p>
+        <p>A <b class="t">latch</b> is the light switch kind. It is built from two <b class="t">logic gates</b>. A gate is a tiny decision maker.</p>
+        <p>Each gate feeds its answer into the other. That loop holds itself in place. Press SET and the output, called <b class="t">Q</b>, turns on. Let go and Q stays on.</p>
+      </div>
+      <div class="beat" id="b4b">
+        <p class="kicker">3. Remembering</p>
+        <h2>The clock says when to listen</h2>
+        <p>A <b class="t">D flip-flop</b> is a latch with a clock input. <b class="t">D</b> is the data coming in.</p>
+        <p>Most of the time it ignores D.</p>
+        <p>On each tick it copies D to Q. Then it holds that value until the next tick.</p>
+        <p>The rows on the screen show it. Q only changes on a tick.</p>
+      </div>
+      <div class="beat" id="b4c">
+        <p class="kicker">3. Remembering</p>
+        <h2>That is one bit</h2>
+        <p>A <b class="t">bit</b> is a single 0 or 1.</p>
+        <p>A flip-flop holds one bit for as long as it has power.</p>
+        <p>A <b class="t">processor</b>, the chip that runs a computer, keeps the numbers it is working on in rows of flip-flops like this. On every tick of its clock, they can all update together.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sheet" id="s5" aria-label="Recap and try it">
+    <div class="copy">
+      <p class="kicker">Recap</p>
+      <h2>From ticks to memory</h2>
+      <ol class="recap">
+        <li>A capacitor filling through a resistor takes a set amount of time.</li>
+        <li>A 555 chip fills and drains it over and over. Its output is a clock.</li>
+        <li>A latch feeds its output back into itself, so it holds a 0 or a 1. A clock decides when it may change.</li>
+      </ol>
+    </div>
+    <div class="play">
+      <figure class="toy" id="latch">
+        <h3>Try a latch</h3>
+        <p class="hint">Press and hold a button, then let go. Keys S and R work too.</p>
+        <div class="toy-row">
+          <svg class="lamp" viewBox="0 0 100 100" role="img" aria-label="Q lamp off">
+            <circle class="glow" cx="50" cy="50" r="48" fill="url(#toyGlowA)"/>
+            <radialGradient id="toyGlowA" class="g-amber"><stop offset="0" stop-opacity=".9"/><stop offset="1" stop-opacity="0"/></radialGradient>
+            <circle cx="50" cy="50" r="20" class="lampBody"/>
+            <text x="50" y="57" text-anchor="middle" style="fill:var(--ink);font-size:20px;font-weight:600">Q</text>
+          </svg>
+          <div class="btns">
+            <button type="button" class="btn hold" data-in="S">SET</button>
+            <button type="button" class="btn hold" data-in="R">RESET</button>
+          </div>
+        </div>
+        <p class="status" aria-live="polite">Q = 0. Press SET.</p>
+        <figcaption class="credit">AI-generated diagram</figcaption>
+      </figure>
+      <figure class="toy" id="dff">
+        <h3>Try a D flip-flop</h3>
+        <p class="hint">Change D. Nothing happens until you press Tick.</p>
+        <div class="toy-row">
+          <svg class="lamp" viewBox="0 0 100 100" role="img" aria-label="Q lamp off">
+            <circle class="glow" cx="50" cy="50" r="48" fill="url(#toyGlowC)"/>
+            <radialGradient id="toyGlowC" class="g-cyan"><stop offset="0" stop-opacity=".9"/><stop offset="1" stop-opacity="0"/></radialGradient>
+            <circle cx="50" cy="50" r="20" class="lampBody"/>
+            <text x="50" y="57" text-anchor="middle" style="fill:var(--ink);font-size:20px;font-weight:600">Q</text>
+          </svg>
+          <div class="btns">
+            <button type="button" class="btn d-btn" aria-pressed="false">D = 0</button>
+            <button type="button" class="btn tick-btn">Tick</button>
+          </div>
+        </div>
+        <p class="status" aria-live="polite">D = 0 and Q = 0.</p>
+        <figcaption class="credit">AI-generated diagram</figcaption>
+      </figure>
+    </div>
+    <p class="foot">Image credits: every diagram and icon on this page was drawn as SVG code by an AI assistant for this page, and each one is captioned "AI-generated". No photos or third-party images are used. Animation by <a href="https://gsap.com/">GSAP</a> with ScrollTrigger and MorphSVG.</p>
+  </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/MorphSVGPlugin.min.js"></script>
+<script>
+(() => {
+"use strict";
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+
+/* ---------- Interactive toys (plain JS, work without GSAP) ---------- */
+function setLamp(svg, on) {
+  svg.classList.toggle("on", on);
+  svg.setAttribute("aria-label", "Q lamp " + (on ? "on" : "off"));
+}
+
+(function latchToy() {
+  const root = $("#latch"), status = $(".status", root), lamp = $(".lamp", root);
+  const held = { S: false, R: false };
+  let Q = 0;
+  const render = () => {
+    const bad = held.S && held.R;
+    root.classList.toggle("bad", bad);
+    if (bad) {
+      status.textContent = "Both at once is not allowed. A latch cannot set and reset at the same time.";
+    } else {
+      if (held.S) Q = 1;
+      if (held.R) Q = 0;
+      status.textContent = held.S ? "SET is held. Q turns on."
+        : held.R ? "RESET is held. Q turns off."
+        : Q ? "Q = 1. It stays on after you let go. That is memory."
+        : "Q = 0. It stays off until you press SET.";
+    }
+    setLamp(lamp, !!Q);
+  };
+  const buttons = {};
+  $$(".hold", root).forEach(b => {
+    const k = b.dataset.in;
+    buttons[k] = b;
+    const set = v => { if (held[k] === v) return; held[k] = v; b.classList.toggle("down", v); render(); };
+    b.addEventListener("pointerdown", e => {
+      if (e.button !== 0) return;
+      e.preventDefault();
+      try { b.setPointerCapture(e.pointerId); } catch (_) {}
+      set(true);
+    });
+    ["pointerup", "pointercancel", "lostpointercapture"].forEach(t => b.addEventListener(t, () => set(false)));
+    b.addEventListener("keydown", e => { if ((e.key === " " || e.key === "Enter") && !e.repeat) { e.preventDefault(); set(true); } });
+    b.addEventListener("keyup", e => { if (e.key === " " || e.key === "Enter") { e.preventDefault(); set(false); } });
+    b.addEventListener("blur", () => set(false));
+    b.addEventListener("contextmenu", e => e.preventDefault());
+    b._set = set;
+  });
+  // Keys S and R let keyboard users hold both at once.
+  const keyMap = { s: "S", r: "R" };
+  const typing = el => el && (el.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName));
+  document.addEventListener("keydown", e => {
+    const k = keyMap[e.key.toLowerCase()];
+    if (!k || e.repeat || e.ctrlKey || e.metaKey || e.altKey || typing(document.activeElement)) return;
+    buttons[k]._set(true);
+  });
+  document.addEventListener("keyup", e => { const k = keyMap[e.key.toLowerCase()]; if (k) buttons[k]._set(false); });
+  window.addEventListener("blur", () => { buttons.S._set(false); buttons.R._set(false); });
+  render();
+})();
+
+(function dffToy() {
+  const root = $("#dff"), status = $(".status", root), lamp = $(".lamp", root);
+  const dBtn = $(".d-btn", root), tBtn = $(".tick-btn", root);
+  let D = 0, Q = 0;
+  dBtn.addEventListener("click", () => {
+    D ^= 1;
+    dBtn.textContent = "D = " + D;
+    dBtn.setAttribute("aria-pressed", String(!!D));
+    status.textContent = D === Q
+      ? "D = " + D + ". Q already matches, so a tick changes nothing."
+      : "D = " + D + ", but Q still holds " + Q + ". It waits for a tick.";
+  });
+  tBtn.addEventListener("click", () => {
+    Q = D;
+    setLamp(lamp, !!Q);
+    status.textContent = "Tick. Q copied D. Q = " + Q + ", and it holds until the next tick.";
+    root.classList.remove("ticked"); void root.offsetWidth; root.classList.add("ticked");
+  });
+})();
+
+/* ---------- Scroll story (needs GSAP) ---------- */
+if (!(window.gsap && window.ScrollTrigger && window.MorphSVGPlugin)) {
+  document.documentElement.classList.remove("js-anim");
+  return;
+}
+gsap.registerPlugin(ScrollTrigger, MorphSVGPlugin);
+ScrollTrigger.config({ ignoreMobileResize: true });
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// Screen geometry, in stage units. v = 0 is an empty bucket, v = 1 is full.
+const X0 = 80, W = 840, X1 = X0 + W, YL = 380, AMP = 260;
+const Y = v => YL - v * AMP;
+const xAt = t => X0 + t * W;
+const r1 = n => Math.round(n * 10) / 10;
+const toD = pts => "M" + pts.map(p => r1(p[0]) + "," + r1(p[1])).join(" L");
+
+// 1. Looping pulse for the intro
+const PER = 140, PULSE_X = -100, RISE = 21, HIGH = 70;
+const pulse = [[PULSE_X, Y(.15)]];
+for (let x = PULSE_X; x < 1110; x += PER) {
+  const r = x + RISE, f = r + HIGH;
+  pulse.push([r, Y(.15)], [r, Y(.85)], [f, Y(.85)], [f, Y(.15)]);
+}
+// 2. RC charge curve: v = 1 - e^(-k t)
+const K = 4, rcV = t => 1 - Math.exp(-K * t);
+const rc = Array.from({ length: 81 }, (_, i) => [xAt(i / 80), Y(rcV(i / 80))]);
+const T23 = Math.log(3) / K; // moment the curve crosses 2/3
+// 3. 555 astable: charge to 2/3, discharge to 1/3, repeat
+const TC = .13, TD = .08, segs = [];
+{ let t = 0, v = 0, charging = true;
+  while (t < 1) {
+    const target = charging ? 2 / 3 : 1 / 3;
+    const dur = charging ? TC * Math.log((1 - v) / (1 - target)) : TD * Math.log(v / target);
+    segs.push({ t0: t, t1: Math.min(1, t + dur), charging, v0: v });
+    t += dur; v = target; charging = !charging;
+  } }
+const saw = [], square = [];
+segs.forEach(s => {
+  for (let i = 0; i <= 12; i++) {
+    const tt = s.t0 + (s.t1 - s.t0) * i / 12, dt = tt - s.t0;
+    const v = s.charging ? 1 - (1 - s.v0) * Math.exp(-dt / TC) : s.v0 * Math.exp(-dt / TD);
+    saw.push([xAt(tt), Y(v)]);
+  }
+  const lvl = Y(s.charging ? .85 : .15);
+  square.push([xAt(s.t0), lvl], [xAt(s.t1), lvl]);
+});
+const edges = segs.filter((s, i) => i > 0 && s.charging).map(s => xAt(s.t0));
+// 4. Bit cell
+const bitD = "M440,180 L560,180 L560,300 L440,300 Z";
+
+// Timing diagram rows. D changes between ticks, Q copies D at each tick.
+const pat = edges.map((_, k) => [1, 0, 1, 1, 0, 1, 0, 1][k % 8]);
+pat[pat.length - 1] = 1; pat[pat.length - 2] = 0;
+const DH = 215, DL = 255, QH = 305, QL = 345;
+const dPts = [[X0, pat[0] ? DH : DL]], qPts = [[X0, QL]];
+edges.forEach((e, k) => {
+  const next = k + 1 < edges.length ? edges[k + 1] : X1 + 60;
+  const mid = e + (next - e) / 2;
+  const qy = pat[k] ? QH : QL, qPrev = qPts[qPts.length - 1][1];
+  qPts.push([e, qPrev], [e, qy]);
+  if (k + 1 < pat.length) {
+    const dPrev = dPts[dPts.length - 1][1], dy = pat[k + 1] ? DH : DL;
+    dPts.push([mid, dPrev], [mid, dy]);
+  }
+});
+dPts.push([X1 + 40, dPts[dPts.length - 1][1]]);
+qPts.push([X1 + 40, qPts[qPts.length - 1][1]]);
+$("#dRow").setAttribute("d", toD(dPts));
+$("#qRow").setAttribute("d", toD(qPts));
+$("#bitDigit").textContent = String(pat[pat.length - 1]);
+
+// Tick markers under each rising edge
+const NS = "http://www.w3.org/2000/svg";
+const tickEls = edges.map(e => {
+  const p = document.createElementNS(NS, "path");
+  p.setAttribute("class", "tickm");
+  p.setAttribute("d", `M${r1(e - 9)},424 L${r1(e + 9)},424 L${r1(e)},408 Z`);
+  $("#ticks").appendChild(p);
+  gsap.set(p, { svgOrigin: `${r1(e)} 416` });
+  return p;
+});
+
+const trace = $("#trace");
+trace.setAttribute("d", toD(pulse));
+const ledGlow = $("#ledGlow");
+
+/* Initial states */
+gsap.set(["#th23", "#th13", "#levels", "#ticks", "#playhead", "#rows", "#rowLabels", "#bit", "#dot",
+  "#g-rc", "#g-chip", "#chipOut", "#g-latch", "#g-dff", "#edgeTravel", "#flow",
+  "#sGlow", "#qGlow", "#loopGlow", "#latchLamp", "#latchNote", "#clkGlow", "#dffLamp"], { opacity: 0 });
+gsap.set("#revealRect", { svgOrigin: "80 0" });
+gsap.set("#rowsRect", { svgOrigin: "80 0", scaleX: 0 });
+gsap.set("#heroMove", { svgOrigin: "500 159" });
+gsap.set("#lever", { svgOrigin: "170 520", rotation: -32 });
+gsap.set("#fill", { svgOrigin: "610 720", scaleY: 0 });
+gsap.set("#dot", { x: X0, y: Y(0) });
+gsap.set("#g-chip", { x: 30 });
+const EDGE_PICK = edges[Math.min(1, edges.length - 1)];
+gsap.set("#edgeTravel", { svgOrigin: "0 0", x: EDGE_PICK, y: 135 });
+gsap.set(["#b2b", "#b4b", "#b4c"], { opacity: 0, y: 24 });
+gsap.set(".recap li", { opacity: 0, y: 16 });
+
+/* Pins. Lengths are in screen heights. Gaps between sheets are one screen of scroll. */
+const PIN = [.6, 3.2, 1.6, 3.6, .6];
+const sheets = $$(".sheet");
+const start = []; // timeline time where each sheet pins
+{ let t = 0; PIN.forEach((p, i) => { start.push(t); t += p + 1; }); }
+const END = start[4] + PIN[4];
+sheets.forEach((el, i) => ScrollTrigger.create({
+  trigger: el, start: "top top", end: () => "+=" + PIN[i] * window.innerHeight,
+  pin: true, pinSpacing: true, invalidateOnRefresh: true
+}));
+
+/* One master timeline. 1 unit of time = 1 screen height of scroll,
+   so each sheet's slice of the timeline maps exactly onto its pin. */
+const tl = gsap.timeline({ paused: true, defaults: { ease: "power1.inOut" } });
+const [S1, S2, S3, S4, S5] = start;
+const G1 = S1 + PIN[0], G2 = S2 + PIN[1], G3 = S3 + PIN[2], G4 = S4 + PIN[3];
+
+// Sheet 1: the cue fades as you begin
+tl.to("#cue", { opacity: 0, y: -10, duration: .4 }, S1);
+
+// Gap 1 to 2: the pulse flattens into a charge curve and wipes away; the circuit arrives
+tl.to(["#g-intro", "#nowLine"], { opacity: 0, duration: .4 }, G1);
+tl.to(trace, { morphSVG: toD(rc), duration: .7 }, G1 + .15);
+tl.to("#revealRect", { scaleX: 0, duration: .6, ease: "power1.in" }, G1 + .3);
+tl.to("#g-rc", { opacity: 1, duration: .4 }, G1 + .5);
+tl.to("#dot", { opacity: 1, duration: .1 }, G1 + .9);
+
+// Sheet 2, beat A: close the switch, the bucket fills, the curve draws
+tl.to("#lever", { rotation: 0, duration: .25, ease: "power2.in" }, S2 + .1);
+tl.to("#flow", { opacity: 1, duration: .1 }, S2 + .3);
+tl.to("#flow", { opacity: .1, duration: 1.1, ease: "power3.out" }, S2 + .4);
+tl.to("#revealRect", { scaleX: 1, duration: 1.2, ease: "none" }, S2 + .35);
+const prox = { p: 0 };
+tl.to(prox, { p: 1, duration: 1.2, ease: "none", onUpdate() {
+  gsap.set("#dot", { x: xAt(prox.p), y: Y(rcV(prox.p)) });
+  gsap.set("#fill", { scaleY: rcV(prox.p) });
+} }, S2 + .35);
+tl.to("#th23", { opacity: 1, duration: .15 }, S2 + .35 + 1.2 * T23);
+// Sheet 2, beat B: the 555 takes over and the curve becomes a sawtooth
+tl.to("#b2a", { opacity: 0, y: -24, duration: .3 }, S2 + 1.65);
+tl.to("#b2b", { opacity: 1, y: 0, duration: .3 }, S2 + 1.85);
+tl.to("#g-chip", { opacity: 1, x: 0, duration: .35 }, S2 + 1.9);
+tl.to("#th13", { opacity: 1, duration: .2 }, S2 + 2.0);
+tl.to(["#dot", "#flow"], { opacity: 0, duration: .15 }, S2 + 2.0);
+tl.to(trace, { morphSVG: toD(saw), duration: .8 }, S2 + 2.15);
+[2 / 3, 1 / 3, 2 / 3, 1 / 3, .5].forEach((v, i) =>
+  tl.to("#fill", { scaleY: v, duration: .16 }, S2 + 2.15 + i * .16));
+
+// Gap 2 to 3: keep only the flips
+tl.to("#g-rc", { opacity: 0, duration: .35 }, G2);
+tl.to("#g-chip", { x: -290, duration: .6, ease: "power2.inOut" }, G2 + .1);
+tl.to(["#th23", "#th13"], { opacity: 0, duration: .3 }, G2 + .2);
+tl.to(trace, { morphSVG: toD(square), duration: .6 }, G2 + .3);
+tl.to("#chipOut", { opacity: 1, duration: .3 }, G2 + .6);
+
+// Sheet 3: 1 and 0, then a playhead sweeps and each rise flashes as a tick
+tl.to("#levels", { opacity: 1, duration: .3 }, S3 + .1);
+tl.to(["#ticks", "#playhead"], { opacity: 1, duration: .2 }, S3 + .35);
+tl.to("#playhead", { x: W, duration: 1, ease: "none" }, S3 + .5);
+tickEls.forEach((el, k) => {
+  const at = S3 + .5 + (edges[k] - X0) / W;
+  tl.to(el, { scale: 1.9, duration: .05, ease: "none" }, at)
+    .to(el, { scale: 1, duration: .12, ease: "power1.out" }, at + .05);
+});
+
+// Gap 3 to 4: the clock dims, the latch arrives
+tl.to(["#levels", "#ticks", "#playhead", "#g-chip"], { opacity: 0, duration: .35 }, G3);
+tl.to("#heroMove", { opacity: .3, duration: .4 }, G3 + .1);
+tl.to("#g-latch", { opacity: 1, duration: .4 }, G3 + .5);
+
+// Sheet 4, beat A: press SET, Q turns on, the loop holds it, let go
+tl.to("#sGlow", { opacity: 1, duration: .15 }, S4 + .2);
+tl.to(["#qGlow", "#latchLamp"], { opacity: 1, duration: .15 }, S4 + .4);
+tl.to("#loopGlow", { opacity: 1, duration: .2 }, S4 + .6);
+tl.fromTo("#loopGlow", { strokeDashoffset: 0 }, { strokeDashoffset: -144, duration: .9, ease: "none", immediateRender: false }, S4 + .6);
+tl.to("#sGlow", { opacity: 0, duration: .15 }, S4 + .9);
+tl.to("#latchNote", { opacity: 1, duration: .2 }, S4 + 1.05);
+// Sheet 4, beat B: the clock shrinks to a row, one edge travels into CLK
+tl.to("#b4a", { opacity: 0, y: -24, duration: .3 }, S4 + 1.5);
+tl.to("#b4b", { opacity: 1, y: 0, duration: .3 }, S4 + 1.7);
+tl.to("#g-latch", { opacity: 0, duration: .3 }, S4 + 1.5);
+tl.to("#g-dff", { opacity: 1, duration: .3 }, S4 + 1.7);
+tl.to("#heroMove", { opacity: 1, y: -49, scaleY: 50 / 182, duration: .4, ease: "power2.inOut" }, S4 + 1.8);
+tl.to("#rowLabels", { opacity: 1, duration: .25 }, S4 + 2.1);
+tl.to("#edgeTravel", { opacity: 1, duration: .08 }, S4 + 2.2);
+tl.to("#edgeTravel", { x: 330, y: 680, duration: .35, ease: "power2.inOut" }, S4 + 2.28);
+tl.to("#edgeTravel", { opacity: 0, scale: .4, duration: .1 }, S4 + 2.63);
+tl.to("#rows", { opacity: 1, duration: .05 }, S4 + 2.68);
+tl.to("#rowsRect", { scaleX: 1, duration: .7, ease: "none" }, S4 + 2.7);
+edges.forEach((e, k) => {
+  const at = S4 + 2.7 + .7 * (e - X0) / 880;
+  tl.to("#clkGlow", { opacity: 1, duration: .03, ease: "none" }, at)
+    .to("#clkGlow", { opacity: 0, duration: .08, ease: "none" }, at + .03)
+    .to("#dffLamp", { opacity: pat[k], duration: .04, ease: "none" }, at);
+});
+// Sheet 4, beat C: the clock collapses into one bit cell
+tl.to("#b4b", { opacity: 0, y: -24, duration: .25 }, S4 + 3.0);
+tl.to("#b4c", { opacity: 1, y: 0, duration: .25 }, S4 + 3.15);
+tl.to(["#rows", "#rowLabels"], { opacity: 0, duration: .2 }, S4 + 3.0);
+tl.to("#g-dff", { opacity: .35, duration: .2 }, S4 + 3.0);
+tl.to("#heroMove", { y: 0, scaleY: 1, duration: .4, ease: "power2.inOut" }, S4 + 3.05);
+tl.to(trace, { morphSVG: bitD, duration: .4, ease: "power2.inOut" }, S4 + 3.05);
+tl.to("#bit", { opacity: 1, duration: .2 }, S4 + 3.35);
+
+// Gap 4 to 5: the stage steps aside for the hands-on toys
+tl.to("#stage", { opacity: 0, duration: .5 }, G4 + .1);
+tl.to(".recap li", { opacity: 1, y: 0, duration: .2, stagger: .1 }, G4 + .6);
+tl.set({}, {}, END);
+
+/* Intro loop: the pulse slides left and the LED lights while the pulse is high at the dashed line */
+let loop = null;
+const HIGH_OP = 1, LOW_OP = .08;
+const ledAt = () => {
+  const lx = 500 - gsap.getProperty("#heroLoop", "x");
+  const ph = (((lx - PULSE_X) % PER) + PER) % PER;
+  ledGlow.style.opacity = ph >= RISE && ph < RISE + HIGH ? HIGH_OP : LOW_OP;
+};
+if (reduce) {
+  ledAt();
+} else {
+  loop = gsap.to("#heroLoop", { x: -PER, duration: 1.4, ease: "none", repeat: -1, onUpdate: ledAt });
+}
+const loopFor = t => {
+  if (!loop) return;
+  if (t <= G1 + .05) { if (loop.paused()) loop.resume(); }
+  else if (!loop.paused()) { loop.pause(); gsap.to("#heroLoop", { x: 0, duration: .25, ease: "power1.out" }); }
+};
+
+/* Progress rail */
+const dots = $$(".rail button");
+let railOn = -1;
+const railFor = t => {
+  let i = 0;
+  start.forEach((s, k) => { if (t >= s - .5) i = k; });
+  if (i === railOn) return;
+  railOn = i;
+  dots.forEach((d, k) => { d.classList.toggle("on", k === i); if (k === i) d.setAttribute("aria-current", "step"); else d.removeAttribute("aria-current"); });
+};
+
+/* Reduced motion: no scrubbing, jump straight to each finished state */
+const REST = [[0, 0], [G1 + .5, S2 + 1.55], [S2 + 1.6, G2 - .05], [G2 + .5, G3 - .1],
+  [G3 + .5, S4 + 1.45], [S4 + 1.5, S4 + 2.95], [S4 + 3.0, G4 - .05], [G4 + .5, END]];
+let shown = -1;
+const snapFor = t => {
+  let show = 0;
+  REST.forEach(([a, b]) => { if (t >= a) show = b; });
+  if (show !== shown) { shown = show; tl.time(show, false); }
+};
+
+const master = ScrollTrigger.create({
+  start: 0, end: "max",
+  animation: reduce ? null : tl,
+  scrub: reduce ? false : .5,
+  onUpdate: self => sync(self),
+  onRefresh: self => sync(self)
+});
+function sync(self) {
+  const t = self.progress * END;
+  railFor(t); loopFor(t);
+  if (reduce) snapFor(t);
+}
+sync(master);
+
+dots.forEach((d, k) => d.addEventListener("click", () => {
+  const y = master.start + (start[k] + (k ? .02 : 0)) / END * (master.end - master.start);
+  window.scrollTo({ top: y, behavior: reduce ? "auto" : "smooth" });
+}));
+
+matchMedia("(orientation: portrait)").addEventListener("change", () => ScrollTrigger.refresh());
+})();
+</script>
+</body>
+</html>
