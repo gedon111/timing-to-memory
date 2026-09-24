@@ -53,7 +53,7 @@ Releasing Set and Reset together makes the latch wobble. Real gates are never ex
 
 ## Run it
 
-Open `index.html` in a browser. It loads GSAP 3.13 (core, ScrollTrigger, MorphSVGPlugin) from the jsDelivr CDN. Without GSAP, the text and the memory lab still work, but the animated diagrams are hidden.
+Open `index.html` in a browser. Fonts (Source Serif 4, Inter, JetBrains Mono) load from Google Fonts and fall back to Georgia and system fonts offline. It loads GSAP 3.13 (core, ScrollTrigger, MorphSVGPlugin) from the jsDelivr CDN. Without GSAP, the text and the memory lab still work, but the animated diagrams are hidden.
 
 The page is landscape only. On a portrait screen it asks you to rotate the device. With reduced motion turned on, the page skips scrubbing and loops and shows each finished diagram.
 
