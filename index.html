@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>From Ticks to Memory</title>
-<meta name="description" content="A presented, scrolling explainer. How timing circuits make a clock, how a clock and a loop of gates make memory, and how DRAM and NAND flash store billions of bits.">
+<title>Electronic Timing Circuit Memory</title>
+<meta name="description" content="A presented, scrolling explainer. How timing circuits make a clock, how a clock and a loop of gates make memory, and how DRAM uses a timer to keep billions of bits.">
 <style>
 :root{
   --bg:#0a0e0c; --panel:#101713; --panel-2:#0d1411; --grid:#1a281f; --edge:#27382f;
@@ -16,21 +16,21 @@
 html,body{margin:0;background:var(--bg);color:var(--ink)}
 body{
   font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-  font-size:clamp(14px, min(1.7vw, 3.2vh), 28px); line-height:1.4;
+  font-size:clamp(21px, min(2.55vw, 4.8vh), 42px); line-height:1.4;
   background:radial-gradient(120vw 90vh at 70% 40%, #0f1813 0%, var(--bg) 60%) fixed;
 }
 a{color:var(--trace)}
 b.t, .t{color:var(--amber);font-weight:600}
 .ov{text-decoration:overline}
 h1,h2,h3{line-height:1.1;margin:0 0 .5em}
-h1{font-size:clamp(2.2rem, min(6.6vw, 12vh), 6rem);letter-spacing:-.02em}
-h2{font-size:clamp(1.4rem, min(3.1vw, 5.8vh), 3rem);letter-spacing:-.01em}
+h1{font-size:clamp(2.6rem, min(5.6vw, 8.6vh), 6.5rem);letter-spacing:-.02em}
+h2{font-size:clamp(2.1rem, min(4.65vw, 8.7vh), 4.5rem);letter-spacing:-.01em}
 p{margin:0 0 .6em}
 .kicker{color:var(--trace);text-transform:uppercase;letter-spacing:.14em;font-size:.72em;margin-bottom:.8em}
 .lede{font-size:1.3em;color:var(--muted);max-width:26em}
 .note{color:var(--muted);font-size:.9em;border-left:2px solid var(--edge);padding-left:.8em}
 .big-f{font-size:1.25em;font-weight:600;color:var(--amber)}
-.credit{font-size:.8rem;color:var(--muted);letter-spacing:.02em;line-height:1.35}
+.credit{font-size:1.2rem;color:var(--muted);letter-spacing:.02em;line-height:1.35}
 .credit a{color:var(--muted)}
 
 /* Real photos and schematics from the web */
@@ -47,10 +47,10 @@ main{position:relative;z-index:1}
 .js-anim .beats{display:grid}
 .js-anim .beat{grid-area:1/1}
 html:not(.js-anim) .beat + .beat{margin-top:2.5em}
-.sheet.wide .copy{width:min(66rem, 88vw)}
+.sheet.wide .copy{width:88vw}
 
 /* Scroll cue */
-.cue{margin-top:2.5em;display:inline-flex;flex-direction:column;align-items:center;gap:.4em;color:var(--muted);font-size:.8em;letter-spacing:.2em;text-transform:uppercase}
+.cue{margin-top:1.2em;display:inline-flex;flex-direction:column;align-items:center;gap:.4em;color:var(--muted);font-size:.8em;letter-spacing:.2em;text-transform:uppercase}
 .cue i{width:14px;height:14px;border-right:2px solid var(--trace);border-bottom:2px solid var(--trace);transform:rotate(45deg);animation:bob 1.4s ease-in-out infinite}
 @keyframes bob{0%,100%{transform:translateY(0) rotate(45deg)}50%{transform:translateY(8px) rotate(45deg)}}
 
@@ -135,7 +135,7 @@ svg text{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 .rail button.on span{background:var(--trace);opacity:1;transform:scale(1.6)}
 
 /* Presenter counter (press N) */
-#hud{position:fixed;left:1.2vw;bottom:1.2vh;z-index:5;font:600 15px ui-monospace,Menlo,Consolas,monospace;color:var(--bg);background:var(--trace);padding:.3em .6em;border-radius:6px}
+#hud{position:fixed;left:1.2vw;bottom:1.2vh;z-index:5;font:600 22px ui-monospace,Menlo,Consolas,monospace;color:var(--bg);background:var(--trace);padding:.3em .6em;border-radius:6px}
 #hud[hidden]{display:none}
 
 /* Buttons */
@@ -156,8 +156,9 @@ svg text{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 
 /* Memory lab */
 .lab{display:grid;grid-template-columns:minmax(15rem, 33%) 1fr;gap:2.2vw;width:100%;height:88vh}
-.lab-side{display:flex;flex-direction:column;gap:.6em;overflow:auto;min-height:0;padding-right:.3em}
+.lab-side{font-size:min(1em, 2.2vw);display:flex;flex-direction:column;gap:.45em;overflow:auto;min-height:0;padding-right:.3em}
 .lab-side h2{margin:0}
+.lab-side .btn{padding:.4em .7em;letter-spacing:0}
 .lab-side .kicker{margin:0}
 .lab-main{display:flex;flex-direction:column;gap:1.4vh;min-width:0;min-height:0}
 #schem{flex:0 0 44%;min-height:0;width:100%;background:var(--panel);border:1px solid var(--edge);border-radius:12px}
@@ -167,7 +168,6 @@ svg text{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 .ctl[hidden]{display:none}
 .tip{font-size:.9em;background:var(--panel);border:1px solid var(--edge);border-radius:10px;padding:.55em .8em;margin:0}
 .lstat{font-size:.9em;margin:0;min-height:2.6em;color:var(--cyan)}
-.keys{font-size:.8em;color:var(--muted);margin:0}
 .lw{fill:none;stroke:var(--dim);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
 .lw.hi{stroke:var(--trace)}
 .lg{fill:#15201a;stroke:var(--ink);stroke-width:2.5}
@@ -183,11 +183,11 @@ svg text{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 .st.ink{fill:var(--ink);font-size:21px;font-weight:600}
 
 /* Close */
-.close{display:grid;grid-template-columns:1.3fr 1fr;gap:4vw;align-items:center;width:100%}
+.close{display:grid;grid-template-columns:1fr auto;gap:4vw;align-items:center;width:100%}
 .recap{padding-left:1.2em;margin:0}
 .recap li{margin-bottom:.6em}
-.qs{font-size:clamp(2.4rem, min(7vw, 13vh), 6rem);font-weight:700;color:var(--trace);letter-spacing:-.02em;margin:0}
-.foot{position:absolute;left:5vw;right:5vw;bottom:2vh;margin:0;color:var(--muted);font-size:.85rem;line-height:1.4}
+.qs{font-size:clamp(3.6rem, min(7.5vw, 13vh), 9rem);font-weight:700;color:var(--trace);letter-spacing:-.02em;margin:0}
+.foot{position:absolute;left:5vw;right:5vw;bottom:2vh;margin:0;color:var(--muted);font-size:1.25rem;line-height:1.4}
 html:not(.js-anim) .foot{position:static;margin-top:2em}
 html:not(.js-anim) .close{grid-template-columns:1fr}
 html:not(.js-anim) .lab{grid-template-columns:1fr;height:auto}
@@ -198,7 +198,7 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
 .rotate{display:none}
 @media (orientation: portrait){
   main, #stage, .rail, #hud{display:none !important}
-  .rotate{display:flex;position:fixed;inset:0;z-index:10;flex-direction:column;align-items:center;justify-content:center;gap:1.2rem;padding:8vw;text-align:center;background:var(--bg);font-size:18px}
+  .rotate{display:flex;position:fixed;inset:0;z-index:10;flex-direction:column;align-items:center;justify-content:center;gap:1.2rem;padding:8vw;text-align:center;background:var(--bg);font-size:27px}
   .rotate svg{width:120px;height:120px;animation:turn 2.4s ease-in-out infinite}
 }
 @keyframes turn{0%,20%{transform:rotate(0)}50%,80%{transform:rotate(-90deg)}100%{transform:rotate(0)}}
@@ -585,60 +585,14 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
     <text id="dcap6" data-h="" class="lbl green" x="600" y="700">Write it back.</text>
   </g>
 
-  <!-- NAND flash cell, cut open -->
-  <g id="g-nand" data-h="">
-    <text class="lbl sm" x="120" y="200">one flash cell, cut open</text>
-    <rect class="si" x="120" y="400" width="520" height="120"/>
-    <rect class="well" x="140" y="400" width="90" height="40"/><rect class="well" x="530" y="400" width="90" height="40"/>
-    <text class="lbl sm" x="380" y="500" text-anchor="middle">silicon</text>
-    <rect class="cg" x="260" y="232" width="240" height="60"/>
-    <rect class="ox" x="260" y="292" width="240" height="30"/>
-    <rect class="trap" x="260" y="322" width="240" height="60"/>
-    <rect class="ox" x="260" y="382" width="240" height="18"/>
-    <rect id="cgGlow" data-h="" x="256" y="228" width="248" height="68" fill="none" stroke="var(--amber)" stroke-width="6"/>
-    <text id="cgVolt" data-h="" class="lbl amber big" x="660" y="250">strong push</text>
-    <text class="lbl ink sm" x="520" y="268">top plate</text>
-    <text class="lbl sm" x="520" y="313">insulation</text>
-    <text class="lbl amber sm" x="520" y="358">pocket: holds electrons</text>
-    <text class="lbl sm" x="660" y="398">thin insulation</text>
-    <g id="eTrap"></g>
-    <g id="eChan" data-h=""></g>
-    <g id="wear" data-h="">
-      <path class="wear" d="M300,384 l8,14 M352,384 l-6,14 M410,384 l8,14 M462,384 l-6,14"/>
-    </g>
-    <g id="powerOff" data-h="">
-      <circle cx="720" cy="180" r="24" fill="none" stroke="var(--red)" stroke-width="4"/>
-      <path d="M703,197 L737,163" stroke="var(--red)" stroke-width="4"/>
-      <text class="lbl red" x="756" y="188">power off</text>
-    </g>
-    <text id="nandCap1" data-h="" class="lbl ink" x="380" y="590" text-anchor="middle">The electrons stay put for years.</text>
-    <g id="nandCap2" data-h="">
-      <text class="lbl ink" x="380" y="590" text-anchor="middle">Each trip wears the insulation a little.</text>
-      <text class="lbl red" x="380" y="628" text-anchor="middle">After thousands of writes, it wears out.</text>
-    </g>
-  </g>
-
-  <!-- NAND levels and 3D stacking -->
-  <g id="g-levels" data-h="">
-    <text class="lbl ink sm" x="220" y="92" text-anchor="middle">one cell</text>
-    <rect class="band" x="180" y="110" width="80" height="320"/>
-    <rect id="lvFill" class="water" x="184" y="112" width="72" height="316"/>
-    <path id="lvMark" d="M150,402 L166,410 L150,418 Z" fill="var(--amber)"/>
-    <text id="lvTxt" data-h="" class="lbl amber sm" x="320" y="216">stored: 101</text>
-    <text class="lbl sm" x="220" y="470" text-anchor="middle">8 fill levels = 3 bits</text>
-    <g id="stack"></g>
-    <g id="stackLbl" data-h="">
-      <text class="lbl ink" x="710" y="482" text-anchor="middle">stacked over 200 floors high</text>
-      <text class="lbl sm" x="710" y="516" text-anchor="middle">like a skyscraper (20 drawn here)</text>
-    </g>
-  </g>
 </svg>
 </figure>
 
 <main>
   <section class="sheet" id="s1" aria-labelledby="t1">
     <div class="copy">
-      <h1 id="t1">From Ticks to Memory</h1>
+      <p class="kicker">Group 10</p>
+      <h1 id="t1">Electronic Timing Circuit Memory</h1>
       <p class="lede">How circuits keep time, and how keeping time lets them remember.</p>
       <div id="cue" class="cue" aria-hidden="true"><span>Scroll or press →</span><i></i></div>
     </div>
@@ -831,8 +785,9 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
       <div class="beat" id="b11c">
         <p class="kicker">10. DRAM, your computer's RAM</p>
         <h2>So it keeps topping up</h2>
-        <p>Many times a second, every row is read and filled back up.</p>
-        <p>Fill, leak, fill, leak. Like the 555, it never stops.</p>
+        <p>Many times a second, every row is filled back up.</p>
+        <p>A timer, like the 555, says when.</p>
+        <p>Fill, leak, fill, leak. It never stops.</p>
       </div>
       <div class="beat" id="b11d">
         <p class="kicker">10. DRAM, your computer's RAM</p>
@@ -843,53 +798,28 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
     </div>
   </section>
 
-  <section class="sheet" id="s12" aria-label="NAND flash">
-    <div class="copy beats">
-      <div class="beat" id="b12a">
-        <p class="kicker">11. Flash, your SSD</p>
-        <h2>Electrons in a sealed pocket</h2>
-        <p>A flash cell has a tiny pocket wrapped in insulation.</p>
-        <p>Electrons locked inside stay for years, even with the power off.</p>
-      </div>
-      <div class="beat" id="b12b">
-        <p class="kicker">11. Flash, your SSD</p>
-        <h2>Writing wears it out</h2>
-        <p>A strong push forces electrons through the insulation.</p>
-        <p>Each push damages it a little.</p>
-      </div>
-      <div class="beat" id="b12c">
-        <p class="kicker">11. Flash, your SSD</p>
-        <h2>More bits, more floors</h2>
-        <p>One pocket can be filled to 8 levels. 8 levels hold 3 bits.</p>
-        <p>Cells are stacked like a skyscraper.</p>
-        <p>Cheap and huge, but slower than RAM.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="sheet wide" id="s13" aria-label="Three kinds of memory">
+  <section class="sheet wide" id="s12" aria-label="Two kinds of memory">
     <div class="copy">
-      <p class="kicker">12. Three kinds of memory</p>
-      <h2>Fast, big, or lasting. Pick two.</h2>
+      <p class="kicker">11. Two kinds of memory</p>
+      <h2>Fast, or big.</h2>
       <table class="cmp">
-        <thead><tr><th scope="col"></th><th scope="col">Flip-flops</th><th scope="col">DRAM</th><th scope="col">Flash</th></tr></thead>
+        <thead><tr><th scope="col"></th><th scope="col">Flip-flops</th><th scope="col">DRAM</th></tr></thead>
         <tbody>
-          <tr><th scope="row">Where</th><td>inside the processor</td><td>RAM sticks</td><td>SSDs, phones, USB sticks</td></tr>
-          <tr><th scope="row">Speed</th><td class="good">fastest</td><td>fast</td><td class="bad">slowest</td></tr>
-          <tr><th scope="row">Power off</th><td class="bad">forgets</td><td class="bad">forgets</td><td class="good">remembers for years</td></tr>
-          <tr><th scope="row">Size of a bit</th><td class="bad">big</td><td>small</td><td class="good">tiny</td></tr>
-          <tr><th scope="row">Wears out</th><td class="good">no</td><td class="good">no</td><td class="bad">after many writes</td></tr>
-          <tr><th scope="row">Like</th><td>your hands</td><td>your desk</td><td>a bookshelf</td></tr>
+          <tr><th scope="row">Where</th><td>inside the processor</td><td>RAM sticks</td></tr>
+          <tr><th scope="row">Speed</th><td class="good">fastest</td><td>fast</td></tr>
+          <tr><th scope="row">Size of a bit</th><td class="bad">big</td><td class="good">small</td></tr>
+          <tr><th scope="row">Needs a timer?</th><td>the clock tick</td><td class="bad">the clock, plus a refresh timer</td></tr>
+          <tr><th scope="row">Like</th><td>your hands</td><td>your desk</td></tr>
         </tbody>
       </table>
     </div>
   </section>
 
-  <section class="sheet wide" id="s14" aria-label="Memory lab">
+  <section class="sheet wide" id="s13" aria-label="Memory lab">
     <div class="lab" id="lab">
       <div class="lab-side">
-        <p class="kicker">13. Memory lab</p>
-        <h2>Try it yourself</h2>
+        <p class="kicker">12. Memory lab</p>
+        <h2>Try it</h2>
         <div class="seg" id="labMode" role="group" aria-label="Circuit">
           <button type="button" class="btn" data-mode="sr" aria-pressed="true">SR latch</button>
           <button type="button" class="btn" data-mode="ff" aria-pressed="false">D flip-flop</button>
@@ -897,7 +827,7 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
         <div class="ctl" data-for="sr">
           <button type="button" class="btn hold" data-in="S">Set</button>
           <button type="button" class="btn hold" data-in="R">Reset</button>
-          <button type="button" class="btn" id="bothBtn">Press both, then let go</button>
+          <button type="button" class="btn" id="bothBtn">Press both</button>
         </div>
         <div class="ctl" data-for="ff" hidden>
           <button type="button" class="btn" id="dBtn" aria-pressed="false">D = 0</button>
@@ -910,7 +840,6 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
         </div>
         <p class="tip" id="labTip"></p>
         <p class="lstat" id="labStatus" aria-live="polite"></p>
-        <p class="keys">Keys: hold S or R, D flips D, C ticks, M slow motion, P pause.</p>
       </div>
       <div class="lab-main">
         <svg id="schem" viewBox="0 0 600 300" role="img" aria-label="Live circuit diagram. Bright wires carry a 1."></svg>
@@ -919,7 +848,7 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
     </div>
   </section>
 
-  <section class="sheet wide" id="s15" aria-label="Recap and questions">
+  <section class="sheet wide" id="s14" aria-label="Recap and questions">
     <div class="close">
       <div>
         <p class="kicker">Recap</p>
@@ -928,7 +857,7 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
           <li>A bucket filling through a narrow pipe measures time.</li>
           <li>A clock turns that into steady ticks, so every part acts together.</li>
           <li>Two gates in a loop hold a bit. A flip-flop saves it on the tick.</li>
-          <li>Flip-flops are fast, RAM is big, and flash remembers with the power off.</li>
+          <li>RAM is cheap, but it leaks, so a timer keeps it topped up.</li>
         </ol>
       </div>
       <p class="qs">Questions?</p>
@@ -961,7 +890,7 @@ const typing = el => el && (el.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.
 
 /* ---------- Memory lab: a gate-level simulator (plain JS, works without GSAP) ---------- */
 const lab = (function () {
-  const root = $("#s14"), schem = $("#schem"), cv = $("#wave"), ctx = cv.getContext("2d");
+  const root = $("#s13"), schem = $("#schem"), cv = $("#wave"), ctx = cv.getContext("2d");
   const tipEl = $("#labTip"), statEl = $("#labStatus");
   const BASE = 20;   // gate delays per second at 1x
   const PX = 4;      // waveform pixels per gate delay
@@ -980,8 +909,8 @@ const lab = (function () {
     ff: [["D", "D", COL.in], ["CLK", "CLK", COL.clk], ["Q", "Q", COL.q]]
   };
   const TIPS = {
-    sr: "Hold <b>Set</b>. Q turns on. Let go, and it stays on. That is memory. <b>Reset</b> turns it off. Then try <b>Press both, then let go</b> in slow motion.",
-    ff: "Flip <b>D</b> any time. Q only copies D at the moment CLK steps up. Press <b>Tick</b> to make each step yourself."
+    sr: "Hold <b>Set</b>, then let go. Q stays on. That is memory.",
+    ff: "Flip <b>D</b>. Q copies D only when CLK steps up."
   };
 
   function build() {
@@ -1086,10 +1015,10 @@ const lab = (function () {
   function statusText() {
     if (mode === "sr") {
       const q = val("Q"), qb = val("QB");
-      if (q === qb) return inp.S && inp.R ? `Both pressed. Q = 0 and <span class="ov">Q</span> = 0.` : `Wobbling. Q and <span class="ov">Q</span> are equal.`;
+      if (q === qb) return inp.S && inp.R ? `Both pressed: Q = <span class="ov">Q</span> = 0.` : `Wobbling!`;
       return `Q = ${q}. ` + (inp.S ? "Setting." : inp.R ? "Resetting." : `It remembers ${q}.`);
     }
-    return `D = ${val("D")}, Q = ${val("Q")}. Q only changes when CLK steps up.`;
+    return `D = ${val("D")}, Q = ${val("Q")}.`;
   }
   function drawWave() {
     const dpr = window.devicePixelRatio || 1, w = cv.clientWidth, h = cv.clientHeight;
@@ -1423,19 +1352,6 @@ const sramDots = Array.from({ length: 6 }, (_, i) => mk("circle", { class: "tdot
   } }
 // DRAM refresh ticks
 refX.forEach(x => mk("path", { class: "tickm", d: `M${r1(x - 8)},424 L${r1(x + 8)},424 L${r1(x)},410 Z` }, $("#refreshTicks")));
-// NAND electrons
-const eXs = [290, 320, 350, 380, 410, 440, 470];
-eXs.forEach(x => mk("circle", { class: "electron", cx: x, cy: 352, r: 9 }, $("#eTrap")));
-const eChan = eXs.map(x => mk("circle", { class: "electron", cx: x, cy: 414, r: 9 }, $("#eChan")));
-// NAND levels and 3D stack
-{ const g = $("#g-levels");
-  for (let k = 1; k < 8; k++) mk("path", { class: "tbl", d: `M180,${430 - 40 * k} H260` }, g);
-  for (let k = 0; k < 8; k++) txt(g, 272, 430 - 40 * k - 14, k.toString(2).padStart(3, "0"), "lbl sm mono", "start"); }
-const strips = [];
-{ const s = $("#stack");
-  for (let i = 0; i < 20; i++) strips.push(mk("rect", { class: "strip", x: 560, y: 420 - i * 14, width: 260, height: 10 }, s));
-  strips.push(mk("path", { class: "top", d: "M560,154 L820,154 L860,124 L600,124 Z" }, s));
-  for (let x = 590; x <= 790; x += 40) mk("line", { class: "hole", x1: x, x2: x, y1: 154, y2: 430 }, s); }
 
 const trace = $("#trace");
 trace.setAttribute("d", toD(pulse));
@@ -1450,19 +1366,18 @@ gsap.set("#heroMove", { svgOrigin: "500 159" });
 gsap.set("#lever", { svgOrigin: "170 520", rotation: -32 });
 gsap.set("#fill", { svgOrigin: "610 720", scaleY: 0 });
 gsap.set("#dfill", { svgOrigin: "490 720", scaleY: .95 });
-gsap.set("#lvFill", { svgOrigin: "220 428", scaleY: 0 });
 gsap.set("#dot", { x: X0, y: Y(0) });
 gsap.set("#g-chip", { x: 30 });
 gsap.set("#g-555in", { svgOrigin: "560 620", scale: .92 });
 gsap.set("#g-latch", { svgOrigin: "470 640", scale: 1.15, y: -260 });
 gsap.set("#hlNot, #hlNor", { svgOrigin: "0 0" });
-gsap.set([ffDots, sramDots, regCells, strips], { opacity: 0 });
+gsap.set([ffDots, sramDots, regCells], { opacity: 0 });
 gsap.set("#dramDot", { opacity: 0 });
 gsap.set(".beats .beat:not(:first-child)", { opacity: 0, y: 24 });
 gsap.set(".cmp tbody tr, .recap li", { opacity: 0, y: 14 });
 
 /* Pins. Lengths are in screen heights. Gaps between sheets are one screen of scroll. */
-const PIN = [.6, 2.2, 2.9, 2.7, 3.7, 3.0, 3.4, 2.8, 2.2, 1.7, 4.7, 3.7, .8, .4, .6];
+const PIN = [.6, 2.2, 2.9, 2.7, 3.7, 3.0, 3.4, 2.8, 2.2, 1.7, 4.7, .8, .4, .6];
 const sheets = $$(".sheet");
 const S = [], G = [];
 { let t = 0; PIN.forEach(p => { S.push(t); G.push(t + p); t += p + 1; }); }
@@ -1717,41 +1632,14 @@ show("#dcap6", S[10] + 4.25, .15);
 hide(["#dTapGlow", "#dValveOpen", "#dFlow"], S[10] + 4.45, .15);
 beat(S[10] + 4.55, 11, 4);
 
-// Gap 11 to 12: NAND flash
+// Gap 11 to 12: the stage steps aside
 hide(["#scopeFrame", "#scopeLbl", "#heroMove", "#th50", "#refreshTicks", "#refLbl", "#g-dram"], G[10]);
-show(["#g-nand", "#nandCap1"], G[10] + .5, .4);
-
-// Sheet 12, beat A: electrons stay with the power off
-show("#powerOff", S[11] + .2, .2);
-beat(S[11] + .8, 12, 1);
-// Sheet 12, beat B: a strong push, and wear
-swap("#b12a", "#b12b", S[11] + .95);
-hide(["#powerOff", "#nandCap1"], S[11] + .95, .2);
-hide("#eTrap", S[11] + 1.05, .15);
-show("#eChan", S[11] + 1.2, .15);
-show(["#cgGlow", "#cgVolt"], S[11] + 1.4, .15);
-tl.to(eChan, { y: -62, duration: .3, stagger: .04, ease: "power2.in" }, S[11] + 1.55);
-show("#wear", S[11] + 1.9, .15);
-show("#nandCap2", S[11] + 2.1, .2);
-beat(S[11] + 2.35, 12, 2);
-// Sheet 12, beat C: 8 levels per cell, stacked like a skyscraper
-swap("#b12b", "#b12c", S[11] + 2.5);
-hide("#g-nand", S[11] + 2.5);
-show("#g-levels", S[11] + 2.7);
-tl.to("#lvMark", { y: -200, duration: .4 }, S[11] + 2.9);
-tl.to("#lvFill", { scaleY: 5.5 / 8, duration: .4 }, S[11] + 2.9);
-show("#lvTxt", S[11] + 3.25, .15);
-tl.to(strips, { opacity: 1, duration: .04, stagger: .015 }, S[11] + 2.85);
-show("#stackLbl", S[11] + 3.25, .15);
-beat(S[11] + 3.5, 12, 3);
-
-// Gap 12 to 13: the stage steps aside
-hide("#stage", G[11], .5);
-tl.to(".cmp tbody tr", { opacity: 1, y: 0, duration: .15, stagger: .07 }, G[11] + .5);
-beat(S[12] + .4, 13, 1);
-beat(S[13] + .2, 14, 1);
-tl.to(".recap li", { opacity: 1, y: 0, duration: .2, stagger: .1 }, G[13] + .5);
-beat(S[14] + .3, 15, 1);
+hide("#stage", G[10], .5);
+tl.to(".cmp tbody tr", { opacity: 1, y: 0, duration: .15, stagger: .07 }, G[10] + .5);
+beat(S[11] + .4, 12, 1);
+beat(S[12] + .2, 13, 1);
+tl.to(".recap li", { opacity: 1, y: 0, duration: .2, stagger: .1 }, G[12] + .5);
+beat(S[13] + .3, 14, 1);
 tl.set({}, {}, END);
 
 /* Intro loop: the pulse slides left and the LED lights while the pulse is high at the dashed line */
@@ -1771,7 +1659,7 @@ const loopFor = t => {
 
 /* Progress rail */
 const NAMES = ["Intro", "Why keep time", "Timing with a bucket", "The 555 timer", "The clock", "Gates", "The SR latch",
-  "Latch vs flip-flop", "Bits to bytes", "The cost of a bit", "DRAM", "NAND flash", "Three kinds of memory", "Memory lab", "Questions"];
+  "Latch vs flip-flop", "Bits to bytes", "The cost of a bit", "DRAM", "Two kinds of memory", "Memory lab", "Questions"];
 const rail = $(".rail");
 const dots = NAMES.map((n, k) => {
   const b = document.createElement("button");

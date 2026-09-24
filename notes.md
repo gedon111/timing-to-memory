@@ -1,6 +1,6 @@
-# Speaker notes: From Ticks to Memory
+# Speaker notes: Electronic Timing Circuit Memory (Group 10)
 
-About 12 minutes of talk, then questions. No math needed. The audience only needs to know that computers use 0 and 1, and how to read a binary number.
+About 11 minutes of talk, then questions. No math needed. The audience only needs to know that computers use 0 and 1, and how to read a binary number.
 
 ## How to drive the page
 
@@ -31,18 +31,19 @@ Each beat stops on a finished picture. Say your line, then press next.
 | 9 | Bits to bytes | 0:40 | 7:30 |
 | 10 | The cost of a bit | 0:30 | 8:00 |
 | 11 | DRAM | 1:10 | 9:10 |
-| 12 | Flash | 1:00 | 10:10 |
-| 13 | Compare | 0:30 | 10:40 |
-| 14 | Memory lab | 1:00 | 11:40 |
-| 15 | Recap and questions | 0:20 | 12:00 |
+| 12 | Compare | 0:30 | 9:40 |
+| 13 | Memory lab | 1:00 | 10:40 |
+| 14 | Recap and questions | 0:20 | 11:00 |
 
 If you run long, shorten the lab. If you run short, let someone from the audience drive the lab.
+
+The lab no longer shows its keys on screen, so keep the key list above handy.
 
 ---
 
 ## Sheet 1 · Intro (0:30)
 
-**1.1** "Every computer does two things all the time. It keeps time, and it remembers. Today we go from the first to the second. We start with one blinking light and end with the chips inside your phone."
+**1.1** "We are Group 10, and our topic is electronic timing circuit memory. Every computer does two things all the time. It keeps time, and it remembers. Today we go from the first to the second. We start with one blinking light and end with the chips inside your phone."
 
 Point at the light. "This light blinks because a signal goes up and down. By the end you will know where that beat comes from, and how a circuit uses it to remember."
 
@@ -108,34 +109,26 @@ Point at the light. "This light blinks because a signal goes up and down. By the
 
 **11.2** "The problem: the bucket leaks. The level slowly drops. Wait too long and a 1 falls below the line and looks like a 0."
 
-**11.3** "So the chip tops every row back up, many times a second, forever. Fill, leak, fill, leak. It looks just like the 555 from earlier. This is why RAM needs power all the time."
+**11.3** "So the chip tops every row back up, many times a second, forever. What decides when? A timer, just like the 555 from earlier. Fill, leak, fill, leak. Without that timer, RAM would forget. This is why RAM needs power all the time."
 
 **11.4** "Reading is strange too. When you read a cell, the charge spills out. The chip checks whether it was a 1 or a 0, then fills it back. And when the power goes off, everything is forgotten. That is why unsaved work disappears."
 
-## Sheet 12 · Flash, your SSD (1:00)
+## Sheet 12 · Compare (0:30)
 
-**12.1** "Flash memory, in your SSD and your phone, remembers without power. Each cell has a tiny pocket wrapped in insulation. Electrons locked in the pocket stay there for years, even with the power off."
+**12.1** "So we have two kinds of memory, and both depend on timing. Flip-flops are like your hands: very fast, but you can hold only a little. They save on the clock tick. DRAM is your desk: much bigger, but it leaks, so it needs the clock plus a refresh timer to keep its bits. That is the link between timing circuits and memory."
 
-**12.2** "Getting electrons in is the hard part. It takes a strong push to force them through the insulation. Each push damages it a little. After thousands of writes, a cell wears out. Your SSD spreads writes around so no cell wears out too early."
+## Sheet 13 · Memory lab (1:00)
 
-**12.3** "Two tricks make flash cheap. First, a pocket can be filled to 8 different levels. 8 levels hold 3 bits, as you can see from the binary labels. Second, the cells are stacked like a skyscraper, over 200 floors high. Cheap and huge, but slower than RAM."
-
-## Sheet 13 · Compare (0:30)
-
-**13.1** "So we have three kinds of memory. Flip-flops are like your hands: very fast, but you can hold only a little. DRAM is your desk: big and quick, but cleared when you leave. Flash is a bookshelf: huge and permanent, but slower to reach. A computer uses all three."
-
-## Sheet 14 · Memory lab (1:00)
-
-**14.1** Live demo. A good order:
+**13.1** Live demo. A good order:
 
 1. SR latch. Hold **Set**: Q turns on. Let go: it stays on. That is memory. Tap **Reset**: it clears.
-2. Turn on **Slow motion** and press **Press both, then let go**. Q and Q-bar flip back and forth, then one side wins at random.
+2. Turn on **Slow motion** and press **Press both**. It holds both, then lets go of both at once. Q and Q-bar flip back and forth, then one side wins at random.
 3. Switch to **D flip-flop**. Flip **D** a few times. Point out that Q only changes when the green CLK line steps up.
 4. If there is time, press **Tick** to step the clock yourself. Or invite someone from the audience.
 
-## Sheet 15 · Recap and questions (0:20)
+## Sheet 14 · Recap and questions (0:20)
 
-**15.1** Read the four lines. "A bucket measures time. A clock turns it into ticks. Gates in a loop remember. And the memory in your devices trades speed, size and lasting power. Questions?"
+**14.1** Read the four lines. "A bucket measures time. A clock turns it into ticks. Gates in a loop remember, and a flip-flop saves on the tick. And RAM only keeps its bits because a timer keeps topping it up. Questions?"
 
 ---
 
@@ -156,11 +149,8 @@ Q and Q-bar are no longer opposites. If you let go of both together, it becomes 
 **Why does RAM forget when the power is off?**
 Each bit is a tiny bucket of charge that leaks. Without power, nothing tops it up, so it drains in a moment.
 
-**Why does an SSD not forget?**
-Its electrons are locked in an insulated pocket. They cannot leak out without a strong push.
+**Why does RAM need a timer?**
+Its bits are tiny buckets that leak. A timer tells the chip when to top every row up, many times a second. Miss it and a 1 turns into a 0.
 
-**Why do SSDs wear out?**
-Every write pushes electrons through the insulation, and that slowly damages it. Modern SSDs last for many years of normal use.
-
-**Why not use flash for everything?**
-It is too slow to write, and it wears out. The processor needs something fast that can change billions of times a second.
+**What about SSDs and USB sticks?**
+That is flash memory. It traps electrons behind insulation, so it keeps data with no timer and no power. We left it out because it does not depend on timing circuits.

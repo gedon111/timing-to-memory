@@ -1,6 +1,8 @@
-# From Ticks to Memory
+# Electronic Timing Circuit Memory
 
-A scrolling, presentable explainer for people with no electronics background. It uses everyday comparisons instead of math, and only assumes the audience can read binary numbers. It is built for a talk of about 12 minutes plus questions. It goes from a bucket that fills with charge to a clock, then from logic gates to latches and flip-flops, and ends with DRAM and flash. The last part is a hands-on memory lab.
+Group 10. A scrolling, presentable explainer for people with no electronics background. It uses everyday comparisons instead of math, and only assumes the audience can read binary numbers. It is built for a talk of about 11 minutes plus questions, shown on a TV. It goes from a bucket that fills with charge to a clock, then from logic gates to latches and flip-flops, and ends with DRAM, which needs a timer to keep its bits. The last part is a hands-on memory lab.
+
+Text is sized for a TV at 1920x1080 (42px body text). The diagrams keep their size.
 
 Live site: https://gedon111.github.io/timing-to-memory/
 
@@ -21,11 +23,10 @@ Live site: https://gedon111.github.io/timing-to-memory/
 8. Latch vs flip-flop (open door versus camera flash)
 9. Bits to bytes (a byte, a register)
 10. The cost of a bit (why RAM uses a smaller cell)
-11. DRAM (tiny leaking buckets, topping up, reading empties them)
-12. Flash (electrons in a sealed pocket, wear, 8 levels and stacked floors)
-13. Compare the three kinds of memory
-14. Memory lab
-15. Recap and questions
+11. DRAM (tiny leaking buckets, a timer that tops them up, reading empties them)
+12. Compare flip-flops and DRAM (including which timer each needs)
+13. Memory lab
+14. Recap and questions
 
 ## Presenting
 
@@ -43,7 +44,7 @@ The lab simulates real logic gates. Every gate takes one small step to respond, 
 
 - **Circuits:** SR latch (two NOR gates) and D flip-flop (two latches in a row).
 - **Controls:**
-  - Set and Reset (hold), and "Press both, then let go".
+  - Set and Reset (hold), and "Press both" (presses both, then lets go).
   - D, the clock on auto, and Tick to step the clock by hand.
   - Slow motion and Pause.
 - **Keys** (only while the lab is on screen): hold S or R, D flips D, C ticks, M toggles slow motion, P pauses.
