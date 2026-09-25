@@ -5,29 +5,39 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Electronic Timing Circuit Memory</title>
 <meta name="description" content="A presented, scrolling explainer. How timing circuits make a clock, how a clock and a loop of gates make memory, and how DRAM uses a timer to keep billions of bits.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap">
 <style>
 :root{
-  --bg:#0a0e0c; --panel:#101713; --panel-2:#0d1411; --grid:#1a281f; --edge:#27382f;
-  --ink:#e8f0eb; --muted:#9db1a6; --line:#6a8577; --dim:#34493e;
-  --trace:#5dff9c; --amber:#ffb547; --cyan:#7cc7ff; --red:#ff7a7a; --violet:#c9a2ff; --ox:#27405e;
-  color-scheme:dark;
+  --bg:#f0eee6; --panel:#faf9f5; --panel-2:#f5f4ed; --grid:#e3dfd3; --edge:#d1cfc5;
+  --ink:#141413; --muted:#5e5d59; --line:#87867f; --dim:#c2c0b6;
+  --trace:#ad4c2a; --amber:#8f5c0c; --cyan:#2f6ea5; --red:#b3423a; --violet:#9c4a70; --ox:#c9d9e8;
+  --fill:#e8e6dc; --fill-2:#dedcd1; --good:#56693d;
+  --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --sans:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:light;
 }
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--ink)}
 body{
-  font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  font-family:var(--sans);
   font-size:clamp(21px, min(2.55vw, 4.8vh), 42px); line-height:1.4;
-  background:radial-gradient(120vw 90vh at 70% 40%, #0f1813 0%, var(--bg) 60%) fixed;
+  background-color:var(--bg);
+  /* paper grain */
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .3 0 0 0 0 .22 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-attachment:fixed;
 }
 a{color:var(--trace)}
 b.t, .t{color:var(--amber);font-weight:600}
 .ov{text-decoration:overline}
-h1,h2,h3{line-height:1.1;margin:0 0 .5em}
+h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.1;margin:0 0 .5em}
 h1{font-size:clamp(2.6rem, min(5.6vw, 8.6vh), 6.5rem);letter-spacing:-.02em}
 h2{font-size:clamp(2.1rem, min(4.65vw, 8.7vh), 4.5rem);letter-spacing:-.01em}
 p{margin:0 0 .6em}
 .kicker{color:var(--trace);text-transform:uppercase;letter-spacing:.14em;font-size:.72em;margin-bottom:.8em}
-.lede{font-size:1.3em;color:var(--muted);max-width:26em}
+.lede{font-family:var(--serif);font-size:1.3em;color:var(--muted);max-width:26em}
 .note{color:var(--muted);font-size:.9em;border-left:2px solid var(--edge);padding-left:.8em}
 .big-f{font-size:1.25em;font-weight:600;color:var(--amber)}
 .credit{font-size:1.2rem;color:var(--muted);letter-spacing:.02em;line-height:1.35}
@@ -58,10 +68,10 @@ html:not(.js-anim) .beat + .beat{margin-top:2.5em}
 #stage{display:none;margin:0}
 .js-anim #stage{display:block;position:fixed;left:40vw;right:4.5vw;top:3vh;bottom:3vh;pointer-events:none;z-index:0}
 #stage svg{width:100%;height:100%;display:block}
-svg text{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+svg text{font-family:var(--sans)}
 .scope{fill:var(--panel-2);stroke:var(--edge);stroke-width:2}
 .gridp{fill:none;stroke:var(--grid);stroke-width:1.5}
-.trace{fill:none;stroke:var(--trace);stroke-width:4;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke;filter:drop-shadow(0 0 5px rgba(93,255,156,.5))}
+.trace{fill:none;stroke:var(--trace);stroke-width:4;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke;}
 .trace2{fill:none;stroke:var(--trace);stroke-width:3;stroke-dasharray:10 8;opacity:.6}
 .trace-d{fill:none;stroke:var(--amber);stroke-width:3;stroke-linejoin:round}
 .trace-g{fill:none;stroke:var(--trace);stroke-width:3;stroke-linejoin:round}
@@ -81,7 +91,7 @@ svg text{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 .lbl.violet{fill:var(--violet)}
 .lbl.red{fill:var(--red)}
 .lbl.ink{fill:var(--ink)}
-.mono{font-family:ui-monospace,Menlo,Consolas,monospace}
+.mono{font-family:var(--mono)}
 .th{stroke:var(--amber);stroke-width:2;stroke-dasharray:8 8}
 .now{stroke:var(--cyan);stroke-width:2.5;stroke-dasharray:4 8}
 .guide{fill:none;stroke:var(--amber);stroke-width:2;stroke-dasharray:6 6}
@@ -91,36 +101,36 @@ svg text{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 .dotc{fill:var(--ink);stroke:var(--trace);stroke-width:3}
 .water{fill:var(--cyan);opacity:.55}
 .bucket{fill:none;stroke:var(--ink);stroke-width:3;stroke-linejoin:round}
-.chip{fill:#1c2420;stroke:var(--ink);stroke-width:3}
-.chipIn{fill:rgba(28,36,32,.5);stroke:var(--line);stroke-width:2;stroke-dasharray:10 8}
-.pin{fill:#b9c4be}
-.gate{fill:#15201a;stroke:var(--ink);stroke-width:3}
+.chip{fill:var(--fill);stroke:var(--ink);stroke-width:3}
+.chipIn{fill:rgba(20,20,19,.04);stroke:var(--line);stroke-width:2;stroke-dasharray:10 8}
+.pin{fill:var(--line)}
+.gate{fill:var(--panel);stroke:var(--ink);stroke-width:3}
 .bubble{fill:var(--panel-2);stroke:var(--ink);stroke-width:3}
-.box{fill:#15201a;stroke:var(--ink);stroke-width:3}
-.lampBody{fill:#26322c;stroke:var(--ink);stroke-width:2}
+.box{fill:var(--panel);stroke:var(--ink);stroke-width:3}
+.lampBody{fill:var(--fill);stroke:var(--ink);stroke-width:2}
 .tickm{fill:var(--amber)}
 .playhead{stroke:var(--ink);stroke-width:2;opacity:.7}
-.hl{fill:rgba(255,181,71,.14);stroke:var(--amber);stroke-width:2}
+.hl{fill:rgba(143,92,12,.12);stroke:var(--amber);stroke-width:2}
 .tbl{stroke:var(--edge);stroke-width:2}
-.cellR{fill:#15201a;stroke:var(--trace);stroke-width:3}
-.bitdigit{fill:var(--trace);font-size:60px;font-weight:700;font-family:ui-monospace,Menlo,Consolas,monospace}
-.regOn{fill:var(--trace);opacity:.85}
-.regOff{fill:#1b2721;stroke:var(--edge);stroke-width:1.5}
+.cellR{fill:var(--panel);stroke:var(--trace);stroke-width:3}
+.bitdigit{fill:var(--trace);font-size:60px;font-weight:700;font-family:var(--mono)}
+.regOn{fill:var(--trace);opacity:.8}
+.regOff{fill:var(--panel);stroke:var(--edge);stroke-width:1.5}
 .tdot{fill:var(--amber)}
-.cdot{fill:#26322c;stroke:var(--line);stroke-width:2}
+.cdot{fill:var(--fill);stroke:var(--line);stroke-width:2}
 .cdot.on{fill:var(--cyan);stroke:var(--cyan)}
-.si{fill:#1a2620;stroke:var(--edge);stroke-width:2}
-.well{fill:#24382c}
+.si{fill:var(--fill);stroke:var(--edge);stroke-width:2}
+.well{fill:var(--fill-2)}
 .ox{fill:var(--ox)}
-.trap{fill:#3b3520;stroke:var(--amber);stroke-width:2}
-.cg{fill:#3a4640;stroke:var(--ink);stroke-width:2}
-.electron{fill:var(--cyan);stroke:#0a0e0c;stroke-width:1.5}
+.trap{fill:#efe0c2;stroke:var(--amber);stroke-width:2}
+.cg{fill:var(--fill-2);stroke:var(--ink);stroke-width:2}
+.electron{fill:var(--cyan);stroke:var(--panel);stroke-width:1.5}
 .wear{stroke:var(--red);stroke-width:3;stroke-linecap:round}
-.band{fill:#15201a;stroke:var(--ink);stroke-width:2}
-.strip{fill:#26322c;stroke:var(--line);stroke-width:1}
-.top{fill:#34493e;stroke:var(--line);stroke-width:1.5}
+.band{fill:var(--panel);stroke:var(--ink);stroke-width:2}
+.strip{fill:var(--fill);stroke:var(--line);stroke-width:1}
+.top{fill:var(--fill-2);stroke:var(--line);stroke-width:1.5}
 .hole{stroke:var(--cyan);stroke-width:3;opacity:.6}
-.win{fill:rgba(255,181,71,.12)}
+.win{fill:rgba(143,92,12,.1)}
 .edgeLine{stroke:var(--violet);stroke-width:2;stroke-dasharray:4 6}
 .g-green stop{stop-color:var(--trace)}
 .g-amber stop{stop-color:var(--amber)}
@@ -135,14 +145,14 @@ svg text{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 .rail button.on span{background:var(--trace);opacity:1;transform:scale(1.6)}
 
 /* Presenter counter (press N) */
-#hud{position:fixed;left:1.2vw;bottom:1.2vh;z-index:5;font:600 22px ui-monospace,Menlo,Consolas,monospace;color:var(--bg);background:var(--trace);padding:.3em .6em;border-radius:6px}
+#hud{position:fixed;left:1.2vw;bottom:1.2vh;z-index:5;font:600 22px var(--mono);color:var(--bg);background:var(--trace);padding:.3em .6em;border-radius:6px}
 #hud[hidden]{display:none}
 
 /* Buttons */
-.btn{font:inherit;font-size:.95em;font-weight:600;letter-spacing:.03em;color:var(--ink);background:#1b2721;border:1px solid var(--edge);border-radius:10px;padding:.5em .9em;cursor:pointer;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+.btn{font:inherit;font-size:.95em;font-weight:600;letter-spacing:.03em;color:var(--ink);background:var(--panel);border:1px solid var(--edge);border-radius:10px;padding:.5em .9em;cursor:pointer;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
 .btn:hover{border-color:var(--line)}
 .btn:focus-visible{outline:2px solid var(--trace);outline-offset:2px}
-.btn.down{background:#26372e;border-color:var(--trace);color:var(--trace)}
+.btn.down{background:#f4e1d7;border-color:var(--trace);color:var(--trace)}
 .btn[aria-pressed="true"]{border-color:var(--amber);color:var(--amber)}
 .btn:disabled{opacity:.45;cursor:default}
 
@@ -151,7 +161,7 @@ svg text{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 .cmp th,.cmp td{padding:.5em .8em;border-bottom:1px solid var(--edge);text-align:left;vertical-align:top}
 .cmp thead th{color:var(--trace);font-size:.85em;letter-spacing:.08em;text-transform:uppercase}
 .cmp tbody th{color:var(--muted);font-weight:500;white-space:nowrap}
-.cmp td.good{color:var(--trace)}
+.cmp td.good{color:var(--good)}
 .cmp td.bad{color:var(--red)}
 
 /* Memory lab */
@@ -170,15 +180,15 @@ svg text{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 .lstat{font-size:.9em;margin:0;min-height:2.6em;color:var(--cyan)}
 .lw{fill:none;stroke:var(--dim);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
 .lw.hi{stroke:var(--trace)}
-.lg{fill:#15201a;stroke:var(--ink);stroke-width:2.5}
+.lg{fill:var(--panel);stroke:var(--ink);stroke-width:2.5}
 .lb{fill:var(--panel-2);stroke:var(--ink);stroke-width:2.5}
-.llamp{fill:#26322c;stroke:var(--ink);stroke-width:2}
+.llamp{fill:var(--fill);stroke:var(--ink);stroke-width:2}
 .llamp.hi{fill:var(--cyan)}
 .llamp.v.hi{fill:var(--violet)}
 .ldot{fill:var(--dim)}
 .ldot.hi{fill:var(--trace)}
-.blk{fill:#15201a;stroke:var(--line);stroke-width:2.5}
-.blk.open{stroke:var(--amber);fill:#2a2415}
+.blk{fill:var(--panel);stroke:var(--line);stroke-width:2.5}
+.blk.open{stroke:var(--amber);fill:#f3e7cc}
 .st{fill:var(--muted);font-size:16px}
 .st.ink{fill:var(--ink);font-size:21px;font-weight:600}
 
@@ -212,7 +222,7 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
 <body>
 
 <div class="rotate" role="alert">
-  <svg viewBox="0 0 120 120" aria-hidden="true"><rect x="38" y="14" width="44" height="92" rx="8" fill="none" stroke="#5dff9c" stroke-width="4"/><circle cx="60" cy="96" r="4" fill="#5dff9c"/></svg>
+  <svg viewBox="0 0 120 120" aria-hidden="true"><rect x="38" y="14" width="44" height="92" rx="8" fill="none" stroke="#ad4c2a" stroke-width="4"/><circle cx="60" cy="96" r="4" fill="#ad4c2a"/></svg>
   <p><strong>Please rotate your device.</strong><br>This page only works sideways, in landscape.</p>
 </div>
 
@@ -233,9 +243,9 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
     <clipPath id="qfClip"><rect id="qfRect" x="180" y="310" width="760" height="70"/></clipPath>
     <clipPath id="bucketClip"><path d="M560,560 L575,720 H645 L660,560 Z"/></clipPath>
     <clipPath id="dBucketClip"><path d="M440,560 L455,720 H525 L540,560 Z"/></clipPath>
-    <radialGradient id="glowGreen" class="g-green"><stop offset="0" stop-opacity=".85"/><stop offset="1" stop-opacity="0"/></radialGradient>
-    <radialGradient id="glowAmber" class="g-amber"><stop offset="0" stop-opacity=".85"/><stop offset="1" stop-opacity="0"/></radialGradient>
-    <radialGradient id="glowCyan" class="g-cyan"><stop offset="0" stop-opacity=".85"/><stop offset="1" stop-opacity="0"/></radialGradient>
+    <radialGradient id="glowGreen" class="g-green"><stop offset="0" stop-opacity=".5"/><stop offset="1" stop-opacity="0"/></radialGradient>
+    <radialGradient id="glowAmber" class="g-amber"><stop offset="0" stop-opacity=".5"/><stop offset="1" stop-opacity="0"/></radialGradient>
+    <radialGradient id="glowCyan" class="g-cyan"><stop offset="0" stop-opacity=".5"/><stop offset="1" stop-opacity="0"/></radialGradient>
   </defs>
 
   <!-- Oscilloscope screen -->
@@ -427,7 +437,7 @@ html:not(.js-anim) #wave{height:40vh;flex:none}
     <g id="valveGate">
       <path class="part" d="M260,276 V206"/>
       <rect x="236" y="194" width="48" height="12" rx="4" fill="var(--ink)"/>
-      <rect x="246" y="276" width="28" height="48" fill="#2a3a31" stroke="var(--ink)" stroke-width="2"/>
+      <rect x="246" y="276" width="28" height="48" fill="var(--fill-2)" stroke="var(--ink)" stroke-width="2"/>
     </g>
     <text class="lbl sm" x="296" y="205">handle</text>
     <text class="lbl sm" x="80" y="360">in</text>
@@ -895,7 +905,7 @@ const lab = (function () {
   const BASE = 20;   // gate delays per second at 1x
   const PX = 4;      // waveform pixels per gate delay
   const MAXH = 900;
-  const COL = { in: "#ffb547", clk: "#5dff9c", q: "#7cc7ff", q2: "#c9a2ff" };
+  const COL = { in: "#8f5c0c", clk: "#ad4c2a", q: "#2f6ea5", q2: "#9c4a70" };
   const SLOW = .2;   // slow motion speed
   let mode = "sr", nets = [], names = {}, gates = [], cores = [], hist = [], live = [];
   const inp = { S: 0, R: 0, D: 0, CLK: 0 };
@@ -1029,10 +1039,10 @@ const lab = (function () {
     const rows = ROWS[mode];
     const LW = 120, lh = h / rows.length, nVis = Math.floor((w - LW - 10) / PX);
     const start = Math.max(0, hist.length - nVis), xOf = i => LW + (i - start) * PX;
-    ctx.font = "600 17px system-ui, sans-serif"; ctx.textBaseline = "middle";
+    ctx.font = "600 17px Inter, system-ui, sans-serif"; ctx.textBaseline = "middle";
     if (names.CLK !== undefined && mode !== "sr") {
       const c = names.CLK;
-      ctx.strokeStyle = "rgba(93,255,156,.2)"; ctx.lineWidth = 1;
+      ctx.strokeStyle = "rgba(173,76,42,.25)"; ctx.lineWidth = 1;
       for (let i = Math.max(1, start); i < hist.length; i++) if (hist[i][c] && !hist[i - 1][c]) {
         ctx.beginPath(); ctx.moveTo(xOf(i) + .5, 0); ctx.lineTo(xOf(i) + .5, h); ctx.stroke();
       }
@@ -1041,7 +1051,7 @@ const lab = (function () {
       const id = names[r[0]], y0 = k * lh, hi = y0 + lh * .25, lo = y0 + lh * .75;
       ctx.fillStyle = r[2]; ctx.fillText(r[1], 12, y0 + lh / 2);
       if (r[3]) { const tw = ctx.measureText(r[1]).width; ctx.fillRect(12, y0 + lh / 2 - 11, tw, 1.5); }
-      ctx.strokeStyle = "rgba(157,177,166,.12)"; ctx.lineWidth = 1;
+      ctx.strokeStyle = "rgba(20,20,19,.08)"; ctx.lineWidth = 1;
       ctx.beginPath(); ctx.moveTo(LW, lo + .5); ctx.lineTo(w, lo + .5); ctx.stroke();
       if (!hist.length) return;
       ctx.strokeStyle = r[2]; ctx.lineWidth = 3;
