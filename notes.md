@@ -1,6 +1,6 @@
 # Speaker notes: Electronic Timing Circuits (Group 10)
 
-A general overview of about 13 minutes, then questions. No math. The audience only needs to know that "on" can mean 1 and "off" can mean 0.
+A general overview of about 16 to 17 minutes at a quick pace, then questions, for a 15 to 20 minute slot. No math. The audience only needs to know that "on" can mean 1 and "off" can mean 0.
 
 ## How to drive the page
 
@@ -10,7 +10,7 @@ A general overview of about 13 minutes, then questions. No math. The audience on
 - **N** shows a small counter, for example "sheet 7 · beat 2". The headings below use the same numbers.
 - **F** toggles fullscreen.
 - **L** turns off the hand-drawn wobble, in case an old laptop struggles.
-- **Lab keys (sheet 12 only):** hold S or R for SET and RESET, B swaps the bucket size, P swaps the pipe.
+- **Lab keys (sheet 13 only):** hold S or R for SET and RESET, G swaps NOR and NAND gates, B swaps the bucket size, P swaps the pipe.
 
 Each beat stops on a finished picture that keeps moving. Say your line, then press next.
 
@@ -24,15 +24,16 @@ Each beat stops on a finished picture that keeps moving. Say your line, then pre
 | 4 | Timing with a bucket | 1:00 | 3:15 |
 | 5 | The 555 timer | 1:00 | 4:15 |
 | 6 | Inside the 555 | 1:00 | 5:15 |
-| 7 | The SR latch, step by step | 2:30 | 7:45 |
-| 8 | The 555 loop | 0:45 | 8:30 |
-| 9 | Three ways to use it | 1:00 | 9:30 |
-| 10 | Quartz | 1:00 | 10:30 |
-| 11 | Inside a computer | 1:00 | 11:30 |
-| 12 | Try it | 1:00 | 12:30 |
-| 13 | Recap and questions | 0:30 | 13:00 |
+| 7 | The NOR SR latch, step by step | 2:30 | 7:45 |
+| 8 | The NAND SR latch, step by step | 3:00 | 10:45 |
+| 9 | The 555 loop | 0:45 | 11:30 |
+| 10 | Three ways to use it | 1:00 | 12:30 |
+| 11 | Quartz | 1:00 | 13:30 |
+| 12 | Inside a computer | 1:00 | 14:30 |
+| 13 | Try it | 1:30 | 16:00 |
+| 14 | Recap and questions | 0:30 | 16:30 |
 
-If you run long, skip the lab or cut sheet 9 to one beat. If you run short, let someone from the audience drive the lab.
+If you run long, skip the lab, cut sheet 10 to one beat, or skip beat 8.9 (the 7400 chip). If you run short, let someone from the audience drive the lab.
 
 ---
 
@@ -68,11 +69,11 @@ If you run long, skip the lab or cut sheet 9 to one beat. If you run short, let 
 
 **6.2** "When the top one shouts 'full!', it presses a button called RESET, and the drain opens. When the bottom one shouts 'empty!', it presses SET, and the drain closes. Between the shouts, something has to remember which way we are going. That tiny memory is called an SR latch. Let's open it up."
 
-## Sheet 7 · The SR latch, step by step (2:30)
+## Sheet 7 · The NOR SR latch, step by step (2:30)
 
 Go slowly here. This is the heart of the talk. The tracker at the bottom of the picture shows which step you are on.
 
-**7.1** "Two gates in a loop. Each gate has one simple rule: its output is on only when both of its inputs are off. The gates feed each other, so each one's output is the other one's input. The top light is called Q. That is our memory. Right now it is off."
+**7.1** "Two gates in a loop. These are NOR gates. Each one has one simple rule: its output is on only when both of its inputs are off. The gates feed each other, so each one's output is the other one's input. The top light is called Q. That is our memory. Right now it is off."
 
 **7.2** "Step 1: press SET. Watch the wires. SET turns on an input of the bottom gate, so the bottom gate turns off. Now the top gate sees two offs, so Q turns on."
 
@@ -86,41 +87,66 @@ Go slowly here. This is the heart of the talk. The tracker at the bottom of the 
 
 **7.7** "That is the whole trick. SET turns Q on. RESET turns Q off. Do nothing, and it remembers. Never press both."
 
-## Sheet 8 · The 555 loop (0:45)
+## Sheet 8 · The NAND SR latch, step by step (3:00)
 
-**8.1** "Now the 555 makes sense. Follow the red dot. Fill until almost full, then RESET, so it drains. Drain until almost empty, then SET, so it fills. The latch in the middle remembers whether we are filling or draining. Round and round, and that is the beat."
+Same latch, built from the other popular gate. Keep it quick: the audience already knows the steps, so each beat is one or two sentences. The tracker at the bottom works like the one on sheet 7.
 
-## Sheet 9 · Three ways to use it (1:00)
+**8.1** "There is a twin. Same loop, but with NAND gates. A NAND gate flips the rule: its output is off only when both inputs are on. Any off input, and the output is on. Look at the four little rows: only the last one, on and on, turns the light off."
 
-**9.1** "The same chip can be used three ways. One-shot: press once, the light stays on for a set time, then turns off by itself. Like a stairway light or a hand dryer."
+**8.2** "Here is the twist. In this version the button wires rest on, all the time. Pressing a button pulls its wire off. That is why you will see the names written with a bar on top, S-bar and R-bar. The bar means 'works when off'."
 
-**9.2** "Blinker: fill, drain, repeat, forever. Like a turn signal or a bike light."
+**8.3** "Step 1: press SET. Its wire turns off. That wire goes straight into the top gate, Q's own gate. One off input is enough, so Q turns on. Now the bottom gate sees two ons, RESET resting on and Q on, so the opposite turns off."
 
-**9.3** "On and off: use just the latch. SET turns it on, RESET turns it off, and it stays that way. Like the start and stop buttons on a machine."
+**8.4** "Step 2: let go. SET's wire is back on, but Q stays on. The opposite is off, and an off input keeps the top gate on. Memory again."
 
-## Sheet 10 · Quartz (1:00)
+**8.5** "Step 3: press RESET. Its wire turns off, so the bottom gate turns on: the opposite lights up. Now the top gate sees two ons, so Q turns off."
 
-**10.1** "Buckets are not very precise. They change with heat and with age, so their timing drifts. Real clocks use a tiny quartz crystal. Give it power and it shakes at a very steady speed. Your watch has one inside."
+**8.6** "Step 4: let go. Q stays off. It remembers off too."
 
-**10.2** "It shakes 32,768 times a second, far too fast for a watch. So a chain of small circuits slows it down. Each step in the chain blinks half as often as the one before. At the end of the chain: exactly one tick per second."
+**8.7** "Step 5: press both. Both wires are off, so both gates turn on and both lights are on. The NOR latch did the reverse: both off. Either way they are no longer opposites. Let go of both together and it is a coin toss, so this is still not allowed."
 
-## Sheet 11 · Inside a computer (1:00)
+**8.8** "Side by side. NOR buttons rest off and a press pushes a wire on. NAND buttons rest on and a press pulls a wire off. In NOR, SET talks to the other gate. In NAND, SET talks to Q's own gate. And pressing both gives both lights off in NOR, both on in NAND. Same job: set, reset, remember."
 
-**11.1** "A laptop's clock ticks about 3 billion times every second. One tick is so short that light, the fastest thing there is, only travels about a hand's width."
+**8.9** "Why bother with NAND? NAND gates are small and fast to make, so they are the favorite brick. One tiny chip, the 7400, has four of them inside. And with enough NAND gates you can build any logic at all, even a whole computer."
 
-**11.2** "Computers use a latch that only listens on the tick. It is called a flip-flop. It works like a camera: it takes one snapshot of the data on each tick and ignores the wobbling in between. Look at the red line: it only changes when the camera flashes. That way every part of the computer saves at the same moment."
+**8.10** "A real job for it, and it is about timing. Metal buttons bounce. One press makes a quick clatter, on, off, on, off, in a few thousandths of a second. A computer would count that as many presses. So we use a two-sided switch: one side presses SET, the other presses RESET. The first touch flips the latch, and the bounces only tap the same side again, which changes nothing. One press, one clean step."
 
-## Sheet 12 · Try it (1:00)
+## Sheet 9 · The 555 loop (0:45)
+
+**9.1** "Now the 555 makes sense. Follow the red dot. Fill until almost full, then RESET, so it drains. Drain until almost empty, then SET, so it fills. The latch in the middle remembers whether we are filling or draining. Round and round, and that is the beat."
+
+## Sheet 10 · Three ways to use it (1:00)
+
+**10.1** "The same chip can be used three ways. One-shot: press once, the light stays on for a set time, then turns off by itself. Like a stairway light or a hand dryer."
+
+**10.2** "Blinker: fill, drain, repeat, forever. Like a turn signal or a bike light."
+
+**10.3** "On and off: use just the latch. SET turns it on, RESET turns it off, and it stays that way. Like the start and stop buttons on a machine."
+
+## Sheet 11 · Quartz (1:00)
+
+**11.1** "Buckets are not very precise. They change with heat and with age, so their timing drifts. Real clocks use a tiny quartz crystal. Give it power and it shakes at a very steady speed. Your watch has one inside."
+
+**11.2** "It shakes 32,768 times a second, far too fast for a watch. So a chain of small circuits slows it down. Each step in the chain blinks half as often as the one before. At the end of the chain: exactly one tick per second."
+
+## Sheet 12 · Inside a computer (1:00)
+
+**12.1** "A laptop's clock ticks about 3 billion times every second. One tick is so short that light, the fastest thing there is, only travels about a hand's width."
+
+**12.2** "Computers use a latch that only listens on the tick. It is called a flip-flop. It works like a camera: it takes one snapshot of the data on each tick and ignores the wobbling in between. Look at the red line: it only changes when the camera flashes. That way every part of the computer saves at the same moment."
+
+## Sheet 13 · Try it (1:30)
 
 Live demo. A good order:
 
 1. Hold **SET**: Q turns on. Let go: it stays on. That is memory. Tap **RESET**: it turns off and stays off.
 2. Press **Press both**. It holds both, then lets go of both at once. The lights wobble, then one side wins at random.
-3. On the right, switch the bucket to **big**, then the pipe to **narrow**. Each change makes the light blink more slowly. The strip below the bucket draws the on and off beat.
+3. Press **NAND** at the top of the latch card (or G) and do the same. The wires now rest on, and "Press both" lights both lamps instead of none.
+4. On the right, switch the bucket to **big**, then the pipe to **narrow**. Each change makes the light blink more slowly. The strip below the bucket draws the on and off beat.
 
-## Sheet 13 · Recap and questions (0:30)
+## Sheet 14 · Recap and questions (0:30)
 
-**13.1** "A bucket and a pipe measure time. The 555 fills and drains to make a beat. An SR latch remembers: SET for on, RESET for off. And quartz keeps it steady, so computers can save on every tick. Thank you. Questions?"
+**14.1** "A bucket and a pipe measure time. The 555 fills and drains to make a beat. An SR latch, built from NOR or NAND gates, remembers: SET for on, RESET for off. And quartz keeps it steady, so computers can save on every tick. Thank you. Questions?"
 
 ---
 
@@ -140,6 +166,15 @@ It halves evenly, again and again, down to exactly one. That makes it easy to sl
 
 **What happens if you press both buttons on the latch?**
 Both outputs turn off, so they are no longer opposites. If you let go of both together, it becomes a race and the result is random. That is why circuits avoid it.
+
+**Why are the NAND buttons "upside down"?**
+A NAND gate's output only changes when an input goes off. So the inputs rest on, and a press pulls one off. Engineers call that "active low" and mark it with a bar over the name.
+
+**Which one is better, NOR or NAND?**
+They do the same job. NAND is more common because NAND gates are smaller and faster to build, and a cheap chip like the 7400 has four of them.
+
+**What does "debouncing" mean?**
+Cleaning up a bouncy button so one press counts once. The NAND latch flips on the first touch and ignores the bounces.
 
 **What is the difference between a latch and a flip-flop?**
 A latch reacts whenever its inputs change. A flip-flop only takes in new data on the tick of a clock, like a camera taking one photo per tick.
