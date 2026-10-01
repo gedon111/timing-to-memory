@@ -10,7 +10,7 @@ A general overview of about 16 to 17 minutes at a quick pace, then questions, fo
 - **N** shows a small counter, for example "sheet 7 · beat 2". The headings below use the same numbers.
 - **F** toggles fullscreen.
 - **L** turns off the hand-drawn wobble, in case an old laptop struggles.
-- **Quiz keys (sheet 15 only):** Q flips the next clue card, Shift+Q hides the last one, A shows or hides the answer. Nothing else reveals clues, so scrolling or clicking is safe.
+- **Quiz keys (sheets 15 to 17):** Q flips the next clue card, Shift+Q hides the last one, A shows or hides the answer. Nothing else reveals clues, so scrolling or clicking is safe.
 - **Lab keys (sheet 13 only):** hold S or R for SET and RESET, G swaps NOR and NAND gates, B swaps the bucket size, P swaps the pipe.
 
 Each beat stops on a finished picture that keeps moving. Say your line, then press next.
@@ -33,9 +33,9 @@ Each beat stops on a finished picture that keeps moving. Say your line, then pre
 | 12 | Inside a computer | 1:00 | 14:30 |
 | 13 | Try it | 1:30 | 16:00 |
 | 14 | Recap and questions | 0:30 | 16:30 |
-| 15 | Quiz | 1:30 | 18:00 |
+| 15 to 17 | Quiz, 3 questions | 4:00 | 20:30 |
 
-If you run long, skip the lab, cut sheet 10 to one beat, or skip beat 8.9 (the 7400 chip). If you run short, let someone from the audience drive the lab.
+The full plan runs a little over 20 minutes, so plan one cut in advance. If you run long, use fewer clues per question, skip the lab, cut sheet 10 to one beat, or skip beat 8.9 (the 7400 chip). If you run short, let someone from the audience drive the lab.
 
 ---
 
@@ -150,13 +150,15 @@ Live demo. A good order:
 
 **14.1** "A bucket and a pipe measure time. The 555 fills and drains to make a beat. An SR latch, built from NOR or NAND gates, remembers: SET for on, RESET for off. And quartz keeps it steady, so computers can save on every tick. Thank you. Questions?"
 
-## Sheet 15 · Quiz (1:30)
+## Sheets 15 to 17 · Quiz (3 questions, about 4:00)
 
-**The question:** "In the version 2 latch, both buttons are held. Then you let go of RESET first, and SET a split second later. When it settles, which light is on: Q or the opposite?"
+One question per sheet. On each one, give the room a moment, then press Q for a clue as needed. Press A to stamp the answer. Each sheet remembers its own clues, so going back keeps them open.
 
-**The answer: Q.** The button you let go of last wins. Press A to stamp it on screen.
+### 15 · Who wins?
 
-Give the room a moment, then press Q for each clue as needed:
+**Question:** "In the version 2 latch, both buttons are held. Then you let go of RESET first, and SET a split second later. When it settles, which light is on: Q or the opposite?"
+
+**Answer: Q.** The last one held wins. While SET is still held, it forces Q on, and Q plus the resting RESET wire turn the opposite off. Letting go of SET then changes nothing.
 
 1. Version 2 is the NAND latch. Its buttons rest on, and a press pulls a wire off.
 2. While both buttons are held, both lights are on. That is step 5.
@@ -164,7 +166,29 @@ Give the room a moment, then press Q for each clue as needed:
 4. One off input keeps a NAND gate on, so Q stays on. The bottom gate now sees RESET on and Q on.
 5. Two ons turn a NAND gate off. The opposite goes dark, and when SET lets go, the latch remembers.
 
-**Why it works:** while SET is still held, it forces Q on, and Q plus the resting RESET wire turn the opposite off. Letting go of SET then changes nothing, because the loop holds itself.
+### 16 · The light that won't quit
+
+**Question:** "A 555 blinker's light turns on and never turns off. Its almost full watcher is broken. Which button never gets pressed, and what is the bucket doing?"
+
+**Answer: RESET is never pressed.** The drain never opens, so the bucket fills up and stays full, and the light stays on.
+
+1. Inside the 555: two watchers, one for "almost full", one for "almost empty".
+2. When the top watcher shouts "full!", it presses one of the two latch buttons.
+3. That button is RESET, and RESET is what opens the drain.
+4. No shout means no RESET, so the drain stays shut.
+5. The bucket fills and stays full. The light is on while filling, so it never goes off.
+
+### 17 · The broken chain
+
+**Question:** "In a quartz watch, one step of the halving chain is skipped. Does the watch run fast or slow, and by how much?"
+
+**Answer: fast, twice as fast.** One fewer halving means 2 ticks per second instead of 1.
+
+1. The crystal shakes 32,768 times a second, far too fast for a watch.
+2. Each step in the chain blinks half as often as the one before.
+3. The chain is built so the last step gives exactly one tick per second.
+4. Skip any one step and you lose one halving.
+5. So the end of the chain ticks twice every second, not once.
 
 ---
 
