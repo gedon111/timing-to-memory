@@ -1,34 +1,35 @@
-# Electronic Timing Circuit Memory
+# Electronic Timing Circuits
 
-Group 10. A scrolling, presentable explainer for people with no electronics background. It uses everyday comparisons instead of math, and only assumes the audience can read binary numbers. It is built for a talk of about 11 minutes plus questions, shown on a TV. It goes from a bucket that fills with charge to a clock, then from logic gates to latches and flip-flops, and ends with DRAM, which needs a timer to keep its bits. The last part is a hands-on memory lab.
+Group 10. A hand-drawn, poster-style slide deck that gives a general overview of electronic timing circuits for people with no electronics background. There is no math. It runs about 13 minutes plus questions and is built for a TV.
 
-Text is sized for a TV at 1920x1080 (42px body text). The diagrams keep their size.
+The look is a retro packaging-poster style: cream paper, tomato red, sunshine yellow and cobalt blue, crayon scribbles, ink splats, sparkles, stickers, checkered tablecloths and little characters with faces. Outlines gently "boil" like hand-drawn animation.
 
 Live site: https://gedon111.github.io/timing-to-memory/
 
 ## Files
 
-- `index.html` is the whole site. It has no build step.
-- `notes.md` is the speaker script, in plain language, with time targets per sheet and likely questions with answers.
+- `index.html` is the whole site. It has no build step and no JavaScript libraries.
+- `notes.md` is the speaker script, with time targets per sheet and likely questions with answers.
 
 ## Sheets
 
-1. Intro
-2. Why keep time
-3. Timing with a bucket (a capacitor filling through a resistor)
-4. The 555 timer (fill, drain, repeat, and what is inside)
-5. The clock (on and off, quartz halved down to 1 tick per second, billions of ticks)
-6. Gates (a transistor as a switch, NOT and NOR)
-7. The SR latch (set, reset, both)
-8. Latch vs flip-flop (open door versus camera flash)
-9. Bits to bytes (a byte, a register)
-10. The cost of a bit (why RAM uses a smaller cell)
-11. DRAM (tiny leaking buckets, a timer that tops them up, reading empties them)
-12. Compare flip-flops and DRAM (including which timer each needs)
-13. Memory lab
-14. Recap and questions
+1. Cover
+2. Timers are everywhere
+3. Why keep time (signals arrive at different times, a clock is a shared beat)
+4. Timing with a bucket (capacitor = bucket, resistor = narrow pipe)
+5. The 555 timer (fill, drain, repeat; keep only on and off)
+6. Inside the 555 (two watchers, SET and RESET, a tiny memory)
+7. The SR latch, step by step (the loop, SET, let go, RESET, let go, never both, summary)
+8. The 555 loop (the whole cycle around a wheel)
+9. Three ways to use it (one-shot, blinker, on/off)
+10. Quartz (a steadier beat, slowed down to one tick per second)
+11. Inside a computer (billions of ticks, the flip-flop as a camera)
+12. Try it (a live SR latch and a 555 blinker)
+13. Recap and questions
 
 ## Presenting
+
+The deck is a fixed 1920x1080 page that scales to fit any screen.
 
 | Key | Action |
 |---|---|
@@ -37,34 +38,21 @@ Live site: https://gedon111.github.io/timing-to-memory/
 | Home, End | first or last beat |
 | N | show the "sheet · beat" counter that matches `notes.md` |
 | F | fullscreen |
+| L | turn the hand-drawn wobble off or on (also `?lite` in the URL) |
 
-### Memory lab
+A mouse wheel, a swipe, or the dots at the bottom also move between slides. Links like `index.html#7.3` open a specific beat.
 
-The lab simulates real logic gates. Every gate takes one small step to respond, so slow motion shows signals moving through the circuit one gate at a time.
+### The lab (sheet 12)
 
-- **Circuits:** SR latch (two NOR gates) and D flip-flop (two latches in a row).
-- **Controls:**
-  - Set and Reset (hold), and "Press both" (presses both, then lets go).
-  - D, the clock on auto, and Tick to step the clock by hand.
-  - Slow motion and Pause.
-- **Keys** (only while the lab is on screen): hold S or R, D flips D, C ticks, M toggles slow motion, P pauses.
-
-Releasing Set and Reset together makes the latch wobble. Real gates are never exactly equal, so after a few wobbles the simulator lets one side win at random.
+- **SR latch:** hold SET or RESET (or the S and R keys). "Press both" holds both, then lets go of both at once, so the latch wobbles and lands at random.
+- **555 blinker:** pick a small or big bucket (B key) and a wide or narrow pipe (P key). A bigger bucket or a narrower pipe blinks more slowly. The strip below draws the on and off beat.
 
 ## Run it
 
-Open `index.html` in a browser. Fonts (Source Serif 4, Inter, JetBrains Mono) load from Google Fonts and fall back to Georgia and system fonts offline. It loads GSAP 3.13 (core, ScrollTrigger, MorphSVGPlugin) from the jsDelivr CDN. Without GSAP, the text and the memory lab still work, but the animated diagrams are hidden.
+Open `index.html` in a browser. Fonts (Bowlby One, Instrument Serif, Caveat, Bricolage Grotesque, Space Mono) load from Google Fonts and fall back to system fonts offline. Everything else is inline.
 
-The page is landscape only. On a portrait screen it asks you to rotate the device. With reduced motion turned on, the page skips scrubbing and loops and shows each finished diagram.
+With reduced motion turned on, slide transitions and decorative motion are switched off.
 
 ## Publish with GitHub Pages
 
 Settings > Pages > Build and deployment > Source: **Deploy from a branch**, Branch: **main**, folder **/ (root)**.
-
-## Motion notes
-
-Most animation uses only transform and opacity. These exceptions only repaint, and none of them change the page layout:
-
-- MorphSVG changes the main trace's shape between sheets.
-- The latch's feedback loop animates `stroke-dashoffset`.
-- The lab redraws its waveform on a canvas and recolors schematic wires as signals change.
