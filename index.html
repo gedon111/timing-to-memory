@@ -374,6 +374,34 @@ svg text{font-family:var(--f-body)}
 .active[data-beat="2"] .eg{animation:eg 6s infinite}
 @keyframes eg{0%{opacity:1}6%,100%{opacity:.25}}
 
+
+/* s15 quiz */
+.qz{background:var(--red);border:5px solid var(--ink);border-radius:30px;box-shadow:12px 12px 0 var(--ink);padding:24px 26px 26px;display:flex;flex-direction:column;gap:14px}
+.qz::before{content:"";position:absolute;left:0;right:0;top:0;height:46px;border-radius:25px 25px 0 0;border-bottom:4px solid var(--ink);
+  background:repeating-conic-gradient(var(--card) 0 25%,#f28a2e 0 50%) 0 0/46px 46px}
+.qz .qh{position:relative;margin-top:30px;display:flex;align-items:baseline;justify-content:space-between;color:#fff}
+.qz .qh b{font:44px var(--f-display);-webkit-text-stroke:2px var(--ink);paint-order:stroke fill;letter-spacing:.02em}
+.qz .qh span{font:700 40px var(--f-hand);color:var(--yellow)}
+.clue{position:relative;height:128px;perspective:1400px}
+.clue .in{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .75s cubic-bezier(.3,1.35,.5,1)}
+.clue.open .in{transform:rotateX(-180deg)}
+.clue .f{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:4px solid var(--ink);border-radius:20px;box-shadow:6px 6px 0 var(--ink);display:flex;align-items:center;gap:20px;padding:0 24px}
+.clue .bk{background:repeating-linear-gradient(-45deg,var(--yellow) 0 18px,#f2c22b 18px 36px);justify-content:space-between}
+.clue .bk b{font:30px var(--f-display);letter-spacing:.04em}
+.clue .bk i{font:normal 64px/1 var(--f-display);color:var(--card);-webkit-text-stroke:3px var(--ink);paint-order:stroke fill}
+.clue .ft{background:var(--card);transform:rotateX(180deg);font-size:28px;line-height:1.2}
+.clue .ft .n{flex:none;width:58px;height:58px;border-radius:50%;border:4px solid var(--ink);background:var(--blue);color:#fff;display:grid;place-items:center;font:26px var(--f-display)}
+.clue:nth-child(odd) .ft{background:#fffaf0}.clue:nth-child(even) .ft{background:#fff3cf}
+.qz .answer{position:absolute;right:30px;bottom:40px;width:300px;height:300px;opacity:0;pointer-events:none;transform:rotate(-10deg)}
+.qz.ans .answer{animation:slam .55s cubic-bezier(.2,1.4,.4,1) both}
+.qz .answer div{position:absolute;inset:0;border-radius:50%;background:var(--yellow);border:6px solid var(--ink);box-shadow:8px 8px 0 var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.qz .answer small{font:700 20px var(--f-mono);letter-spacing:.1em}
+.qz .answer strong{font:96px/1 var(--f-display);color:var(--red);-webkit-text-stroke:3px var(--ink);paint-order:stroke fill}
+.qz .answer em{font:700 34px/1 var(--f-hand);font-style:normal;padding:0 30px}
+.qdots{display:flex;gap:14px;margin-top:10px}
+.qdots i{width:30px;height:30px;border-radius:50%;border:4px solid var(--ink);background:var(--card);transition:background .3s,transform .3s}
+.qdots i.on{background:var(--yellow);transform:scale(1.15)}
+
 /* s13 recap */
 .active .wave2{animation:wave2 1.8s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
 @keyframes wave2{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}}
@@ -483,7 +511,7 @@ svg text{font-family:var(--f-body)}
 <div id="rot">Turn your screen sideways<br>to see the slides.</div>
 
 <div id="deck">
-  <header class="bar"><b>@group.10</b><span id="pg">01/14 &rarr;</span></header>
+  <header class="bar"><b>@group.10</b><span id="pg">01/15 &rarr;</span></header>
 
   <!-- ================= 1. COVER ================= -->
   <section class="sheet cover" id="s1" data-beats="1" aria-label="Electronic Timing Circuits">
@@ -1619,6 +1647,31 @@ svg text{font-family:var(--f-body)}
     </div>
   </section>
 
+  <!-- ================= 15. QUIZ ================= -->
+  <section class="sheet" id="s15" data-beats="1" aria-label="Quiz">
+    <div class="copy">
+      <span class="pill"><i></i>14 &#183; Quiz</span>
+      <div class="beats">
+        <div class="beat">
+          <span class="tag">one question &#183; hard mode</span>
+          <h2>Who wins?</h2>
+          <p>In the <b>version 2</b> latch, both buttons are held. Then you let go of <b>RESET</b> first, and <b>SET</b> a split second later.</p>
+          <p>When it settles, which light is on: <mark>Q or the opposite?</mark></p>
+          <div class="qdots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="poster qz" id="quiz">
+      <div class="qh"><b>CLUES</b><span>stuck? we&#8217;ll help</span></div>
+      <div class="clue"><div class="in"><div class="f bk"><b>CLUE 1</b><i>?</i></div><div class="f ft"><span class="n">1</span><span>Version 2 is the <b>NAND</b> latch. Its buttons rest on, and a press pulls a wire off.</span></div></div></div>
+      <div class="clue"><div class="in"><div class="f bk"><b>CLUE 2</b><i>?</i></div><div class="f ft"><span class="n">2</span><span>While both buttons are held, <b>both lights are on</b>. That is step 5.</span></div></div></div>
+      <div class="clue"><div class="in"><div class="f bk"><b>CLUE 3</b><i>?</i></div><div class="f ft"><span class="n">3</span><span>Let go of RESET and its wire is back on. SET is still held, so <b>SET&#8217;s wire is still off</b>.</span></div></div></div>
+      <div class="clue"><div class="in"><div class="f bk"><b>CLUE 4</b><i>?</i></div><div class="f ft"><span class="n">4</span><span>One off input keeps a NAND gate on, so <b>Q stays on</b>. The bottom gate now sees RESET on and Q on.</span></div></div></div>
+      <div class="clue"><div class="in"><div class="f bk"><b>CLUE 5</b><i>?</i></div><div class="f ft"><span class="n">5</span><span>Two ons turn a NAND gate off. The opposite goes dark, and when SET lets go, <b>the latch remembers</b>.</span></div></div></div>
+      <div class="answer" aria-hidden="true"><div><small>ANSWER</small><strong>Q!</strong><em>the last one held wins</em></div></div>
+    </div>
+  </section>
+
   <nav class="dots" id="dots" aria-label="Slides"></nav>
   <div id="hud" hidden></div>
 </div>
@@ -1979,6 +2032,24 @@ function show(k) {
     beat() { if (!raf) { hist = []; t0 = performance.now(); raf = requestAnimationFrame(frame); } },
     leave() { cancelAnimationFrame(raf); raf = 0; hold("S", 0); hold("R", 0); }
   };
+})();
+
+// 15: the quiz. Only the presenter's keys reveal clues: Q shows the next one,
+// Shift+Q hides the last one, A shows or hides the answer.
+(function () {
+  const sh = $("#s15"), box = $("#quiz"), clues = $$(".clue", box), qd = $$(".qdots i", sh);
+  let n = 0;
+  function render() {
+    clues.forEach((c, i) => { c.classList.toggle("open", i < n); c.setAttribute("aria-hidden", String(i >= n)); });
+    qd.forEach((d, i) => d.classList.toggle("on", i < n));
+  }
+  render();
+  document.addEventListener("keydown", e => {
+    if (!sh.classList.contains("active") || e.repeat || e.ctrlKey || e.metaKey || e.altKey) return;
+    const k = e.key.toLowerCase();
+    if (k === "q") { e.preventDefault(); n = Math.max(0, Math.min(clues.length, n + (e.shiftKey ? -1 : 1))); render(); }
+    else if (k === "a") { e.preventDefault(); box.classList.toggle("ans"); }
+  });
 })();
 
 /* ---------- Input ---------- */
