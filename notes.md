@@ -10,6 +10,7 @@ A general overview of about 16 to 17 minutes at a quick pace, then questions, fo
 - **N** shows a small counter, for example "sheet 7 · beat 2". The headings below use the same numbers.
 - **F** toggles fullscreen.
 - **L** turns off the hand-drawn wobble, in case an old laptop struggles.
+- **Quiz keys (sheet 15 only):** Q flips the next clue card, Shift+Q hides the last one, A shows or hides the answer. Nothing else reveals clues, so scrolling or clicking is safe.
 - **Lab keys (sheet 13 only):** hold S or R for SET and RESET, G swaps NOR and NAND gates, B swaps the bucket size, P swaps the pipe.
 
 Each beat stops on a finished picture that keeps moving. Say your line, then press next.
@@ -32,6 +33,7 @@ Each beat stops on a finished picture that keeps moving. Say your line, then pre
 | 12 | Inside a computer | 1:00 | 14:30 |
 | 13 | Try it | 1:30 | 16:00 |
 | 14 | Recap and questions | 0:30 | 16:30 |
+| 15 | Quiz | 1:30 | 18:00 |
 
 If you run long, skip the lab, cut sheet 10 to one beat, or skip beat 8.9 (the 7400 chip). If you run short, let someone from the audience drive the lab.
 
@@ -147,6 +149,22 @@ Live demo. A good order:
 ## Sheet 14 · Recap and questions (0:30)
 
 **14.1** "A bucket and a pipe measure time. The 555 fills and drains to make a beat. An SR latch, built from NOR or NAND gates, remembers: SET for on, RESET for off. And quartz keeps it steady, so computers can save on every tick. Thank you. Questions?"
+
+## Sheet 15 · Quiz (1:30)
+
+**The question:** "In the version 2 latch, both buttons are held. Then you let go of RESET first, and SET a split second later. When it settles, which light is on: Q or the opposite?"
+
+**The answer: Q.** The button you let go of last wins. Press A to stamp it on screen.
+
+Give the room a moment, then press Q for each clue as needed:
+
+1. Version 2 is the NAND latch. Its buttons rest on, and a press pulls a wire off.
+2. While both buttons are held, both lights are on. That is step 5.
+3. Let go of RESET and its wire is back on. SET is still held, so SET's wire is still off.
+4. One off input keeps a NAND gate on, so Q stays on. The bottom gate now sees RESET on and Q on.
+5. Two ons turn a NAND gate off. The opposite goes dark, and when SET lets go, the latch remembers.
+
+**Why it works:** while SET is still held, it forces Q on, and Q plus the resting RESET wire turn the opposite off. Letting go of SET then changes nothing, because the loop holds itself.
 
 ---
 

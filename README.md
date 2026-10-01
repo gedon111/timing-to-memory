@@ -27,6 +27,7 @@ Live site: https://gedon111.github.io/timing-to-memory/
 12. Inside a computer (billions of ticks, the flip-flop as a camera)
 13. Try it (a live SR latch, NOR or NAND, and a 555 blinker)
 14. Recap and questions
+15. Quiz (one hard question with five hidden clues)
 
 ## Presenting
 
@@ -48,6 +49,10 @@ A mouse wheel, a swipe, or the dots at the bottom also move between slides. Link
 - **SR latch:** hold SET or RESET (or the S and R keys). "Press both" holds both, then lets go of both at once, so the latch wobbles and lands at random.
 - **NOR or NAND:** the two buttons at the top of the latch card (or the G key) swap the gates. In NAND mode the input wires rest on, a press pulls them off, and "Press both" lights both lamps.
 - **555 blinker:** pick a small or big bucket (B key) and a wide or narrow pipe (P key). A bigger bucket or a narrower pipe blinks more slowly. The strip below draws the on and off beat.
+
+### The quiz (sheet 15)
+
+Only the presenter's keys reveal clues: **Q** flips the next clue card, **Shift+Q** hides the last one, and **A** shows or hides the answer. Scrolling, swiping and clicking never reveal anything. The question and answer are in `notes.md`.
 
 ## Run it
 
